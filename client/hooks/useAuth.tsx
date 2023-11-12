@@ -1,0 +1,51 @@
+import { useRouter } from "next/navigation";
+import jwt from "jsonwebtoken";
+import Cookies from "js-cookie";
+import { useLoginMutation, useLogoutMutation } from "@/store/user/api";
+import { User } from "@/store/user/types";
+// import { ACCESS } from '@constants/constants'
+
+const useAuth = () => {
+  const router = useRouter();
+  const [login] = useLoginMutation();
+  const [logout] = useLogoutMutation();
+
+  const handleLogin = async (username: string, password: string) => {
+    const { data, error }: any = await login({ username, password });
+
+    if (error) {
+      throw new Error(error.data.data.message);
+    }
+
+    if (data.data.accessToken) {
+      const payload= jwt.decode(data.data.accessToken);
+
+      Cookies.set("authorized", "true");
+      Cookies.set("jwt", data.data.token);
+      Cookies.set("user", payload as any)
+
+      router.push("/homepage");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const data: any = await logout({});
+
+      if (data.data.success === 200 || data.data.success == true) {
+        const cookieKeys = Object.keys(Cookies.get());
+        cookieKeys.forEach((key) => {
+          Cookies.remove(key);
+        });
+
+        router.push("/login");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {}
+  };
+
+  return { handleLogin, handleLogout };
+};
+
+export default useAuth;
