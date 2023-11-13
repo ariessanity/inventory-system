@@ -5,7 +5,6 @@ import { api } from "./base-query-api";
 const storeMiddlewares: Middleware[] = []
 storeMiddlewares.push(api.middleware)
 
-
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,

@@ -14,15 +14,15 @@ const useAuth = () => {
     const { data, error }: any = await login({ username, password });
 
     if (error) {
-      throw new Error(error.data.data.message);
+      throw new Error(error?.data?.message);
     }
 
-    if (data.data.accessToken) {
-      const payload= jwt.decode(data.data.accessToken);
+    if (data?.accessToken) {
+      const payload = jwt.decode(data?.accessToken);
 
       Cookies.set("authorized", "true");
-      Cookies.set("jwt", data.data.token);
-      Cookies.set("user", payload as any)
+      Cookies.set("jwt", data?.accessToken);
+      Cookies.set("user", payload as any);
 
       router.push("/homepage");
     }
