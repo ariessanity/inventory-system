@@ -30,9 +30,9 @@ const useAuth = () => {
 
   const handleLogout = async () => {
     try {
-      const data: any = await logout({});
+      const { data }: any = await logout({});
 
-      if (data.data.success === 200 || data.data.success == true) {
+      if (data.accessToken == null) {
         const cookieKeys = Object.keys(Cookies.get());
         cookieKeys.forEach((key) => {
           Cookies.remove(key);

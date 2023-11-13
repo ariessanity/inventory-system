@@ -23,6 +23,8 @@ export const authApi = api.injectEndpoints({
           data: data,
         };
       },
+
+      transformResponse: (response: { data: User }, meta, arg) => response.data,
     }),
 
     logout: builder.mutation<User, Partial<User>>({
