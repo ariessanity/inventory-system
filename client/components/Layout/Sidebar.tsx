@@ -103,7 +103,7 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
           </Flex>
         </Flex>
       </Box>
-      <Box ml={{ base: 0, md: 60 }} p="2">
+      <Box ml={{ base: 0, md: 60 }} p={5}>
         {children}
       </Box>
       <LogoutModal isOpen={isOpenLogoutModal} onClose={onCloseLogoutModal} />
