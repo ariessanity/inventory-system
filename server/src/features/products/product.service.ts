@@ -6,6 +6,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Product } from './model/product.model';
 import { User } from '../auth/model/user.model';
 import { Store } from '../stores/model/store.model';
+import { Request } from 'express';
+import { skip } from 'rxjs';
+import { count } from 'console';
 
 @Injectable()
 export class ProductService {
@@ -41,8 +44,13 @@ export class ProductService {
     return sku;
   }
 
-  async getAllProduct(id: Types.ObjectId, category: string, search: string): Promise<Product[]> {
-    const categoryQuery = category ? { category: category } : {};
+  async getAllProduct(id: Types.ObjectId, query: Request['query']): Promise<{ products: Product[]; count: number }> {
+    console.log({ query });
+    const { page, limit, search } = query;
+
+    const LIMIT = limit ? +limit : 20;
+    const SKIP = page ? (+page - 1) * +LIMIT : 0;
+
     const searchQuery = search
       ? {
           $or: [
@@ -54,12 +62,19 @@ export class ProductService {
         }
       : {};
 
+    const count = await this.productModel.countDocuments({...searchQuery});
     const products = await this.productModel
-      .find({ ...categoryQuery, ...searchQuery })
-      .populate({ path: 'category', select: 'name' })
+      .find({ ...searchQuery })
+      .skip(SKIP)
+      .limit(LIMIT)
       .lean();
 
-    return products;
+    return { products, count };
+  }
+
+  async getCountProduct(): Promise<number> {
+    const count = await this.productModel.countDocuments();
+    return count;
   }
 
   async updateProduct(id: ObjectId, updateProductDto: UpdateProductDto): Promise<Product> {

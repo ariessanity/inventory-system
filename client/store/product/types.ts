@@ -10,4 +10,6 @@ export type Product = {
   total: number;
   image: string;
   isAvailable: boolean;
+  products: any,
+  count: any
 };

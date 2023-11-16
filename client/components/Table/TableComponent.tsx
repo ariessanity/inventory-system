@@ -14,22 +14,35 @@ import {
   Flex,
   Icon,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 import PagButton from "./PagButton";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { useMemo } from "react";
 
 interface TableProps {
   columns: any;
   data: any;
+  count: number | undefined;
+  isLoading: boolean;
+  onPageChange: (pageIndex: number) => void;
 }
 
 const initialState = {
-  pageSize: 20,
-  pageIndex: 0,
+  pageSize: 15,
 };
 
-const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
+const TableComponent: React.FC<TableProps> = ({
+  columns,
+  data,
+  isLoading,
+  count = 0,
+  onPageChange,
+}) => {
+  const _data = useMemo(() => data, [data]);
+  const _columns = useMemo(() => columns, [columns]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -39,25 +52,41 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
     page,
     canPreviousPage,
     canNextPage,
-    pageOptions,
     pageCount,
+    pageOptions,
     gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
     state: { pageIndex, pageSize },
   } = useTable(
     {
-      columns,
-      data,
+      columns: _columns,
+      data: _data,
       initialState,
+      manualPagination: true,
+      pageCount: count,
     },
     usePagination
   );
 
+  const handlePreviousPage = () => {
+    if (canPreviousPage) {
+      const newPageIndex = pageIndex > 0 ? pageIndex - 1 : 0;
+      onPageChange(newPageIndex + 1);
+      gotoPage(newPageIndex);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (canNextPage) {
+      const newPageIndex =
+        pageIndex + 1 < pageCount ? pageIndex + 1 : pageIndex;
+      onPageChange(newPageIndex + 1);
+      gotoPage(newPageIndex);
+    }
+  };
+
   return (
     <>
-      <TableContainer overflowY={"auto"} maxH={"40em"}>
+      <TableContainer overflowY={"auto"} maxH={"40em"} borderWidth={1}>
         <Table variant="striped" colorScheme="gray" {...getTableProps()}>
           <Thead
             backgroundColor={"gray.300"}
@@ -68,10 +97,16 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
             <Tr>
               {headers.map((column, indexHeader) => (
                 <Th
-                  {...column.getHeaderProps()}
+                  {...column.getHeaderProps({
+                    style: {
+                      minWidth: 80,
+                      width: 100,
+                      border: "1px solid white",
+                    },
+                  })}
                   key={indexHeader}
                 >
-                    {column.render("Header")}
+                  {column.render("Header")}
                 </Th>
               ))}
             </Tr>
@@ -95,37 +130,53 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
         </Table>
       </TableContainer>
 
-      <Flex p={30} w="full" alignItems="center" justifyContent="center">
-        <PagButton onClick={() => previousPage()}>
-          <Icon
-            as={AiOutlineLeft}
-            color="gray.700"
-            _dark={{
-              color: "gray.200",
-            }}
-            boxSize={4}
-            disabled={!canPreviousPage}
+      {isLoading && (
+        <Box textAlign={"center"} my={30}>
+          <Spinner
+            thickness="3px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
           />
-        </PagButton>
-        <Text fontWeight={"500"} mx={5}>{`${pageIndex + 1} / ${
-          pageOptions.length
-        }`}</Text>
-        {/* <PagButton>1</PagButton>
-          <PagButton>2</PagButton>
-          <PagButton>3</PagButton>
-          <PagButton>4</PagButton>
-          <PagButton>5</PagButton> */}
-        <PagButton onClick={() => nextPage()}>
-          <Icon
-            as={AiOutlineRight}
-            color="gray.700"
-            _dark={{
-              color: "gray.200",
-            }}
-            boxSize={4}
-            disabled={!canNextPage}
-          />
-        </PagButton>
+        </Box>
+      )}
+
+      <Flex p={5} w="full" alignItems="center" justifyContent="space-between">
+        <Flex>
+          <Text fontWeight={"500"}>Total items {count}</Text>
+        </Flex>
+        <Flex alignItems={'center'} justifyContent={'center'}>
+          <PagButton onClick={handlePreviousPage} disabled={!canPreviousPage}>
+            <Icon
+              as={AiOutlineLeft}
+              color="gray.700"
+              _dark={{
+                color: "gray.200",
+              }}
+              boxSize={4}
+              disabled={!canPreviousPage}
+            />
+          </PagButton>
+          <Text fontWeight={"500"} mx={5}>
+            {isLoading
+              ? "..."
+              : `Page ${pageIndex + 1} of ${Math.ceil(count / pageSize)}`}
+          </Text>
+          <PagButton
+            onClick={handleNextPage}
+            disabled={pageIndex + 1 === Math.ceil(count / pageSize)}
+          >
+            <Icon
+              as={AiOutlineRight}
+              color="gray.700"
+              _dark={{
+                color: "gray.200",
+              }}
+              boxSize={4}
+            />
+          </PagButton>
+        </Flex>
       </Flex>
     </>
   );

@@ -18,6 +18,7 @@ import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
+  useGetCountProductsQuery,
 } from "@/store/product/api";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ProductDrawer from "./_component/ProductDrawer";
@@ -31,13 +32,23 @@ const Product: NextPage = () => {
   const [editData, setEditData] = useState<Product>();
   const [deleteId, setIdDelete] = useState<string>();
   const [searchValue, setSearchValue] = useState<string>();
+  const [filters, setFilters] = useState<any>({
+    page: 1,
+    limit: 15,
+  });
+
   const [deleteProduct] = useDeleteProductMutation();
 
+  const searchParams = useFilter({ ...filters})
   const {
     data: products,
     refetch,
     isLoading,
-  } = useGetAllProductsQuery(searchValue);
+  } = useGetAllProductsQuery(searchParams);
+
+  const {
+    data: countProducts,
+  } = useGetCountProductsQuery();
 
   const {
     isOpen: isOpenProductDrawer,
@@ -51,16 +62,13 @@ const Product: NextPage = () => {
     onOpen: onOpenDeleteModal,
   } = useDisclosure();
 
-  const handleEditProduct = useCallback(
-    (id: string) => {
-      const productData = products?.find((product) => product._id === id);
+  const handleEditProduct = (id: string) => {
+    const productData = products?.products?.find((product) => product._id === id);
 
-      onOpenProductDrawer();
-      setIsEdit(true);
-      setEditData(productData);
-    },
-    [products, onOpenProductDrawer, setIsEdit, setEditData]
-  );
+    onOpenProductDrawer();
+    setIsEdit(true);
+    setEditData(productData);
+  };
 
   const handleDeleteProduct = async () => {
     await deleteProduct(deleteId);
@@ -72,90 +80,97 @@ const Product: NextPage = () => {
     setIsEdit(false);
   };
 
-  const onSearch = () => {
+  const handlePageChange = (pageIndex: number) => {
+    setFilters({...filters, page: pageIndex})
+    refetch()
+  };
+
+  const onSearch = (e: any) => {
+    setFilters({...filters, search: searchValue})
     refetch();
   };
 
   const onSearchReset = () => {
     setSearchValue("");
+    setFilters({...filters, search: ''})
+    refetch();
   };
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "SKU",
-        accessor: "sku",
+  const columns = [
+    {
+      Header: "SKU",
+      accessor: "sku",
+    },
+    {
+      Header: "Name",
+      accessor: "name",
+    },
+    {
+      Header: "Description",
+      accessor: "description",
+      Cell: ({ cell: { value } }: any) => {
+        return <Text>{value ? value : "-"}</Text>;
       },
-      {
-        Header: "Name",
-        accessor: "name",
+    },
+    {
+      Header: "Category",
+      accessor: "category",
+      Cell: ({ cell: { value } }: any) => {
+        return <Text>{value}</Text>;
       },
-      {
-        Header: "Description",
-        accessor: "description",
-        Cell: ({ cell: { value } }: any) => {
-          return <Text>{value ? value : "-"}</Text>;
-        },
+    },
+    {
+      Header: () => <Text textAlign={"center"}>Price per unit</Text>,
+      accessor: "price",
+      Cell: ({ cell: { value } }: any) => {
+        const formattedValue = parseFloat(value).toFixed(2);
+        return <Text textAlign={"center"}>{"₱" + formattedValue}</Text>;
       },
-      {
-        Header: "Category",
-        accessor: "category",
-        Cell: ({ cell: { value } }: any) => {
-          return <Text>{value}</Text>;
-        },
+    },
+    {
+      Header: "Unit",
+      accessor: "unit",
+    },
+    {
+      Header: () => <Text textAlign={"center"}>Quantity</Text>,
+      accessor: "quantity",
+      Cell: ({ cell: { value } }: any) => (
+        <Text textAlign={"center"}>{value}</Text>
+      ),
+    },
+    {
+      Header: () => <Text textAlign={"center"}>Total</Text>,
+      accessor: "total",
+      Cell: ({ cell: { value } }: any) => {
+        const formattedValue = parseFloat(value).toFixed(2);
+        return <Text textAlign={"center"}>{"₱" + formattedValue}</Text>;
       },
-      {
-        Header: () => <Text textAlign={"center"}>Price per unit</Text>,
-        accessor: "price",
-        Cell: ({ cell: { value } }: any) => (
-          <Text textAlign={"center"}>{"₱" + value}</Text>
-        ),
+    },
+    {
+      Header: () => <Text textAlign={"center"}>Action</Text>,
+      accessor: "_id",
+      Cell: ({ cell: { value } }: any) => {
+        return (
+          <Flex justifyContent={"center"}>
+            <EditIcon
+              mr={5}
+              color="teal.500"
+              cursor="pointer"
+              onClick={() => handleEditProduct(value)}
+            />
+            <DeleteIcon
+              onClick={() => {
+                onOpenDeleteModal();
+                setIdDelete(value);
+              }}
+              color="red.500"
+              cursor="pointer"
+            />
+          </Flex>
+        );
       },
-      {
-        Header: "Unit",
-        accessor: "unit",
-      },
-      {
-        Header: () => <Text textAlign={"center"}>Quantity</Text>,
-        accessor: "quantity",
-        Cell: ({ cell: { value } }: any) => (
-          <Text textAlign={"center"}>{value}</Text>
-        ),
-      },
-      {
-        Header: () => <Text textAlign={"center"}>Total</Text>,
-        accessor: "total",
-        Cell: ({ cell: { value } }: any) => (
-          <Text textAlign={"center"}>{"₱" + value}</Text>
-        ),
-      },
-      {
-        Header: () => <Text textAlign={"center"}>Action</Text>,
-        accessor: "_id",
-        Cell: ({ cell: { value } }: any) => {
-          return (
-            <Flex justifyContent={"center"}>
-              <EditIcon
-                mr={5}
-                color="teal.500"
-                cursor="pointer"
-                onClick={() => handleEditProduct(value)}
-              />
-              <DeleteIcon
-                onClick={() => {
-                  onOpenDeleteModal();
-                  setIdDelete(value);
-                }}
-                color="red.500"
-                cursor="pointer"
-              />
-            </Flex>
-          );
-        },
-      },
-    ],
-    [handleEditProduct, onOpenDeleteModal]
-  );
+    },
+  ];
 
   return (
     <Flex flexDirection={"column"} justifyContent={"space-between"}>
@@ -208,7 +223,13 @@ const Product: NextPage = () => {
           </InputRightElement>
         </InputGroup>
       </Flex>
-      <TableComponent columns={columns} data={products || []} />
+      <TableComponent
+        columns={columns}
+        data={products?.products || []}
+        count={products?.count}
+        isLoading={isLoading}
+        onPageChange={handlePageChange}
+      />
       <ProductDrawer
         isOpen={isOpenProductDrawer}
         onClose={onCloseProductDrawer}

@@ -13,11 +13,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Select,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  useToast,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductFormValues, productSchema } from "../schema";
@@ -43,8 +39,25 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
   isEdit,
   editData,
 }) => {
-  const [createProduct] = useCreateProductMutation();
-  const [updateProduct] = useUpdateProductMutation();
+  const [
+    createProduct,
+    {
+      isSuccess: isSuccessCreateProduct,
+      isError: isErrorCreateProduct,
+      error: errorCreateProduct,
+    },
+  ] = useCreateProductMutation();
+
+  const [
+    updateProduct,
+    {
+      isSuccess: isSuccessEditProduct,
+      isError: isErrorEditProduct,
+      error: errorEditProduct,
+    },
+  ] = useUpdateProductMutation();
+
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -68,6 +81,50 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
     }
   }, [isEdit, editData, setValue, reset]);
 
+  useEffect(() => {
+    if (isSuccessCreateProduct) {
+      toast({
+        title: `Success`,
+        variant: "left-accent",
+        status: "success",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
+
+    if (isErrorCreateProduct) {
+      toast({
+        title: (errorCreateProduct as any)?.data?.response?.message,
+        variant: "left-accent",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
+  }, [isSuccessCreateProduct, isErrorCreateProduct, errorCreateProduct]);
+
+  useEffect(() => {
+    if (isSuccessCreateProduct) {
+      toast({
+        title: `Success`,
+        variant: "left-accent",
+        status: "success",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
+
+    if (isErrorEditProduct) {
+      toast({
+        title: (errorEditProduct as any)?.data?.response?.message,
+        variant: "left-accent",
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+      });
+    }
+  }, [isSuccessEditProduct, isErrorEditProduct, errorEditProduct]);
+
   const handleOnSubmit: SubmitHandler<ProductFormValues> = async (data) => {
     try {
       if (isEdit) {
@@ -76,7 +133,10 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         await createProduct(data);
       }
 
-      reset();
+      if (!isEdit) {
+        reset();
+      }
+
       onClose();
     } catch (error) {
       console.log({ error });
@@ -127,13 +187,8 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.price} mb={5}>
-              <FormLabel htmlFor="price">Price</FormLabel>
-              <Input
-                id="price"
-                {...register("price")}
-                placeholder="₱50.00"
-                
-              />
+              <FormLabel htmlFor="price">Price per unit</FormLabel>
+              <Input id="price" {...register("price")} placeholder="₱50.00" />
               <FormErrorMessage>
                 {errors.price && errors.price.message}
               </FormErrorMessage>
@@ -154,11 +209,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
 
             <FormControl isInvalid={!!errors?.unit} mb={5}>
               <FormLabel htmlFor="unit">Unit</FormLabel>
-              <Select
-                id="unit"
-                placeholder="Select unit"
-                {...register("unit")}
-              >
+              <Select id="unit" placeholder="Select unit" {...register("unit")}>
                 {units?.map((unit, index) => (
                   <option key={index} value={unit.name}>
                     {unit.name}

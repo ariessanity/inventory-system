@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 interface PagButtonProps {
     active?: any,
-    disabled?: any,
+    disabled?: boolean,
     children?: ReactNode
     onClick: () => void
 }
@@ -31,6 +31,7 @@ const PagButton: React.FC<PagButtonProps> = ({ active, disabled, children, onCli
       opacity={disabled && 0.6}
       _hover={!disabled && activeStyle}
       cursor={disabled && "not-allowed"}
+      disabled={disabled}
       {...(active && activeStyle)}
     >
       {children}

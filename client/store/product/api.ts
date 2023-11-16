@@ -14,14 +14,32 @@ export const productApi = api.injectEndpoints({
       invalidatesTags: ["Product"],
     }),
 
-    getAllProducts: builder.query<Product[], string | undefined>({
-      query: (params) => {
+    getAllProducts: builder.query<
+      { products: Product[]; count: number },
+      string | undefined
+    >({
+      query: (searchParams = "") => {
         return {
-          url: `product/api/getAllProducts${params ? `?search=${params}` : ""}`,
+          url: `product/api/getAllProducts${searchParams}`,
           method: "GET",
         };
       },
-      transformResponse: (response: { data: Product[] }, meta, arg) =>
+      transformResponse: (
+        response: { data: { products: Product[]; count: number } },
+        meta,
+        arg
+      ) => response.data,
+      providesTags: ["Product"],
+    }),
+
+    getCountProducts: builder.query<number | undefined, void>({
+      query: () => {
+        return {
+          url: `product/api/getCountProducts`,
+          method: "GET",
+        };
+      },
+      transformResponse: (response: { data: number | undefined }, meta, arg) =>
         response.data,
       providesTags: ["Product"],
     }),
@@ -52,6 +70,7 @@ export const productApi = api.injectEndpoints({
 export const {
   useCreateProductMutation,
   useGetAllProductsQuery,
+  useGetCountProductsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
 } = productApi;
