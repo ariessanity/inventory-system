@@ -16,7 +16,6 @@ import { NextPage } from "next";
 import { Form, SubmitHandler, useForm } from "react-hook-form";
 import { LoginFormValues, loginSchema } from "./schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Console } from "console";
 import { useState } from "react";
 
 const Login: NextPage = () => {
@@ -67,7 +66,9 @@ const Login: NextPage = () => {
               <FormErrorMessage>
                 {errors.password && errors.password.message}
               </FormErrorMessage>
-              <Text my={"2"} color={'red.500'} fontSize={'sm'}>{errorMessage}</Text>
+              <Text my={"2"} color={"red.500"} fontSize={"sm"}>
+                {errorMessage}
+              </Text>
             </FormControl>
 
             <Stack spacing={6}>

@@ -13,6 +13,14 @@ export class CreateProductDto {
   @IsString()
   description: string;
 
+  @IsNotEmpty()
+  @IsString()
+  category: string;
+
+  @IsNotEmpty()
+  @IsString()
+  unit: string;
+
   @IsOptional()
   @IsNumber()
   quantity: number;

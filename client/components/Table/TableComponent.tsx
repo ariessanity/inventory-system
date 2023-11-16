@@ -1,4 +1,4 @@
-import { usePagination, useTable } from "react-table";
+import { usePagination, useSortBy, useTable } from "react-table";
 import {
   Table,
   Thead,
@@ -12,12 +12,22 @@ import {
   Button,
   Text,
   Flex,
+  Icon,
+  Box,
 } from "@chakra-ui/react";
+import PagButton from "./PagButton";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 interface TableProps {
   columns: any;
   data: any;
 }
+
+const initialState = {
+  pageSize: 20,
+  pageIndex: 0,
+};
 
 const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
   const {
@@ -40,7 +50,7 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 2 },
+      initialState,
     },
     usePagination
   );
@@ -56,21 +66,24 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
             zIndex={1}
           >
             <Tr>
-              {headers.map((column, index) => (
-                <Th {...column.getHeaderProps()} key={index}>
-                  {column.render("Header")}
+              {headers.map((column, indexHeader) => (
+                <Th
+                  {...column.getHeaderProps()}
+                  key={indexHeader}
+                >
+                    {column.render("Header")}
                 </Th>
               ))}
             </Tr>
           </Thead>
           <Tbody {...getTableBodyProps()}>
-            {rows.map((row, index) => {
+            {page.map((row, indexRow) => {
               prepareRow(row);
               return (
-                <Tr {...row.getRowProps()} key={index}>
-                  {row.cells.map((cell) => {
+                <Tr {...row.getRowProps()} key={indexRow}>
+                  {row.cells.map((cell, indexCell) => {
                     return (
-                      <Td {...cell.getCellProps()} key={index}>
+                      <Td {...cell.getCellProps()} key={indexCell}>
                         {cell.render("Cell")}
                       </Td>
                     );
@@ -81,10 +94,38 @@ const TableComponent: React.FC<TableProps> = ({ columns, data }) => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Flex>
-        <Text>Page Count</Text>
-        <Text>Prev</Text>
-        <Text>Next</Text>
+
+      <Flex p={30} w="full" alignItems="center" justifyContent="center">
+        <PagButton onClick={() => previousPage()}>
+          <Icon
+            as={AiOutlineLeft}
+            color="gray.700"
+            _dark={{
+              color: "gray.200",
+            }}
+            boxSize={4}
+            disabled={!canPreviousPage}
+          />
+        </PagButton>
+        <Text fontWeight={"500"} mx={5}>{`${pageIndex + 1} / ${
+          pageOptions.length
+        }`}</Text>
+        {/* <PagButton>1</PagButton>
+          <PagButton>2</PagButton>
+          <PagButton>3</PagButton>
+          <PagButton>4</PagButton>
+          <PagButton>5</PagButton> */}
+        <PagButton onClick={() => nextPage()}>
+          <Icon
+            as={AiOutlineRight}
+            color="gray.700"
+            _dark={{
+              color: "gray.200",
+            }}
+            boxSize={4}
+            disabled={!canNextPage}
+          />
+        </PagButton>
       </Flex>
     </>
   );

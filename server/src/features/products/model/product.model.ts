@@ -2,24 +2,28 @@ import mongoose, { ObjectId, Schema, Types } from 'mongoose';
 
 export interface Product {
   _id: Types.ObjectId;
-  category: ObjectId;
+  sku: string
   name: string;
   description: string;
+  category: string;
   price: number;
-  image: string;
+  unit: string;
   quantity: number;
+  total: number;
   isAvailable: boolean;
   isActive: boolean;
 }
 
 export const ProductSchema = new Schema<Product>(
   {
-    category: { type: Types.ObjectId, ref: 'Category' },
+    sku: { type: String },
     name: { type: String, unique: true, required: true },
     description: { type: String },
+    category: { type: String },
     price: { type: Number },
-    image: { type: String },
+    unit: { type: String },
     quantity: { type: Number, default: 0 },
+    total: { type: Number },
     isAvailable: { type: Boolean, default: true },
     isActive: { type: Boolean, default: true },
   },

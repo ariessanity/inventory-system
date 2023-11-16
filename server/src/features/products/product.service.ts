@@ -19,29 +19,43 @@ export class ProductService {
   ) {}
 
   async createProduct(id: Types.ObjectId, createProductDto: CreateProductDto): Promise<Product> {
-    const { name } = createProductDto;
+    const { name, price, quantity } = createProductDto;
 
     const isProductNameExist = await this.productModel.exists({ name });
     if (isProductNameExist) throw new ConflictException('Product already exists');
 
+    const sku = await this.generateSku();
     const createProduct = await this.productModel.create({
       ...createProductDto,
+      total: price * quantity,
+      sku,
     });
 
     return createProduct;
   }
 
+  async generateSku(): Promise<string> {
+    const count = await this.productModel.countDocuments();
+    const paddedCount = String(count + 1).padStart(6, '0'); // Pad the count to 6 digits
+    const sku = `SKU${paddedCount}`;
+    return sku;
+  }
+
   async getAllProduct(id: Types.ObjectId, category: string, search: string): Promise<Product[]> {
     const categoryQuery = category ? { category: category } : {};
-    const searchQuery = search ? { name: { $regex: search, $options: 'i' } } : {};
-
-    const store = await this.storeModel
-      .findOne({ teamMembers: { $in: [{ _id: id }] } })
-      .select('_id')
-      .lean();
+    const searchQuery = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: 'i' } },
+            { description: { $regex: search, $options: 'i' } },
+            { category: { $regex: search, $options: 'i' } },
+            { sku: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
 
     const products = await this.productModel
-      .find({ store: store?._id, ...categoryQuery, ...searchQuery })
+      .find({ ...categoryQuery, ...searchQuery })
       .populate({ path: 'category', select: 'name' })
       .lean();
 
@@ -51,9 +65,9 @@ export class ProductService {
   async updateProduct(id: ObjectId, updateProductDto: UpdateProductDto): Promise<Product> {
     const { name } = updateProductDto;
 
-    const isProductNameExist = await this.productModel.exists({ name });
+    const isProductNameExist = await this.productModel.exists({ _id: { $ne: id }, name });
     if (isProductNameExist) throw new ConflictException('Product already exists');
-    
+
     const updateProduct = await this.productModel.findByIdAndUpdate(id, { ...updateProductDto }, { new: true });
     return updateProduct;
   }
