@@ -187,7 +187,15 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
 
             <FormControl isInvalid={!!errors?.price} mb={5}>
               <FormLabel htmlFor="price">Price per unit</FormLabel>
-              <Input id="price" {...register("price")} placeholder="₱50.00" />
+              <Input
+                id="price"
+                {...register("price")}
+                placeholder="₱50.00"
+                type="number"
+                step="any"
+                min="0"
+                max="9999999"
+              />
               <FormErrorMessage>
                 {errors.price && errors.price.message}
               </FormErrorMessage>

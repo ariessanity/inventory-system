@@ -30,15 +30,15 @@ const Product: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
   const [editData, setEditData] = useState<Product>();
   const [deleteId, setIdDelete] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [filters, setFilters] = useState<any>({
+    page: 1,
+    limit: 20,
+  });
   const [sort, setSort] = useState<any>({
     sortDirection: "none",
     accessor: "",
     direction: "",
-  });
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [filters, setFilters] = useState<any>({
-    page: 1,
-    limit: 20,
   });
 
   const [deleteProduct] = useDeleteProductMutation();
@@ -105,8 +105,15 @@ const Product: NextPage = () => {
     }
   };
 
+  const handleSearchEnter = (e: any) => {
+    if (e.key === "Enter") {
+      setFilters({ ...filters, search: searchValue, page: 1 });
+      refetch();
+    }
+  };
+
   const onSearch = (e: any) => {
-    setFilters({ ...filters, search: searchValue, page: 1});
+    setFilters({ ...filters, search: searchValue, page: 1 });
     refetch();
   };
 
@@ -243,6 +250,7 @@ const Product: NextPage = () => {
           <Input
             value={searchValue || ""}
             onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={handleSearchEnter}
             type="text"
             placeholder="Search..."
           />
@@ -256,6 +264,7 @@ const Product: NextPage = () => {
         data={products?.products || []}
         count={products?.count}
         isLoading={isLoading}
+        currentPage={filters?.page}
         onPageChange={handlePageChange}
         onSortChange={handleSortChange}
       />

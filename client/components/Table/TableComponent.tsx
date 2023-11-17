@@ -19,13 +19,14 @@ import {
 import PagButton from "./PagButton";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 interface TableProps {
   columns: any;
   data: any;
   count: number | undefined;
   isLoading: boolean;
+  currentPage: number;
   onPageChange: (pageIndex: number) => void;
   onSortChange: (column: any) => void;
 }
@@ -39,6 +40,7 @@ const TableComponent: React.FC<TableProps> = ({
   data,
   isLoading,
   count = 0,
+  currentPage,
   onPageChange,
   onSortChange,
 }) => {
@@ -71,6 +73,13 @@ const TableComponent: React.FC<TableProps> = ({
     useSortBy,
     usePagination
   );
+
+  useEffect(() => {
+    if (currentPage !== pageIndex + 1) {
+      gotoPage(0);
+      onPageChange(1);
+    }
+  }, [currentPage, pageIndex, onPageChange]);
 
   const handlePreviousPage = () => {
     if (canPreviousPage) {
@@ -168,7 +177,11 @@ const TableComponent: React.FC<TableProps> = ({
           <Text fontWeight={"500"} mx={5}>
             {isLoading
               ? "..."
-              : `Page ${pageIndex + 1} of ${Math.ceil(count / pageSize)}`}
+              : `Page ${pageIndex + 1} of ${
+                  Math.ceil(count / pageSize) === 0
+                    ? 1
+                    : Math.ceil(count / pageSize)
+                }`}
           </Text>
           <PagButton
             onClick={handleNextPage}
