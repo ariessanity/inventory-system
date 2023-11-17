@@ -5,10 +5,7 @@ import {
   Icon,
   Text,
   Link,
-  Image,
   Button,
-  Heading,
-  Stack,
   VStack,
   BoxProps,
   Drawer,
@@ -25,7 +22,14 @@ import {
 import { ReactNode, useState } from "react";
 import { IconType } from "react-icons";
 // Here we have used react-icons package for the icons
-import { AiOutlineTeam, AiOutlineHome } from "react-icons/ai";
+import {
+  AiOutlineTeam,
+  AiOutlineHome,
+  AiOutlineBuild,
+  AiOutlineBarChart,
+  AiOutlineDesktop,
+  AiOutlineInbox,
+} from "react-icons/ai";
 import { BsFolder2, BsCalendarCheck } from "react-icons/bs";
 import { FiHome, FiLogOut, FiMenu } from "react-icons/fi";
 import { RiFlashlightFill } from "react-icons/ri";
@@ -39,8 +43,9 @@ interface LinkItemProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: AiOutlineHome, url: "/homepage" },
-  { name: "Dashboard", icon: AiOutlineTeam, url: "/dashboard" },
-  { name: "Product", icon: AiOutlineTeam, url: "/product" },
+  { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
+  { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
+  { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
 ];
 
 interface Prop {
@@ -129,7 +134,7 @@ const SidebarContent = ({
       bg={useColorModeValue("white", "gray.800")}
       borderColor={useColorModeValue("inherit", "gray.700")}
       borderRightWidth="1px"
-      w="60"
+      w="60 "
       {...rest}
     >
       <VStack h="full" w="full" alignItems="flex-start" justify="space-between">
@@ -204,7 +209,7 @@ const NavItem = (props: any) => {
       py="3"
       cursor="pointer"
       role="group"
-      fontWeight="semibold"
+      fontWeight="300"
       transition=".15s ease"
       color={useColorModeValue("inherit", "gray.400")}
       _hover={{

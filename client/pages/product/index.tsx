@@ -14,7 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React, { useState } from "react";
-import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineClose,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
@@ -180,6 +184,7 @@ const Product: NextPage = () => {
         return <Text>{"₱" + formattedValue}</Text>;
       },
       sortDirection: sort.accessor === "total" ? sort.direction : "none",
+      width: 20,
     },
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
@@ -232,10 +237,11 @@ const Product: NextPage = () => {
         <Button
           w={"100%"}
           maxWidth={{ base: "100%", sm: "8em" }}
-          fontWeight={"500"}
+          fontWeight={"300"}
           colorScheme="gray"
           variant="solid"
           onClick={handleCreateProduct}
+          leftIcon={<AiOutlinePlusCircle />}
         >
           Add Product
         </Button>

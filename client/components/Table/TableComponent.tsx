@@ -69,6 +69,9 @@ const TableComponent: React.FC<TableProps> = ({
       manualPagination: true,
       manualSortBy: true,
       sortDescFirst: true,
+      defaultColumn: {
+        width: 'auto'
+      },
     },
     useSortBy,
     usePagination
@@ -112,7 +115,7 @@ const TableComponent: React.FC<TableProps> = ({
         </Box>
       ) : (
         <TableContainer overflowY={"auto"} maxH={"40em"} borderWidth={1}>
-          <Table variant="striped" colorScheme="gray" {...getTableProps()}>
+          <Table variant="striped" colorScheme="gray" {...getTableProps()} fontWeight={'300'}>
             <Thead
               backgroundColor={"gray.300"}
               position="sticky"
@@ -158,9 +161,9 @@ const TableComponent: React.FC<TableProps> = ({
         </TableContainer>
       )}
 
-      <Flex p={5} w="full" alignItems="center" justifyContent="space-between">
+      <Flex p={5} w="full" alignItems="center" justifyContent="space-between" flexDirection={{base: 'column', md: 'row'}}>
         <Flex>
-          <Text fontWeight={"500"}>Total items {count}</Text>
+          <Text fontWeight={"300"}>Total of {count} items</Text>
         </Flex>
         <Flex alignItems={"center"} justifyContent={"center"}>
           <PagButton onClick={handlePreviousPage} disabled={!canPreviousPage}>
@@ -174,7 +177,7 @@ const TableComponent: React.FC<TableProps> = ({
               disabled={!canPreviousPage}
             />
           </PagButton>
-          <Text fontWeight={"500"} mx={5}>
+          <Text fontWeight={"300"} mx={5}>
             {isLoading
               ? "..."
               : `Page ${pageIndex + 1} of ${
