@@ -13,12 +13,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
-  useGetCountProductsQuery,
 } from "@/store/product/api";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ProductDrawer from "./_component/ProductDrawer";
@@ -31,24 +30,26 @@ const Product: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
   const [editData, setEditData] = useState<Product>();
   const [deleteId, setIdDelete] = useState<string>();
-  const [searchValue, setSearchValue] = useState<string>();
+  const [sort, setSort] = useState<any>({
+    sortDirection: "none",
+    accessor: "",
+    direction: "",
+  });
+  const [searchValue, setSearchValue] = useState<string>('');
   const [filters, setFilters] = useState<any>({
     page: 1,
-    limit: 15,
+    limit: 20,
   });
 
   const [deleteProduct] = useDeleteProductMutation();
 
-  const searchParams = useFilter({ ...filters})
+  const searchParams = useFilter({ ...filters });
   const {
     data: products,
     refetch,
+    isFetching,
     isLoading,
   } = useGetAllProductsQuery(searchParams);
-
-  const {
-    data: countProducts,
-  } = useGetCountProductsQuery();
 
   const {
     isOpen: isOpenProductDrawer,
@@ -63,7 +64,9 @@ const Product: NextPage = () => {
   } = useDisclosure();
 
   const handleEditProduct = (id: string) => {
-    const productData = products?.products?.find((product) => product._id === id);
+    const productData = products?.products?.find(
+      (product) => product._id === id
+    );
 
     onOpenProductDrawer();
     setIsEdit(true);
@@ -81,18 +84,35 @@ const Product: NextPage = () => {
   };
 
   const handlePageChange = (pageIndex: number) => {
-    setFilters({...filters, page: pageIndex})
-    refetch()
+    setFilters({ ...filters, page: pageIndex });
+    refetch();
+  };
+
+  const handleSortChange = (column: any) => {
+    switch (column.sortDirection) {
+      case "none":
+        setSort({ direction: "asc", accessor: column.id });
+        setFilters({ ...filters, sortBy: column.id, sortOrder: "asc" });
+        break;
+      case "asc":
+        setSort({ direction: "desc", accessor: column.id });
+        setFilters({ ...filters, sortBy: column.id, sortOrder: "desc" });
+        break;
+      case "desc":
+        setSort({ direction: "none", accessor: column.id });
+        setFilters({ ...filters, sortBy: "", sortOrder: "" });
+        break;
+    }
   };
 
   const onSearch = (e: any) => {
-    setFilters({...filters, search: searchValue})
+    setFilters({ ...filters, search: searchValue, page: 1});
     refetch();
   };
 
   const onSearchReset = () => {
     setSearchValue("");
-    setFilters({...filters, search: ''})
+    setFilters({ ...filters, search: "" });
     refetch();
   };
 
@@ -100,10 +120,12 @@ const Product: NextPage = () => {
     {
       Header: "SKU",
       accessor: "sku",
+      sortDirection: sort.accessor === "sku" ? sort.direction : "none",
     },
     {
       Header: "Name",
       accessor: "name",
+      sortDirection: sort.accessor === "name" ? sort.direction : "none",
     },
     {
       Header: "Description",
@@ -111,6 +133,7 @@ const Product: NextPage = () => {
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value ? value : "-"}</Text>;
       },
+      sortDirection: sort.accessor === "description" ? sort.direction : "none",
     },
     {
       Header: "Category",
@@ -118,18 +141,21 @@ const Product: NextPage = () => {
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value}</Text>;
       },
+      sortDirection: sort.accessor === "category" ? sort.direction : "none",
     },
     {
-      Header: () => <Text textAlign={"center"}>Price per unit</Text>,
+      Header: () => <Text>Price per unit</Text>,
       accessor: "price",
       Cell: ({ cell: { value } }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
-        return <Text textAlign={"center"}>{"₱" + formattedValue}</Text>;
+        return <Text>{"₱" + formattedValue}</Text>;
       },
+      sortDirection: sort.accessor === "price" ? sort.direction : "none",
     },
     {
       Header: "Unit",
       accessor: "unit",
+      sortDirection: sort.accessor === "unit" ? sort.direction : "none",
     },
     {
       Header: () => <Text textAlign={"center"}>Quantity</Text>,
@@ -137,14 +163,16 @@ const Product: NextPage = () => {
       Cell: ({ cell: { value } }: any) => (
         <Text textAlign={"center"}>{value}</Text>
       ),
+      sortDirection: sort.accessor === "quantity" ? sort.direction : "none",
     },
     {
-      Header: () => <Text textAlign={"center"}>Total</Text>,
+      Header: () => <Text>Total</Text>,
       accessor: "total",
       Cell: ({ cell: { value } }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
-        return <Text textAlign={"center"}>{"₱" + formattedValue}</Text>;
+        return <Text>{"₱" + formattedValue}</Text>;
       },
+      sortDirection: sort.accessor === "total" ? sort.direction : "none",
     },
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
@@ -229,6 +257,7 @@ const Product: NextPage = () => {
         count={products?.count}
         isLoading={isLoading}
         onPageChange={handlePageChange}
+        onSortChange={handleSortChange}
       />
       <ProductDrawer
         isOpen={isOpenProductDrawer}

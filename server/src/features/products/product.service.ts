@@ -37,16 +37,25 @@ export class ProductService {
     return createProduct;
   }
 
-  async generateSku(): Promise<string> {
-    const count = await this.productModel.countDocuments();
-    const paddedCount = String(count + 1).padStart(6, '0'); // Pad the count to 6 digits
-    const sku = `SKU${paddedCount}`;
-    return sku;
+  async generateSku() {
+    const highestSkuNo = await this.productModel.findOne().sort({ sku: -1 });
+
+    let newSkuNo = '000001';
+
+    if (highestSkuNo && highestSkuNo?.sku !== undefined) {
+      const last6digit = highestSkuNo?.sku.match(/\d{6}$/);
+
+      if (last6digit) {
+        const nextNumber = parseInt(last6digit[0]) + 1;
+        newSkuNo = nextNumber.toString().padStart(6, '0');
+      }
+    }
+
+    return `SKU${newSkuNo}`;
   }
 
   async getAllProduct(id: Types.ObjectId, query: Request['query']): Promise<{ products: Product[]; count: number }> {
-    console.log({ query });
-    const { page, limit, search } = query;
+    const { page, limit, search, sortBy, sortOrder } = query;
 
     const LIMIT = limit ? +limit : 20;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
@@ -58,15 +67,20 @@ export class ProductService {
             { description: { $regex: search, $options: 'i' } },
             { category: { $regex: search, $options: 'i' } },
             { sku: { $regex: search, $options: 'i' } },
+            { unit: { $regex: search, $options: 'i' } },
           ],
         }
       : {};
 
-    const count = await this.productModel.countDocuments({...searchQuery});
+    const sortQuery = {};
+    if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;
+
+    const count = await this.productModel.countDocuments({ ...searchQuery });
     const products = await this.productModel
       .find({ ...searchQuery })
       .skip(SKIP)
       .limit(LIMIT)
+      .sort(sortQuery)
       .lean();
 
     return { products, count };

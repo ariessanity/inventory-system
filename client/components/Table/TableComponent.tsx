@@ -27,10 +27,11 @@ interface TableProps {
   count: number | undefined;
   isLoading: boolean;
   onPageChange: (pageIndex: number) => void;
+  onSortChange: (column: any) => void;
 }
 
 const initialState = {
-  pageSize: 15,
+  pageSize: 20,
 };
 
 const TableComponent: React.FC<TableProps> = ({
@@ -39,6 +40,7 @@ const TableComponent: React.FC<TableProps> = ({
   isLoading,
   count = 0,
   onPageChange,
+  onSortChange,
 }) => {
   const _data = useMemo(() => data, [data]);
   const _columns = useMemo(() => columns, [columns]);
@@ -61,9 +63,12 @@ const TableComponent: React.FC<TableProps> = ({
       columns: _columns,
       data: _data,
       initialState,
-      manualPagination: true,
       pageCount: count,
+      manualPagination: true,
+      manualSortBy: true,
+      sortDescFirst: true,
     },
+    useSortBy,
     usePagination
   );
 
@@ -86,51 +91,7 @@ const TableComponent: React.FC<TableProps> = ({
 
   return (
     <>
-      <TableContainer overflowY={"auto"} maxH={"40em"} borderWidth={1}>
-        <Table variant="striped" colorScheme="gray" {...getTableProps()}>
-          <Thead
-            backgroundColor={"gray.300"}
-            position="sticky"
-            top={0}
-            zIndex={1}
-          >
-            <Tr>
-              {headers.map((column, indexHeader) => (
-                <Th
-                  {...column.getHeaderProps({
-                    style: {
-                      minWidth: 80,
-                      width: 100,
-                      border: "1px solid white",
-                    },
-                  })}
-                  key={indexHeader}
-                >
-                  {column.render("Header")}
-                </Th>
-              ))}
-            </Tr>
-          </Thead>
-          <Tbody {...getTableBodyProps()}>
-            {page.map((row, indexRow) => {
-              prepareRow(row);
-              return (
-                <Tr {...row.getRowProps()} key={indexRow}>
-                  {row.cells.map((cell, indexCell) => {
-                    return (
-                      <Td {...cell.getCellProps()} key={indexCell}>
-                        {cell.render("Cell")}
-                      </Td>
-                    );
-                  })}
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-
-      {isLoading && (
+      {isLoading ? (
         <Box textAlign={"center"} my={30}>
           <Spinner
             thickness="3px"
@@ -140,13 +101,59 @@ const TableComponent: React.FC<TableProps> = ({
             size="xl"
           />
         </Box>
+      ) : (
+        <TableContainer overflowY={"auto"} maxH={"40em"} borderWidth={1}>
+          <Table variant="striped" colorScheme="gray" {...getTableProps()}>
+            <Thead
+              backgroundColor={"gray.300"}
+              position="sticky"
+              top={0}
+              zIndex={1}
+            >
+              <Tr>
+                {headers.map((column, indexHeader) => (
+                  <Th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    onClick={() => onSortChange(column)}
+                    key={indexHeader}
+                  >
+                    <Flex alignItems={"center"}>
+                      {column.render("Header")}
+                      {(column as any).sortDirection === "asc" ? (
+                        <ChevronDownIcon />
+                      ) : (column as any).sortDirection === "desc" ? (
+                        <ChevronUpIcon />
+                      ) : null}
+                    </Flex>
+                  </Th>
+                ))}
+              </Tr>
+            </Thead>
+            <Tbody {...getTableBodyProps()}>
+              {page.map((row, indexRow) => {
+                prepareRow(row);
+                return (
+                  <Tr {...row.getRowProps()} key={indexRow}>
+                    {row.cells.map((cell, indexCell) => {
+                      return (
+                        <Td {...cell.getCellProps()} key={indexCell}>
+                          {cell.render("Cell")}
+                        </Td>
+                      );
+                    })}
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
       )}
 
       <Flex p={5} w="full" alignItems="center" justifyContent="space-between">
         <Flex>
           <Text fontWeight={"500"}>Total items {count}</Text>
         </Flex>
-        <Flex alignItems={'center'} justifyContent={'center'}>
+        <Flex alignItems={"center"} justifyContent={"center"}>
           <PagButton onClick={handlePreviousPage} disabled={!canPreviousPage}>
             <Icon
               as={AiOutlineLeft}

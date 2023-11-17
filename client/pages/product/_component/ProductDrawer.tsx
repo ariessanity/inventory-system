@@ -104,7 +104,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
   }, [isSuccessCreateProduct, isErrorCreateProduct, errorCreateProduct]);
 
   useEffect(() => {
-    if (isSuccessCreateProduct) {
+    if (isSuccessEditProduct) {
       toast({
         title: `Success`,
         variant: "left-accent",
@@ -125,21 +125,20 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
     }
   }, [isSuccessEditProduct, isErrorEditProduct, errorEditProduct]);
 
-  const handleOnSubmit: SubmitHandler<ProductFormValues> = async (data) => {
-    try {
-      if (isEdit) {
-        await updateProduct({ ...data, _id: editData?._id });
-      } else {
-        await createProduct(data);
-      }
-
-      if (!isEdit) {
-        reset();
-      }
-
+  useEffect(() => {
+    if (isEdit && isSuccessEditProduct) {
       onClose();
-    } catch (error) {
-      console.log({ error });
+    }
+  }, [isEdit, isSuccessEditProduct, onClose]);
+
+  const handleOnSubmit: SubmitHandler<ProductFormValues> = async (data) => {
+    if (isEdit) {
+      await updateProduct({ ...data, _id: editData?._id });
+    } else {
+      await createProduct(data);
+
+      reset();
+      onClose();
     }
   };
 

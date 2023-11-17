@@ -32,18 +32,6 @@ export const productApi = api.injectEndpoints({
       providesTags: ["Product"],
     }),
 
-    getCountProducts: builder.query<number | undefined, void>({
-      query: () => {
-        return {
-          url: `product/api/getCountProducts`,
-          method: "GET",
-        };
-      },
-      transformResponse: (response: { data: number | undefined }, meta, arg) =>
-        response.data,
-      providesTags: ["Product"],
-    }),
-
     updateProduct: builder.mutation<Product, Partial<Product>>({
       query: (data) => {
         return {
@@ -70,7 +58,6 @@ export const productApi = api.injectEndpoints({
 export const {
   useCreateProductMutation,
   useGetAllProductsQuery,
-  useGetCountProductsQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
 } = productApi;
