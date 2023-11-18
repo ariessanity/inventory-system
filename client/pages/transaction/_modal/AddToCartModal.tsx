@@ -1,8 +1,7 @@
-import useAuth from "@/hooks/useAuth";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { Product } from "@/store/product/types";
-import { CheckIcon } from "@chakra-ui/icons";
+import { addToCart } from "@/store/slice/cartSlice";
 import {
-  useDisclosure,
   Button,
   Modal,
   ModalOverlay,
@@ -14,14 +13,13 @@ import {
   Text,
   Input,
   Stack,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInput,
   NumberInputField,
+  Badge,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -29,20 +27,44 @@ interface DeleteProps {
   isOpen: boolean;
   productData: Product | undefined;
   onClose: () => void;
-  onClick: () => void;
 }
 
 const AddToCartModal: React.FC<DeleteProps> = ({
   isOpen,
   productData,
   onClose,
-  onClick,
 }) => {
-  const [quantity, setQuantity] = useState<number | undefined>(1);
+  const dispatch = useAppDispatch();
+  const { cart } = useAppSelector((state: any) => state.cart);
+
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const cartItem = cart.find(
+    (cartItem: Product) => cartItem._id === productData?._id
+  );
+
+  const maxAvailableQuantity =
+    (productData?.quantity || 0) - (cartItem?.quantity || 0);
 
   useEffect(() => {
     setQuantity(1);
   }, [isOpen]);
+
+  useEffect(() => {
+    if ((productData?.quantity || 1) <= quantity) {
+      setQuantity(productData?.quantity || 1);
+    }
+
+    if (quantity > maxAvailableQuantity) {
+      setQuantity(maxAvailableQuantity || 1);
+    }
+  }, [maxAvailableQuantity, productData?.quantity, quantity]);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...productData, quantity }));
+    setQuantity(1);
+    onClose();
+  };
 
   return (
     <>
@@ -56,18 +78,60 @@ const AddToCartModal: React.FC<DeleteProps> = ({
         <ModalContent>
           <ModalCloseButton />
           <ModalBody>
-            <Stack fontWeight={"300"} pt={4}>
-              <Text>Product: {productData?.name}</Text>
+            <Stack fontWeight={"500"} pt={4}>
+              <Text>
+                Product:{" "}
+                <Text as={"span"} fontWeight={"300"}>
+                  {productData?.name}
+                </Text>{" "}
+              </Text>
               <Text>
                 Description:{" "}
-                {productData?.description ? productData?.description : "-"}
+                <Text as={"span"} fontWeight={"300"}>
+                  {productData?.description ? productData?.description : "-"}
+                </Text>
               </Text>
-              <Text>Price: ₱{productData?.price}</Text>
-              <Text>Unit: {productData?.unit}</Text>
-              <Text>Category: {productData?.category}</Text>
+              <Text>
+                Price:{" "}
+                <Text as={"span"} fontWeight={"300"}>
+                  ₱{productData?.price}
+                </Text>
+              </Text>
+              <Text>
+                Stock/s:{" "}
+                <Text as={"span"} fontWeight={"300"}>
+                  {maxAvailableQuantity === 1
+                    ? `${maxAvailableQuantity} item left`
+                    : `${maxAvailableQuantity} items left`}
+                </Text>
+              </Text>
+              <Text>
+                Unit:{" "}
+                <Text as={"span"} fontWeight={"300"}>
+                  {productData?.unit}
+                </Text>
+              </Text>
+              <Text>
+                Category:{" "}
+                {
+                  <Badge variant="outline" colorScheme="teal">
+                    {productData?.category}
+                  </Badge>
+                }
+              </Text>
               <Text>Quantity: </Text>
-              <NumberInput defaultValue={1} min={0}>
+              <NumberInput
+                isDisabled={(productData?.quantity || 0) < quantity}
+                defaultValue={1}
+                min={0}
+                value={quantity}
+                onChange={(valueString, valueNumber) => {
+                  setQuantity(valueNumber || 0);
+                }}
+              >
                 <NumberInputField
+                  id="quantity"
+                  fontWeight={"300"}
                   value={quantity}
                   onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
                   placeholder="Enter Quantity"
@@ -79,11 +143,18 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               </NumberInput>
             </Stack>
           </ModalBody>
-          <ModalFooter >
-            <Button fontWeight={'300'} variant="solid" mr={3} onClick={onClose}>
+          <ModalFooter>
+            <Button fontWeight={"300"} variant="solid" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button fontWeight={'300'} colorScheme="teal" onClick={onClick}>
+            <Button
+              fontWeight={"300"}
+              colorScheme="teal"
+              onClick={handleAddToCart}
+              isDisabled={
+                (productData?.quantity || quantity) < cartItem?.quantity + 1
+              }
+            >
               Add to Cart
             </Button>
           </ModalFooter>

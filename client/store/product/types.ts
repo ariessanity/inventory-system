@@ -4,12 +4,10 @@ export type Product = {
   description: string;
   price: number;
   quantity: number;
-  category: any;
+  category: string;
   sku: string;
   unit: string;
   total: number;
   image: string;
   isAvailable: boolean;
-  products: any,
-  count: any
 };

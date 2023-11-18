@@ -238,8 +238,8 @@ const Product: NextPage = () => {
           w={"100%"}
           maxWidth={{ base: "100%", sm: "8em" }}
           fontWeight={"300"}
-          colorScheme="gray"
-          variant="solid"
+          colorScheme="teal"
+          variant="outline"
           onClick={handleCreateProduct}
           leftIcon={<AiOutlinePlusCircle />}
         >

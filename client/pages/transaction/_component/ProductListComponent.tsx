@@ -22,7 +22,7 @@ import {
   AiOutlineClose,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import AddToCartModal from "./_modal/AddToCartModal";
+import AddToCartModal from "../_modal/AddToCartModal";
 import { Product } from "@/store/product/types";
 
 const ProductListComponent = () => {
@@ -59,9 +59,8 @@ const ProductListComponent = () => {
       Cell: ({ cell: { value } }: any) => {
         return (
           <IconButton
+            size={"sm"}
             textAlign={"center"}
-            w={2}
-            h={2}
             variant={"outline"}
             icon={<AiOutlineShoppingCart />}
             colorScheme="teal"
@@ -69,7 +68,6 @@ const ProductListComponent = () => {
             cursor="pointer"
             onClick={() => handleAddToCart(value)}
             fontSize={20}
-            borderWidth={0}
           />
         );
       },
@@ -107,9 +105,8 @@ const ProductListComponent = () => {
     const productData = products?.products?.find(
       (product: Product) => product._id === id
     );
-
     onOpenAddToCartModal();
-    setProductData(productData)
+    setProductData(productData);
   };
 
   const handlePageChange = (pageIndex: number) => {
@@ -159,7 +156,7 @@ const ProductListComponent = () => {
           flexDirection={"row"}
           alignItems={"center"}
           justifyContent={"space-between"}
-          mb={8}
+          mb={3}
         >
           <Text fontWeight={"300"} fontSize={30}>
             WELCOME
@@ -199,7 +196,6 @@ const ProductListComponent = () => {
       <AddToCartModal
         isOpen={isOpenAddToCartModal}
         onClose={onCloseAddToCartModal}
-        onClick={() => {}}
         productData={productData}
       />
     </>

@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import React from "react";
-import ProductListComponent from "./ProductListComponent";
+import ProductListComponent from "./_component/ProductListComponent";
+import OrderComponent from "./_component/OrderComponent";
 
 const Transaction: NextPage = () => {
   return (
@@ -22,11 +23,11 @@ const Transaction: NextPage = () => {
         colStart={4}
         colEnd={6}
         h={"95vh"}
-        bg="gray.200"
+        // bg="gray.100"
         rounded={10}
         p={4}
       >
-        <Text>test</Text>
+        <OrderComponent />
       </GridItem>
     </Grid>
   );
