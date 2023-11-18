@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { Product } from "@/store/product/types";
 import {
@@ -17,14 +17,52 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import OrderCard from "./OrderCard";
 import { clearCart } from "@/store/slice/cartSlice";
+import TransactionModal from "../_modal/TransactionModal";
+import { useCreateTransactionMutation } from "@/store/transaction/api";
 
 const OrderComponent = () => {
+  const toast = useToast();
   const dispatch = useAppDispatch();
-  const { cart } = useAppSelector((state: any) => state.cart);
-  const totalPrice = useAppSelector((state: any) => state.cart.totalPrice);
+  const { cart, totalPrice } = useAppSelector((state: any) => state.cart);
+
+  const [createTransaction, { isSuccess: isSuccessCreateTransaction }] =
+    useCreateTransactionMutation();
+
+  const {
+    isOpen: isOpenTransactionModal,
+    onClose: onCloseTransactionModal,
+    onOpen: onOpenTransactionModal,
+  } = useDisclosure();
+
+  const handlePayment = (paymentReceived: number | undefined) => {
+    createTransaction({
+      cartData: cart as Product[],
+      totalPrice,
+      paymentReceived,
+      paymentChange: totalPrice - (paymentReceived || 0),
+    });
+    dispatch(clearCart());
+    onCloseTransactionModal();
+  };
+
+  useEffect(() => {
+    if (isSuccessCreateTransaction) {
+      if (isSuccessCreateTransaction) {
+        toast({
+          title: `Payment Successful`,
+          variant: "left-accent",
+          status: "success",
+          position: "top",
+          isClosable: true,
+        });
+      }
+    }
+  }, [isSuccessCreateTransaction]);
 
   return (
     <>
@@ -65,16 +103,23 @@ const OrderComponent = () => {
         position={"sticky"}
       >
         <Box fontSize={"lg"} fontWeight={"300"}>
-          Total Price: <Text fontWeight={'semibold'}>₱{totalPrice}</Text>
+          Total Price: <Text fontWeight={"semibold"}>₱{totalPrice}</Text>
         </Box>
         <Button
           isDisabled={cart.length === 0}
           colorScheme="teal"
           fontWeight={"300"}
+          onClick={onOpenTransactionModal}
         >
           Proceed to payment
         </Button>
       </Flex>
+      <TransactionModal
+        isOpen={isOpenTransactionModal}
+        totalPrice={totalPrice}
+        onClose={onCloseTransactionModal}
+        handleTransaction={handlePayment}
+      />
     </>
   );
 };

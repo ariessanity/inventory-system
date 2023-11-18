@@ -102,7 +102,6 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
             icon={<FiMenu />}
             size="md"
           />
-
           <Flex align="center">
             <Icon as={RiFlashlightFill} h={8} w={8} />
           </Flex>
@@ -197,7 +196,7 @@ const SidebarContent = ({
 };
 
 const NavItem = (props: any) => {
-  const color = useColorModeValue("gray.600", "gray.300");
+  const color = useColorModeValue("white", "gray.300");
 
   const { icon, name, url } = props;
   return (
@@ -213,8 +212,8 @@ const NavItem = (props: any) => {
       transition=".15s ease"
       color={useColorModeValue("inherit", "gray.400")}
       _hover={{
-        bg: useColorModeValue("gray.100", "gray.900"),
-        color: useColorModeValue("gray.900", "gray.200"),
+        bg: useColorModeValue("teal.400", "gray.900"),
+        color: useColorModeValue("white", "gray.200"),
       }}
     >
       {icon && (

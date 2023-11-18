@@ -80,7 +80,13 @@ const Product: NextPage = () => {
   const handleDeleteProduct = async () => {
     await deleteProduct(deleteId);
     onCloseDeleteModal();
+    onCloseProductDrawer();
   };
+
+  const handleOpenModalDeleteProduct = (id: string | undefined) => {
+    onOpenDeleteModal();
+    setIdDelete(id);
+  }
 
   const handleCreateProduct = () => {
     onOpenProductDrawer();
@@ -132,6 +138,21 @@ const Product: NextPage = () => {
       Header: "SKU",
       accessor: "sku",
       sortDirection: sort.accessor === "sku" ? sort.direction : "none",
+      Cell: ({ row, value }: any) => {
+        return (
+          <Text
+            textDecor={"underline"}
+            color="teal"
+            cursor={"pointer"}
+            onClick={() => {
+              handleEditProduct(row.original._id);
+              setIdDelete(row.original._id);
+            }}
+          >
+            {value}
+          </Text>
+        );
+      },
     },
     {
       Header: "Name",
@@ -199,10 +220,7 @@ const Product: NextPage = () => {
               onClick={() => handleEditProduct(value)}
             />
             <DeleteIcon
-              onClick={() => {
-                onOpenDeleteModal();
-                setIdDelete(value);
-              }}
+              onClick={() => handleOpenModalDeleteProduct(value)}
               color="red.500"
               cursor="pointer"
             />
@@ -279,6 +297,7 @@ const Product: NextPage = () => {
         onClose={onCloseProductDrawer}
         isEdit={isEdit}
         editData={editData}
+        deleteProduct={handleOpenModalDeleteProduct}
       />
       <DeleteModal
         isOpen={isOpenDeleteModal}

@@ -14,6 +14,7 @@ import {
   FormLabel,
   Select,
   useToast,
+  Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductFormValues, productSchema } from "../schema";
@@ -25,10 +26,12 @@ import {
 import { Product } from "@/store/product/types";
 import { categories } from "../_data/category";
 import { units } from "../_data/unit";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 interface ProductDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  deleteProduct: (id: string | undefined) => void;
   isEdit: boolean | undefined;
   editData: Product | undefined;
 }
@@ -38,6 +41,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
   onClose,
   isEdit,
   editData,
+  deleteProduct,
 }) => {
   const [
     createProduct,
@@ -87,7 +91,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         title: `Success`,
         variant: "left-accent",
         status: "success",
-        position: "top-right",
+        position: "top",
         isClosable: true,
       });
     }
@@ -97,7 +101,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         title: (errorCreateProduct as any)?.data?.response?.message,
         variant: "left-accent",
         status: "error",
-        position: "top-right",
+        position: "top",
         isClosable: true,
       });
     }
@@ -109,7 +113,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         title: `Success`,
         variant: "left-accent",
         status: "success",
-        position: "top-right",
+        position: "top",
         isClosable: true,
       });
     }
@@ -119,7 +123,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         title: (errorEditProduct as any)?.data?.response?.message,
         variant: "left-accent",
         status: "error",
-        position: "top-right",
+        position: "top",
         isClosable: true,
       });
     }
@@ -277,13 +281,22 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
           </DrawerBody>
 
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button type={"submit"} colorScheme="teal">
-              Save
-            </Button>
+          <DrawerFooter justifyContent={'space-between'}>
+            <Flex>
+              <DeleteIcon
+                onClick={() => deleteProduct(editData?._id)}
+                color="red.500"
+                cursor="pointer"
+              />
+            </Flex>
+            <Flex>
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type={"submit"} colorScheme="teal">
+                {isEdit ? "Update" : "Create"}
+              </Button>
+            </Flex>
           </DrawerFooter>
         </DrawerContent>
       </form>

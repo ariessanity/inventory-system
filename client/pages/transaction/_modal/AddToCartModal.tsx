@@ -29,6 +29,8 @@ interface DeleteProps {
   onClose: () => void;
 }
 
+const LOW_STOCK_ALERT = 0.1;
+
 const AddToCartModal: React.FC<DeleteProps> = ({
   isOpen,
   productData,
@@ -99,10 +101,19 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               </Text>
               <Text>
                 Stock/s:{" "}
-                <Text as={"span"} fontWeight={"300"}>
-                  {maxAvailableQuantity === 1
-                    ? `${maxAvailableQuantity} item left`
-                    : `${maxAvailableQuantity} items left`}
+                <Text
+                  as={"span"}
+                  fontWeight={"300"}
+                  color={
+                    maxAvailableQuantity / (productData?.quantity || 1) <=
+                    LOW_STOCK_ALERT
+                      ? "red"
+                      : ""
+                  }
+                >
+                  {maxAvailableQuantity > 0
+                    ? `${maxAvailableQuantity} items left`
+                    : `Out of Stock`}
                 </Text>
               </Text>
               <Text>
@@ -152,7 +163,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               colorScheme="teal"
               onClick={handleAddToCart}
               isDisabled={
-                (productData?.quantity || quantity) < cartItem?.quantity + 1
+                (productData?.quantity || quantity) < cartItem?.quantity + 1 || productData?.quantity === 0
               }
             >
               Add to Cart

@@ -33,7 +33,7 @@ const axiosBaseQuery: BaseQueryFn<
   }
 };
 
-export const TAG_TYPES = ["Auth", "Product", "Store", "User", "Category", "Cart"]
+export const TAG_TYPES = ["Auth", "Product", "Store", "User", "Category", "Cart", "Transaction"]
 
 export const api = createApi({
   reducerPath: "api",
