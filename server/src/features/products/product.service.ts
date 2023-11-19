@@ -92,12 +92,12 @@ export class ProductService {
   }
 
   async updateProduct(id: ObjectId, updateProductDto: UpdateProductDto): Promise<Product> {
-    const { name } = updateProductDto;
+    const { name, price, quantity } = updateProductDto;
 
     const isProductNameExist = await this.productModel.exists({ _id: { $ne: id }, name });
     if (isProductNameExist) throw new ConflictException('Product already exists');
 
-    const updateProduct = await this.productModel.findByIdAndUpdate(id, { ...updateProductDto }, { new: true });
+    const updateProduct = await this.productModel.findByIdAndUpdate(id, { ...updateProductDto, total: price * quantity }, { new: true });
     return updateProduct;
   }
 

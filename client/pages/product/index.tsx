@@ -86,7 +86,7 @@ const Product: NextPage = () => {
   const handleOpenModalDeleteProduct = (id: string | undefined) => {
     onOpenDeleteModal();
     setIdDelete(id);
-  }
+  };
 
   const handleCreateProduct = () => {
     onOpenProductDrawer();
@@ -137,6 +137,7 @@ const Product: NextPage = () => {
     {
       Header: "SKU",
       accessor: "sku",
+      width: 150,
       sortDirection: sort.accessor === "sku" ? sort.direction : "none",
       Cell: ({ row, value }: any) => {
         return (
@@ -157,11 +158,13 @@ const Product: NextPage = () => {
     {
       Header: "Name",
       accessor: "name",
+      width: 150,
       sortDirection: sort.accessor === "name" ? sort.direction : "none",
     },
     {
       Header: "Description",
       accessor: "description",
+      width: 150,
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value ? value : "-"}</Text>;
       },
@@ -170,6 +173,7 @@ const Product: NextPage = () => {
     {
       Header: "Category",
       accessor: "category",
+      width: 150,
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value}</Text>;
       },
@@ -178,6 +182,7 @@ const Product: NextPage = () => {
     {
       Header: () => <Text>Price per unit</Text>,
       accessor: "price",
+      width: 150,
       Cell: ({ cell: { value } }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
         return <Text>{"₱" + formattedValue}</Text>;
@@ -187,11 +192,13 @@ const Product: NextPage = () => {
     {
       Header: "Unit",
       accessor: "unit",
+      width: 100,
       sortDirection: sort.accessor === "unit" ? sort.direction : "none",
     },
     {
       Header: () => <Text textAlign={"center"}>Quantity</Text>,
       accessor: "quantity",
+      width: 100,
       Cell: ({ cell: { value } }: any) => (
         <Text textAlign={"center"}>{value}</Text>
       ),
@@ -200,16 +207,17 @@ const Product: NextPage = () => {
     {
       Header: () => <Text>Total</Text>,
       accessor: "total",
+      width: 150,
       Cell: ({ cell: { value } }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
         return <Text>{"₱" + formattedValue}</Text>;
       },
       sortDirection: sort.accessor === "total" ? sort.direction : "none",
-      width: 20,
     },
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
+      width: 100,
       Cell: ({ cell: { value } }: any) => {
         return (
           <Flex justifyContent={"center"}>

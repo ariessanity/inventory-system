@@ -56,18 +56,19 @@ const ProductListComponent = () => {
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
+      width: 60,
       Cell: ({ cell: { value } }: any) => {
         return (
           <IconButton
-            size={"sm"}
-            textAlign={"center"}
-            variant={"outline"}
-            icon={<AiOutlineShoppingCart />}
+            size={'xs'}
+            ml={2}
+            variant={"none"}
+            icon={<AiOutlineShoppingCart color={'teal'}/>}
             colorScheme="teal"
             aria-label="Add to Cart"
             cursor="pointer"
             onClick={() => handleAddToCart(value)}
-            fontSize={20}
+            fontSize={25}
           />
         );
       },
@@ -76,6 +77,7 @@ const ProductListComponent = () => {
       Header: "Name",
       accessor: "name",
       sortDirection: sort.accessor === "name" ? sort.direction : "none",
+      width: 150,
     },
     {
       Header: "Description",
@@ -84,6 +86,7 @@ const ProductListComponent = () => {
         return <Text>{value ? value : "-"}</Text>;
       },
       sortDirection: sort.accessor === "description" ? sort.direction : "none",
+      width: 150,
     },
     {
       Header: () => <Text>Price per unit</Text>,
@@ -93,11 +96,13 @@ const ProductListComponent = () => {
         return <Text>{"₱" + formattedValue}</Text>;
       },
       sortDirection: sort.accessor === "price" ? sort.direction : "none",
+      width: 150,
     },
     {
       Header: "Unit",
       accessor: "unit",
       sortDirection: sort.accessor === "unit" ? sort.direction : "none",
+      width: 100,
     },
   ];
 

@@ -103,13 +103,14 @@ const OrderComponent = () => {
         position={"sticky"}
       >
         <Box fontSize={"lg"} fontWeight={"300"}>
-          Total Price: <Text fontWeight={"semibold"}>₱{totalPrice}</Text>
+          Total Price: <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
         </Box>
         <Button
           isDisabled={cart.length === 0}
           colorScheme="teal"
           fontWeight={"300"}
           onClick={onOpenTransactionModal}
+          whiteSpace={'pre-line'}
         >
           Proceed to payment
         </Button>

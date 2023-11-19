@@ -91,7 +91,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
         </Text>
         <Flex justifyContent={"space-between"} alignItems={"center"}>
           <Text fontWeight={"300"} fontSize={"md"}>
-            ₱{price} / {unit}
+            ₱{price?.toFixed(2)} / {unit}
           </Text>
           <Flex align="center">
             <IconButton

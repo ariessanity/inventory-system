@@ -63,7 +63,7 @@ const TransactionModal: React.FC<DeleteProps> = ({
             />
             <Flex justifyContent={"space-between"}>
               <Text fontSize={"lg"} fontWeight={"300"}>
-                Total Price: {totalPrice}
+                Total Price: {totalPrice.toFixed(2)}
               </Text>
               <Text fontSize={"lg"} fontWeight={"300"}>
                 Change:{" "}

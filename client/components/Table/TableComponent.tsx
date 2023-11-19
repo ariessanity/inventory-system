@@ -70,7 +70,7 @@ const TableComponent: React.FC<TableProps> = ({
       manualSortBy: true,
       sortDescFirst: true,
       defaultColumn: {
-        width: 'auto'
+        width: "auto",
       },
     },
     useSortBy,
@@ -114,8 +114,19 @@ const TableComponent: React.FC<TableProps> = ({
           />
         </Box>
       ) : (
-        <TableContainer overflowY={"auto"} maxH={"40em"} borderWidth={1}>
-          <Table variant="striped" colorScheme="gray" {...getTableProps()} fontWeight={'300'}>
+        <TableContainer
+          overflowX={"auto"}
+          overflowY={"auto"}
+          maxH={"40em"}
+          borderWidth={1}
+        >
+          <Table
+            layout="fixed"
+            variant="striped"
+            colorScheme="gray"
+            fontWeight={"300"}
+            {...getTableProps()}
+          >
             <Thead
               backgroundColor={"gray.300"}
               position="sticky"
@@ -125,7 +136,14 @@ const TableComponent: React.FC<TableProps> = ({
               <Tr>
                 {headers.map((column, indexHeader) => (
                   <Th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...(column.getHeaderProps(column.getSortByToggleProps()),
+                    {
+                      style: {
+                        width: column.width,
+                        maxWidth: column.maxWidth,
+                        whiteSpace: "pre-line",
+                      },
+                    })}
                     onClick={() => onSortChange(column)}
                     key={indexHeader}
                   >
@@ -148,7 +166,17 @@ const TableComponent: React.FC<TableProps> = ({
                   <Tr {...row.getRowProps()} key={indexRow}>
                     {row.cells.map((cell, indexCell) => {
                       return (
-                        <Td {...cell.getCellProps()} key={indexCell}>
+                        <Td
+                          {...cell.getCellProps({
+                            style: {
+                              width: cell.column.width,
+                              maxWidth: cell.column.maxWidth,
+                              whiteSpace: "pre-line",
+                              
+                            },
+                          })}
+                          key={indexCell}
+                        >
                           {cell.render("Cell")}
                         </Td>
                       );
@@ -161,7 +189,13 @@ const TableComponent: React.FC<TableProps> = ({
         </TableContainer>
       )}
 
-      <Flex p={5} w="full" alignItems="center" justifyContent="space-between" flexDirection={{base: 'column', md: 'row'}}>
+      <Flex
+        p={5}
+        w="full"
+        alignItems="center"
+        justifyContent="space-between"
+        flexDirection={{ base: "column", md: "row" }}
+      >
         <Flex>
           <Text fontWeight={"300"}>Total of {count} items</Text>
         </Flex>
