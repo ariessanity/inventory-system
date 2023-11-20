@@ -29,7 +29,7 @@ export const productApi = api.injectEndpoints({
         meta,
         arg
       ) => response.data,
-      providesTags: ["Product"],
+      providesTags: ["Product", "Transaction"],
     }),
 
     updateProduct: builder.mutation<Product, Partial<Product>>({

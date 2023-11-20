@@ -117,7 +117,7 @@ const TableComponent: React.FC<TableProps> = ({
         <TableContainer
           overflowX={"auto"}
           overflowY={"auto"}
-          maxH={"40em"}
+          maxH={"75vh"}
           borderWidth={1}
         >
           <Table

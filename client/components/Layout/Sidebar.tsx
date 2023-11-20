@@ -29,6 +29,7 @@ import {
   AiOutlineBarChart,
   AiOutlineDesktop,
   AiOutlineInbox,
+  AiOutlineFileText,
 } from "react-icons/ai";
 import { BsFolder2, BsCalendarCheck } from "react-icons/bs";
 import { FiHome, FiLogOut, FiMenu } from "react-icons/fi";
@@ -46,6 +47,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
   { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
   { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
+  { name: "Reports", icon: AiOutlineFileText, url: "/report" },
 ];
 
 interface Prop {

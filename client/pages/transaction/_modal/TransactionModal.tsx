@@ -13,7 +13,7 @@ import {
   Input,
   Flex,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DeleteProps {
   isOpen: boolean;
@@ -29,6 +29,10 @@ const TransactionModal: React.FC<DeleteProps> = ({
   handleTransaction,
 }) => {
   const [payment, setPayment] = useState<number | undefined>(0);
+
+  useEffect(() => {
+    setPayment(0);
+  }, [isOpen]);
 
   const handlePayment = () => {
     handleTransaction(payment);
@@ -69,7 +73,7 @@ const TransactionModal: React.FC<DeleteProps> = ({
                 Change:{" "}
                 {(payment || 0) - totalPrice < 0
                   ? 0
-                  : (payment || 0) - totalPrice}
+                  : ((payment || 0) - totalPrice).toFixed(2)}
               </Text>
             </Flex>
           </ModalBody>

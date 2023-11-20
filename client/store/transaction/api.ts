@@ -1,5 +1,5 @@
 import { api } from "../base-query-api";
-import { Transaction } from "./types";
+import { ProductSold, Transaction } from "./types";
 
 export const transactionApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,9 +11,53 @@ export const transactionApi = api.injectEndpoints({
           data: data,
         };
       },
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Transaction", "Product"],
+    }),
+
+    getTransactionHistory: builder.query<
+      { transactionHistory: Transaction[]; count: number },
+      string | undefined
+    >({
+      query: (searchParams = "") => {
+        return {
+          url: `transaction/api/getTransactionHistory${searchParams}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (
+        response: {
+          data: { transactionHistory: Transaction[]; count: number };
+        },
+        meta,
+        arg
+      ) => response.data,
+      providesTags: ["Transaction"],
+    }),
+
+    getProductSold: builder.query<
+      { productSold: ProductSold[]; count: number },
+      string | undefined
+    >({
+      query: (searchParams = "") => {
+        return {
+          url: `transaction/api/getProductSold${searchParams}`,
+          method: "GET",
+        };
+      },
+      transformResponse: (
+        response: {
+          data: { productSold: ProductSold[]; count: number };
+        },
+        meta,
+        arg
+      ) => response.data,
+      providesTags: ["Transaction"],
     }),
   }),
 });
 
-export const { useCreateTransactionMutation } = transactionApi;
+export const {
+  useCreateTransactionMutation,
+  useGetTransactionHistoryQuery,
+  useGetProductSoldQuery,
+} = transactionApi;

@@ -71,18 +71,24 @@ const OrderComponent = () => {
           Current Order
         </Text>
         {cart.length !== 0 && (
-          <Button
-            size={"sm"}
-            fontWeight={"300"}
-            colorScheme="red"
-            onClick={() => dispatch(clearCart())}
-          >
-            Clear Cart
-          </Button>
+          <Flex alignItems={"center"}>
+            <Text fontSize={15} fontWeight={"300"} mr={2}>
+              Item: {cart?.length}
+            </Text>
+
+            <Button
+              size={"sm"}
+              fontWeight={"300"}
+              colorScheme="red"
+              onClick={() => dispatch(clearCart())}
+            >
+              Clear Cart
+            </Button>
+          </Flex>
         )}
       </Flex>
 
-      <Stack overflowY={"auto"} maxH={"40em"} mb={5}>
+      <Stack overflowY={"auto"} maxH={"75vh"} mb={5}>
         {cart.map((cartItem: Product, index: number) => (
           <OrderCard
             key={cartItem?._id + index}
@@ -103,14 +109,15 @@ const OrderComponent = () => {
         position={"sticky"}
       >
         <Box fontSize={"lg"} fontWeight={"300"}>
-          Total Price: <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
+          Total Price:{" "}
+          <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
         </Box>
         <Button
           isDisabled={cart.length === 0}
           colorScheme="teal"
           fontWeight={"300"}
           onClick={onOpenTransactionModal}
-          whiteSpace={'pre-line'}
+          whiteSpace={"pre-line"}
         >
           Proceed to payment
         </Button>

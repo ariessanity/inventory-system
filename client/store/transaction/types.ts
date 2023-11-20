@@ -6,3 +6,6 @@ export type Transaction = {
   paymentReceived: number;
   paymentChange: number;
 };
+
+export type ProductSold = Partial<Product> & { customerName: string }
+ 
