@@ -140,7 +140,6 @@ const TableComponent: React.FC<TableProps> = ({
                     {
                       style: {
                         width: column.width,
-                        maxWidth: column.maxWidth,
                         whiteSpace: "pre-line",
                       },
                     })}
@@ -170,9 +169,7 @@ const TableComponent: React.FC<TableProps> = ({
                           {...cell.getCellProps({
                             style: {
                               width: cell.column.width,
-                              maxWidth: cell.column.maxWidth,
                               whiteSpace: "pre-line",
-                              
                             },
                           })}
                           key={indexCell}

@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, Injectable } from '@nestjs/comm
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Product } from '../products/model/product.model';
 import { Store } from '../stores/model/store.model';
 import { Transaction } from './entities/transaction.model';
@@ -85,22 +85,21 @@ export class TransactionService {
   }
 
   async getTransactionHistory(query: Request['query']): Promise<{ transactionHistory: Transaction[]; count: number }> {
-    const { page, limit, search, sortBy, sortOrder } = query;
+    const { page, limit, search, sortBy, sortOrder, startDate, endDate } = query;
 
     const LIMIT = limit ? +limit : 20;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
-    const searchQuery = search
-      ? {
-          $or: [
-            { name: { $regex: search, $options: 'i' } },
-            { description: { $regex: search, $options: 'i' } },
-            { category: { $regex: search, $options: 'i' } },
-            { sku: { $regex: search, $options: 'i' } },
-            { unit: { $regex: search, $options: 'i' } },
-          ],
-        }
-      : {};
+    const searchQuery: FilterQuery<Product> = {}
+    if (startDate && endDate) {
+      const isoStartDate = new Date(startDate as string).toISOString();
+      const isoEndDate = new Date(endDate + 'T23:59:59' as string).toISOString();
+  
+      searchQuery.createdAt = {
+        $gte: isoStartDate,
+        $lte: isoEndDate,
+      };
+    }
 
     const sortQuery = {};
     if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;
@@ -117,22 +116,21 @@ export class TransactionService {
   }
 
   async getProductSold(query: Request['query']): Promise<{ productSold: ProductSold[]; count: number }> {
-    const { page, limit, search, sortBy, sortOrder } = query;
+    const { page, limit, search, sortBy, sortOrder, startDate, endDate } = query;
 
     const LIMIT = limit ? +limit : 20;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
-    const searchQuery = search
-      ? {
-          $or: [
-            { name: { $regex: search, $options: 'i' } },
-            { description: { $regex: search, $options: 'i' } },
-            { category: { $regex: search, $options: 'i' } },
-            { sku: { $regex: search, $options: 'i' } },
-            { unit: { $regex: search, $options: 'i' } },
-          ],
-        }
-      : {};
+    const searchQuery: FilterQuery<Product> = {}
+    if (startDate && endDate) {
+      const isoStartDate = new Date(startDate as string).toISOString();
+      const isoEndDate = new Date(endDate + 'T23:59:59' as string).toISOString();
+  
+      searchQuery.createdAt = {
+        $gte: isoStartDate,
+        $lte: isoEndDate,
+      };
+    }
 
     const sortQuery = {};
     if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;

@@ -1,10 +1,19 @@
 import TableComponent from "@/components/Table/TableComponent";
 import { useFilter } from "@/hooks/useFilter";
 import { useGetProductSoldQuery } from "@/store/transaction/api";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Input,
+  Text,
+  filter,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
-import { format } from 'date-fns';
-
+import { format } from "date-fns";
+import { AiOutlineExport } from "react-icons/ai";
 
 const formatDate = (isoDate: Date) => {
   const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
@@ -35,7 +44,8 @@ const ProductSoldComponent = () => {
       Header: "TRN",
       accessor: "transactionSku",
       width: 150,
-      sortDirection: sort.accessor === "transactionSku" ? sort.direction : "none",
+      sortDirection:
+        sort.accessor === "transactionSku" ? sort.direction : "none",
     },
     {
       Header: "SKU",
@@ -69,9 +79,7 @@ const ProductSoldComponent = () => {
       Header: () => <Text>Qty</Text>,
       accessor: "quantity",
       width: 80,
-      Cell: ({ cell: { value } }: any) => (
-        <Text>{value}</Text>
-      ),
+      Cell: ({ cell: { value } }: any) => <Text>{value}</Text>,
       sortDirection: sort.accessor === "quantity" ? sort.direction : "none",
     },
     {
@@ -107,7 +115,8 @@ const ProductSoldComponent = () => {
       accessor: "createdAt",
       width: 150,
       Cell: ({ cell: { value } }: any) => {
-        return <Text>{formatDate(value)}</Text>;      },
+        return <Text>{formatDate(value)}</Text>;
+      },
       sortDirection: sort.accessor === "createdAt" ? sort.direction : "none",
     },
   ];
@@ -135,7 +144,64 @@ const ProductSoldComponent = () => {
   };
 
   return (
-    <div>
+    <>
+      <Flex mb={4} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex>
+          <Button fontWeight={"300"} variant={"outline"} colorScheme="teal">
+            <AiOutlineExport /> Export
+          </Button>
+        </Flex>
+        <Flex
+          alignItems={{ base: "flex-end", md: "center" }}
+          justifyContent={"space-between"}
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Flex
+            alignItems={"center"}
+            mr={{ base: 0, md: 2 }}
+            mb={{ base: 2, md: 0 }}
+          >
+            <Text mr={2} fontWeight={"300"}>
+              From
+            </Text>
+            <Input
+              value={filters.startDate || ""}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  page: 1,
+                  startDate: e.target.value
+                    ? format(new Date(e.target.value), "yyyy-MM-dd")
+                    : "",
+                })
+              }
+              fontWeight={"300"}
+              type="date"
+              w={48}
+            />
+          </Flex>
+          <Flex alignItems={"center"}>
+            <Text mr={2} fontWeight={"300"}>
+              To
+            </Text>
+            <Input
+              value={filters.endDate || ""}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  page: 1,
+                  endDate: e.target.value
+                    ? format(new Date(e.target.value), "yyyy-MM-dd")
+                    : "",
+                })
+              }
+              fontWeight={"300"}
+              type="date"
+              w={48}
+            />
+          </Flex>
+        </Flex>
+      </Flex>
       <TableComponent
         columns={columns}
         data={productSold?.productSold || []}
@@ -145,7 +211,7 @@ const ProductSoldComponent = () => {
         onPageChange={handlePageChange}
         onSortChange={handleSortChange}
       />
-    </div>
+    </>
   );
 };
 

@@ -103,15 +103,15 @@ const OrderComponent = () => {
         ))}
       </Stack>
       <Flex
-        alignItems={"center"}
         justifyContent={"space-between"}
         bottom={0}
         position={"sticky"}
+        flexDirection={"column"}
       >
-        <Box fontSize={"lg"} fontWeight={"300"}>
-          Total Price:{" "}
+        <Flex fontSize={"lg"} fontWeight={"300"} mb={4} justifyContent={'space-between'}> 
+          <Text>Total Price:</Text>
           <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
-        </Box>
+        </Flex>
         <Button
           isDisabled={cart.length === 0}
           colorScheme="teal"
