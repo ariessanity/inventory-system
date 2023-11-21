@@ -1,19 +1,14 @@
 import TableComponent from "@/components/Table/TableComponent";
 import { useFilter } from "@/hooks/useFilter";
 import { useGetProductSoldQuery } from "@/store/transaction/api";
-import {
-  Box,
-  Button,
-  Flex,
-  IconButton,
-  Input,
-  Text,
-  filter,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { AiOutlineExport } from "react-icons/ai";
+import { useReportProductSoldMutation } from "@/store/file/api";
+import downloadExcelFile from "@/helpers/download-link";
+import DateFilter from "./DateFilter";
+import ExportButton from "./ExportButton";
 
 const formatDate = (isoDate: Date) => {
   const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
@@ -38,6 +33,21 @@ const ProductSoldComponent = () => {
     isFetching,
     isLoading,
   } = useGetProductSoldQuery(searchParams);
+
+  const [downloadProductSold] = useReportProductSoldMutation();
+
+  const handleDownload = async () => {
+    try {
+      const { data }: any = await downloadProductSold({
+        data: productSold?.productSold,
+        query: searchParams,
+      });
+
+      downloadExcelFile(data, "product_sold");
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   const columns = [
     {
@@ -146,61 +156,8 @@ const ProductSoldComponent = () => {
   return (
     <>
       <Flex mb={4} alignItems={"center"} justifyContent={"space-between"}>
-        <Flex>
-          <Button fontWeight={"300"} variant={"outline"} colorScheme="teal">
-            <AiOutlineExport /> Export
-          </Button>
-        </Flex>
-        <Flex
-          alignItems={{ base: "flex-end", md: "center" }}
-          justifyContent={"space-between"}
-          flexDirection={{ base: "column", md: "row" }}
-        >
-          <Flex
-            alignItems={"center"}
-            mr={{ base: 0, md: 2 }}
-            mb={{ base: 2, md: 0 }}
-          >
-            <Text mr={2} fontWeight={"300"}>
-              From
-            </Text>
-            <Input
-              value={filters.startDate || ""}
-              onChange={(e) =>
-                setFilters({
-                  ...filters,
-                  page: 1,
-                  startDate: e.target.value
-                    ? format(new Date(e.target.value), "yyyy-MM-dd")
-                    : "",
-                })
-              }
-              fontWeight={"300"}
-              type="date"
-              w={48}
-            />
-          </Flex>
-          <Flex alignItems={"center"}>
-            <Text mr={2} fontWeight={"300"}>
-              To
-            </Text>
-            <Input
-              value={filters.endDate || ""}
-              onChange={(e) =>
-                setFilters({
-                  ...filters,
-                  page: 1,
-                  endDate: e.target.value
-                    ? format(new Date(e.target.value), "yyyy-MM-dd")
-                    : "",
-                })
-              }
-              fontWeight={"300"}
-              type="date"
-              w={48}
-            />
-          </Flex>
-        </Flex>
+        <ExportButton handleDownload={handleDownload} />
+        <DateFilter filters={filters} setFilters={setFilters} />
       </Flex>
       <TableComponent
         columns={columns}

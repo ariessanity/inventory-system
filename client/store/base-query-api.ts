@@ -1,8 +1,5 @@
 import { fetchData } from "@/services/api";
-import {
-  BaseQueryFn,
-  createApi,
-} from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import { AxiosError, AxiosRequestConfig } from "axios";
 
 const axiosBaseQuery: BaseQueryFn<
@@ -10,10 +7,11 @@ const axiosBaseQuery: BaseQueryFn<
     url: string;
     method: AxiosRequestConfig["method"];
     data?: AxiosRequestConfig["data"];
+    responseType?: AxiosRequestConfig["responseType"];
   },
   unknown,
   unknown
-> = async ({ url, method, data }) => {
+> = async ({ url, method, data, responseType }) => {
   try {
     const isFormData = data instanceof FormData;
     const headers: Record<string, string> = {
@@ -22,7 +20,7 @@ const axiosBaseQuery: BaseQueryFn<
 
     const result = await fetchData[
       method?.toLowerCase() as "post" | "get" | "patch" | "put" | "delete"
-    ]?.(url, data, { headers });
+    ]?.(url, data, { headers, responseType });
 
     return { data: result.data ?? {} };
   } catch (axiosError) {
@@ -33,7 +31,15 @@ const axiosBaseQuery: BaseQueryFn<
   }
 };
 
-export const TAG_TYPES = ["Auth", "Product", "Store", "User", "Category", "Cart", "Transaction"]
+export const TAG_TYPES = [
+  "Auth",
+  "Product",
+  "Store",
+  "User",
+  "Category",
+  "Cart",
+  "Transaction",
+];
 
 export const api = createApi({
   reducerPath: "api",

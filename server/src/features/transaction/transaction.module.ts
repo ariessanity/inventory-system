@@ -15,6 +15,7 @@ import { ProductSoldSchema } from './entities/product-sold.model';
     ]),
   ],
   controllers: [TransactionController],
-  providers: [TransactionService]
+  providers: [TransactionService],
+  exports: [TransactionService]
 })
 export class TransactionModule {}

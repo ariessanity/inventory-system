@@ -1,11 +1,25 @@
 import TableComponent from "@/components/Table/TableComponent";
 import { useFilter } from "@/hooks/useFilter";
 import { useGetTransactionHistoryQuery } from "@/store/transaction/api";
-import { Box, Flex, Input, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Text,
+  filter,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { format } from "date-fns";
 import ProductSoldModal from "../_modal/ProductSoldModal";
 import Product from "@/pages/product";
+import { AiOutlineExport } from "react-icons/ai";
+import useExcelDownloader from "@/hooks/useDownloader";
+import { useReportTransactionHistoryMutation } from "@/store/file/api";
+import downloadExcelFile from "@/helpers/download-link";
+import DateFilter from "./DateFilter";
+import ExportButton from "./ExportButton";
 
 const formatDate = (isoDate: Date) => {
   const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
@@ -31,6 +45,21 @@ const TransactionHistoryComponent = () => {
     isFetching,
     isLoading,
   } = useGetTransactionHistoryQuery(searchParams);
+
+  const [downloadTransactionHistory] = useReportTransactionHistoryMutation();
+
+  const handleDownload = async () => {
+    try {
+      const { data }: any = await downloadTransactionHistory({
+        data: transactionHistory?.transactionHistory,
+        query: searchParams,
+      });
+
+      downloadExcelFile(data, "transaction_history");
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   const {
     isOpen: isOpenProductSoldModal,
@@ -157,47 +186,9 @@ const TransactionHistoryComponent = () => {
 
   return (
     <>
-      <Flex mb={4} alignItems={{base: "flex-end", md: "center"}} justifyContent={"flex-end"} flexDirection={{base: 'column', md: 'row'}}>
-        <Flex alignItems={"center"} mr={{base: 0, md: 2}}  mb={{base: 2, md: 0}}>
-          <Text mr={2} fontWeight={"300"}>
-            From
-          </Text>
-          <Input
-            value={filters.startDate || ""}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                page: 1,
-                startDate: e.target.value
-                  ? format(new Date(e.target.value), "yyyy-MM-dd")
-                  : "",
-              })
-            }
-            fontWeight={"300"}
-            type="date"
-            w={48}
-          />
-        </Flex>
-        <Flex alignItems={"center"}>
-          <Text mr={2} fontWeight={"300"}>
-            To
-          </Text>
-          <Input
-            value={filters.endDate || ""}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                page: 1,
-                endDate: e.target.value
-                  ? format(new Date(e.target.value), "yyyy-MM-dd")
-                  : "",
-              })
-            }
-            fontWeight={"300"}
-            type="date"
-            w={48}
-          />
-        </Flex>
+      <Flex mb={4} alignItems={"center"} justifyContent={"space-between"}>
+        <ExportButton handleDownload={handleDownload} />
+        <DateFilter filters={filters} setFilters={setFilters} />
       </Flex>
       <TableComponent
         columns={columns}
@@ -208,7 +199,6 @@ const TransactionHistoryComponent = () => {
         onPageChange={handlePageChange}
         onSortChange={handleSortChange}
       />
-
       <ProductSoldModal
         isOpen={isOpenProductSoldModal}
         onClose={onCloseProductSoldModal}

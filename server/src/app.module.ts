@@ -13,6 +13,7 @@ import { StoresModule } from './features/stores/stores.module';
 import { ProductModule } from './features/products/product.module';
 import { CategoryModule } from './features/category/category.module';
 import { TransactionModule } from './features/transaction/transaction.module';
+import { FileModule } from './features/file/file.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { TransactionModule } from './features/transaction/transaction.module';
     StoresModule,
     ProductModule,
     CategoryModule,
-    TransactionModule
+    TransactionModule,
+    FileModule
   ],
   controllers: [],
   providers: [

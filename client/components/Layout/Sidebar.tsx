@@ -43,9 +43,8 @@ interface LinkItemProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: AiOutlineHome, url: "/homepage" },
-  { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
   { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
+  { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
   { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
   { name: "Reports", icon: AiOutlineFileText, url: "/report" },
 ];

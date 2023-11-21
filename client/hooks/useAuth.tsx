@@ -24,7 +24,7 @@ const useAuth = () => {
       Cookies.set("jwt", data?.accessToken);
       Cookies.set("user", payload as any);
 
-      router.push("/homepage");
+      router.push("/dashboard");
     }
   };
 

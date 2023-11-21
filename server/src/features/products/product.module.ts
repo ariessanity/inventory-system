@@ -12,7 +12,6 @@ import { ProductService } from './product.service';
       { name: 'Product', schema: ProductSchema },
       { name: 'User', schema: UserSchema },
       { name: 'Store', schema: StoreSchema },
-
     ]),
   ],
   controllers: [ProductController],
