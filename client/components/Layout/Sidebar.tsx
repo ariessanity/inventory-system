@@ -46,6 +46,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
   { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
   { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
+  { name: "User Management", icon: AiOutlineFileText, url: "/user" },
+  { name: "Supplier", icon: AiOutlineFileText, url: "/supplier" },
   { name: "Reports", icon: AiOutlineFileText, url: "/report" },
 ];
 
