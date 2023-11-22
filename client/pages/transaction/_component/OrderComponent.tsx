@@ -39,12 +39,13 @@ const OrderComponent = () => {
     onOpen: onOpenTransactionModal,
   } = useDisclosure();
 
-  const handlePayment = (paymentReceived: number | undefined) => {
+  const handlePayment = (paymentReceived: number | undefined, customerName: string) => {
     createTransaction({
       cartData: cart as Product[],
       totalPrice,
       paymentReceived,
       paymentChange: totalPrice - (paymentReceived || 0),
+      customerName
     });
     dispatch(clearCart());
     onCloseTransactionModal();

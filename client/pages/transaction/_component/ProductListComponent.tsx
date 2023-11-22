@@ -24,6 +24,7 @@ import {
 } from "react-icons/ai";
 import AddToCartModal from "../_modal/AddToCartModal";
 import { Product } from "@/store/product/types";
+import { format } from "date-fns";
 
 const ProductListComponent = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -164,7 +165,7 @@ const ProductListComponent = () => {
           mb={3}
         >
           <Text fontWeight={"300"} fontSize={30}>
-            WELCOME
+            {format(new Date, "EEEE, hh:mm a")}
           </Text>
           <InputGroup
             w={"100%"}
@@ -202,6 +203,7 @@ const ProductListComponent = () => {
         isOpen={isOpenAddToCartModal}
         onClose={onCloseAddToCartModal}
         productData={productData}
+        searchReset={onSearchReset}
       />
     </>
   );

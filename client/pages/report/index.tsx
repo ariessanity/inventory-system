@@ -8,7 +8,7 @@ const Report = () => {
   return (
     <>
       <Head>
-        <title>Report</title>
+        <title>Reports</title>
       </Head>
       <Tabs colorScheme="teal">
         <TabList>

@@ -6,6 +6,7 @@ export type Transaction = {
   totalPrice: number;
   paymentReceived: number;
   paymentChange: number;
+  customerName: string
 };
 
 export type ProductSold = Partial<Product> & { customerName: string }

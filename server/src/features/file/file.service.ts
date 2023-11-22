@@ -109,9 +109,9 @@ export class FileService {
 
     worksheet.columns = [
       { header: 'TRN', key: 'transactionSku', width: 20},
-      { header: 'Cart Data', key: 'cartData', width: 35 },
+      // { header: 'Cart Data', key: 'cartData', width: 35 },
       { header: 'Total Price', key: 'totalPrice', width: 35 },
-      { header: 'Payment Recieved', key: 'paymentRecieved', width: 20 },
+      { header: 'Payment Recieved', key: 'paymentReceived', width: 20 },
       { header: 'Change', key: 'paymentChange', width: 10 },
       { header: 'Cashier Name', key: 'cashierName', width: 20 },
       { header: 'Customer Name', key: 'customerName', width: 20 },

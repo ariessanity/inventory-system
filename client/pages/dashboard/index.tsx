@@ -1,31 +1,19 @@
+import Head from "next/head";
 import React from "react";
+import StatData from "./_components/StatData";
+import { useGetStatisticsQuery } from "@/store/dashboard/api";
 
-import { Text } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { decrement, increment, incrementByAmount } from "@/store/slice/counterSlice";
-
-const Counter = () => {
-  const count = useAppSelector((state: any) => state.counter.value);
-  const dispatch = useAppDispatch();
-
+const Dashboard = () => {
+  const { data: statistics, isError, isLoading } = useGetStatisticsQuery();
+  console.log({ statistics });
   return (
-    <div style={{ textAlign: "center" }}>
-      <h4 style={{ marginBottom: 16 }}>{count}</h4>
-      <button onClick={() => dispatch(increment())}>increment</button>
-      <button
-        onClick={() => dispatch(decrement())}
-        style={{ marginInline: 16 }}
-      >
-        decrement
-      </button>
-      <button
-        onClick={() => dispatch(incrementByAmount(10))}
-        style={{ marginInline: 16 }}
-      >
-        decrement
-      </button>
-    </div>
+    <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
+      <StatData data={statistics} />
+    </>
   );
 };
 
-export default Counter;
+export default Dashboard;

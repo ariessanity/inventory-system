@@ -1,6 +1,5 @@
 import useAuth from "@/hooks/useAuth";
 import {
-  useDisclosure,
   Button,
   Modal,
   ModalOverlay,
@@ -12,22 +11,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-interface LogoutProps  {
-  isOpen: boolean,
-  onClose: () => void
+interface LogoutProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const LogoutModal: React.FC<LogoutProps>= ({isOpen, onClose }) => {
+const LogoutModal: React.FC<LogoutProps> = ({ isOpen, onClose }) => {
   const { handleLogout } = useAuth();
 
-  const logout = async() => {
+  const logout = async () => {
     try {
-      await handleLogout()
-      onClose()
+      await handleLogout();
+      onClose();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -45,10 +44,12 @@ const LogoutModal: React.FC<LogoutProps>= ({isOpen, onClose }) => {
             <Text>Are you sure you want to log out?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button colorScheme="teal" mr={3} onClick={onClose}>
               No
             </Button>
-            <Button onClick={logout} variant="ghost">Yes</Button>
+            <Button onClick={logout} variant="outline">
+              Yes
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

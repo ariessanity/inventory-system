@@ -241,16 +241,16 @@ const Product: NextPage = () => {
   return (
     <Flex flexDirection={"column"} justifyContent={"space-between"}>
       <Head>
-        <title>Product List</title>
+        <title>Product Management</title>
       </Head>
-      <Center
-        fontSize={20}
-        fontWeight={"bold"}
+      {/* <Center
+        fontSize={24}
+        fontWeight={"semibold"}
         color={"gray.600"}
         fontFamily={"inherit"}
       >
-        PRODUCT LIST
-      </Center>
+        PRODUCT MANAGEMENT
+      </Center> */}
       <Flex
         flexDirection={{
           base: "column-reverse",

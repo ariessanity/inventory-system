@@ -14,6 +14,7 @@ import { ProductModule } from './features/products/product.module';
 import { CategoryModule } from './features/category/category.module';
 import { TransactionModule } from './features/transaction/transaction.module';
 import { FileModule } from './features/file/file.module';
+import { DashboardModule } from './features/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { FileModule } from './features/file/file.module';
     ProductModule,
     CategoryModule,
     TransactionModule,
-    FileModule
+    FileModule,
+    DashboardModule
   ],
   controllers: [],
   providers: [

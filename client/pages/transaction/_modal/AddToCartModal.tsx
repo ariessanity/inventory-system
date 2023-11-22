@@ -27,6 +27,7 @@ interface DeleteProps {
   isOpen: boolean;
   productData: Product | undefined;
   onClose: () => void;
+  searchReset: () => void
 }
 
 const LOW_STOCK_ALERT = 0.1;
@@ -35,6 +36,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
   isOpen,
   productData,
   onClose,
+  searchReset
 }) => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state: any) => state.cart);
@@ -65,6 +67,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
   const handleAddToCart = () => {
     dispatch(addToCart({ ...productData, quantity }));
     setQuantity(1);
+    searchReset()
     onClose();
   };
 
