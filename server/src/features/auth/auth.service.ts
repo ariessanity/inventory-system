@@ -7,17 +7,14 @@ import { Token } from './dto/token.dto';
 import { Model, ObjectId, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './model/user.model';
-import { CreateMerchantDto } from './dto/create-merchant.dto';
-import { Role } from 'src/constants/role.enum';
-import { Store } from '../stores/model/store.model';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel('User')
     private readonly userModel: Model<User>,
-    @InjectModel('Store')
-    private readonly storeModel: Model<Store>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -29,7 +26,7 @@ export class AuthService {
 
     const user = this.userModel.create({
       ...inputSignupDto,
-      username: username,
+      username,
     });
 
     return user;
@@ -74,6 +71,58 @@ export class AuthService {
     return tokens;
   }
 
+  async getAllUser(id: Types.ObjectId, query: Request['query']): Promise<{ users: User[]; count: number }> {
+    const { page, limit, search, sortBy, sortOrder } = query;
+
+    const LIMIT = limit ? +limit : 20;
+    const SKIP = page ? (+page - 1) * +LIMIT : 0;
+
+    const searchQuery = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: 'i' } },
+            { description: { $regex: search, $options: 'i' } },
+            { category: { $regex: search, $options: 'i' } },
+            { sku: { $regex: search, $options: 'i' } },
+            { unit: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
+
+    const sortQuery = {};
+    if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;
+
+    const count = await this.userModel.countDocuments({ ...searchQuery });
+    const users = await this.userModel
+      .find({ ...searchQuery })
+      .select("-password -refreshToken -__v")
+      .skip(SKIP)
+      .limit(LIMIT)
+      .sort(sortQuery)
+      .lean();
+
+    return { users, count };
+  }
+
+
+  async updateUser(id: ObjectId, updateUserDto: UpdateUserDto): Promise<User> {
+    const { username } = updateUserDto;
+
+    const isUserNameExist = await this.userModel.exists({ _id: { $ne: id }, username });
+    if (isUserNameExist) throw new ConflictException('User already exists');
+
+    const updateUser = await this.userModel.findByIdAndUpdate(id, { ...updateUserDto }, { new: true });
+    return updateUser;
+  }
+
+  async deleteUser(id: ObjectId): Promise<User> {
+    const isUserExist = await this.userModel.exists({ _id: id });
+    if (!isUserExist) throw new ConflictException('User id not found');
+
+    const deleteUser = await this.userModel.findByIdAndDelete(id, { new: true });
+    return deleteUser;
+  }
+
   async updateRefreshTokenHash(id: Types.ObjectId, refreshTokens: string) {
     const salt = await bcrypt.genSalt();
     const hashedRefreshToken = await bcrypt.hash(refreshTokens, salt);
@@ -91,7 +140,7 @@ export class AuthService {
         },
         {
           secret: 'SECRET',
-          expiresIn: 60 * 60 * 24 ,
+          expiresIn: 60 * 60 * 24,
         },
       ),
       this.jwtService.signAsync(
@@ -126,28 +175,5 @@ export class AuthService {
     } else {
       throw new UnauthorizedException('Please check your login credentials');
     }
-  }
-
-  async createMerchant(createMerchantDto: CreateMerchantDto): Promise<User> {
-    const { storeName, username, ...rest } = createMerchantDto;
-
-    const isUsernameExist = await this.userModel.exists({ username });
-    if (isUsernameExist) throw new ConflictException('Username already exists');
-
-    const newUser = await this.userModel.create({
-      ...rest,
-      username,
-      role: Role.Owner,
-    });
-
-    const isStoreNameExist = await this.storeModel.exists({ name: storeName });
-    if (isStoreNameExist) throw new ConflictException('Store name already exists');
-
-    const newStore = await this.storeModel.create({
-      name: storeName,
-      teamMembers: [newUser._id],
-    });
-
-    return newUser;
   }
 }

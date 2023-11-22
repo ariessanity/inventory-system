@@ -86,11 +86,6 @@ export class ProductService {
     return { products, count };
   }
 
-  async getCountProduct(): Promise<number> {
-    const count = await this.productModel.countDocuments();
-    return count;
-  }
-
   async updateProduct(id: ObjectId, updateProductDto: UpdateProductDto): Promise<Product> {
     const { name, price, quantity } = updateProductDto;
 

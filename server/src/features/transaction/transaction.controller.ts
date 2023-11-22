@@ -14,21 +14,20 @@ export class TransactionController {
 
   @Post('api/createTransaction')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
   createTransaction(@Req() req: RequestWithUser, @Body() createTransactionDto: CreateTransactionDto) {
     return this.transactionService.createTransaction(req.user, createTransactionDto);
   }
 
   @Get('api/getTransactionHistory')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.SuperAdmin)
   getTransactionHistory(@Query() query: Request['query']) {
     return this.transactionService.getTransactionHistory(query);
   }
 
   @Get('api/getProductSold')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.SuperAdmin)
   getProductSold(@Query() query: Request['query']) {
     return this.transactionService.getProductSold(query);
   }

@@ -39,6 +39,7 @@ export const TAG_TYPES = [
   "Category",
   "Cart",
   "Transaction",
+  "Supplier"
 ];
 
 export const api = createApi({

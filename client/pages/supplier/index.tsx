@@ -206,14 +206,14 @@ const Supplier: NextPage = () => {
       <Head>
         <title>Supplier Management</title>
       </Head>
-      {/* <Center
-        fontSize={24}
-        fontWeight={"semibold"}
+      <Center
+        fontSize={30}
+        fontWeight={"400"}
         color={"gray.600"}
         fontFamily={"inherit"}
       >
         SUPPLIER MANAGEMENT
-      </Center> */}
+      </Center>
       <Flex
         flexDirection={{
           base: "column-reverse",

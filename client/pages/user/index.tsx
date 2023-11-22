@@ -19,20 +19,17 @@ import {
   AiOutlineClose,
   AiOutlinePlusCircle,
 } from "react-icons/ai";
-import {
-  useDeleteProductMutation,
-  useGetAllProductsQuery,
-} from "@/store/product/api";
+import { useDeleteUserMutation, useGetAllUsersQuery } from "@/store/user/api";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import ProductDrawer from "./_component/ProductDrawer";
-import { Product } from "@/store/product/types";
+import UserDrawer from "./_component/UserDrawer";
+import { User } from "@/store/user/types";
 import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
 
-const Product: NextPage = () => {
+const User: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
-  const [editData, setEditData] = useState<Product>();
+  const [editData, setEditData] = useState<User>();
   const [deleteId, setIdDelete] = useState<string>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [filters, setFilters] = useState<any>({
@@ -45,20 +42,20 @@ const Product: NextPage = () => {
     direction: "",
   });
 
-  const [deleteProduct] = useDeleteProductMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const searchParams = useFilter({ ...filters });
   const {
-    data: products,
+    data: users,
     refetch,
     isFetching,
     isLoading,
-  } = useGetAllProductsQuery(searchParams);
+  } = useGetAllUsersQuery(searchParams);
 
   const {
-    isOpen: isOpenProductDrawer,
-    onClose: onCloseProductDrawer,
-    onOpen: onOpenProductDrawer,
+    isOpen: isOpenUserDrawer,
+    onClose: onCloseUserDrawer,
+    onOpen: onOpenUserDrawer,
   } = useDisclosure();
 
   const {
@@ -67,29 +64,27 @@ const Product: NextPage = () => {
     onOpen: onOpenDeleteModal,
   } = useDisclosure();
 
-  const handleEditProduct = (id: string) => {
-    const productData = products?.products?.find(
-      (product) => product._id === id
-    );
+  const handleEditUser = (id: string) => {
+    const userData = users?.users?.find((user) => user._id === id);
 
-    onOpenProductDrawer();
+    onOpenUserDrawer();
     setIsEdit(true);
-    setEditData(productData);
+    setEditData(userData);
   };
 
-  const handleDeleteProduct = async () => {
-    await deleteProduct(deleteId);
+  const handleDeleteUser = async () => {
+    await deleteUser(deleteId);
     onCloseDeleteModal();
-    onCloseProductDrawer();
+    onCloseUserDrawer();
   };
 
-  const handleOpenModalDeleteProduct = (id: string | undefined) => {
+  const handleOpenModalDeleteUser = (id: string | undefined) => {
     onOpenDeleteModal();
     setIdDelete(id);
   };
 
-  const handleCreateProduct = () => {
-    onOpenProductDrawer();
+  const handleCreateUser = () => {
+    onOpenUserDrawer();
     setIsEdit(false);
   };
 
@@ -135,103 +130,67 @@ const Product: NextPage = () => {
 
   const columns = [
     {
-      Header: "SKU",
-      accessor: "sku",
+      Header: "Username",
+      accessor: "username",
       width: 150,
-      sortDirection: sort.accessor === "sku" ? sort.direction : "none",
-      Cell: ({ row, value }: any) => {
-        return (
-          <Text
-            textDecor={"underline"}
-            color="teal"
-            cursor={"pointer"}
-            onClick={() => {
-              handleEditProduct(row.original._id);
-              setIdDelete(row.original._id);
-            }}
-          >
-            {value}
-          </Text>
-        );
+      sortDirection: sort.accessor === "username" ? sort.direction : "none",
+    },
+    {
+      Header: "Full Name",
+      accessor: "firstname",
+      width: 150,
+      sortDirection: sort.accessor === "firstname" ? sort.direction : "none",
+      Cell: ({ cell: { value, row } }: any) => {
+        return <Text>{value ? `${value} ${row.original.lastname}` : "-"}</Text>;
       },
     },
     {
-      Header: "Name",
-      accessor: "name",
-      width: 150,
-      sortDirection: sort.accessor === "name" ? sort.direction : "none",
-    },
-    {
-      Header: "Description",
-      accessor: "description",
+      Header: "Email",
+      accessor: "email",
       width: 150,
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value ? value : "-"}</Text>;
       },
-      sortDirection: sort.accessor === "description" ? sort.direction : "none",
+      sortDirection: sort.accessor === "email" ? sort.direction : "none",
     },
     {
-      Header: "Category",
-      accessor: "category",
-      width: 150,
+      Header: "Contact Number",
+      accessor: "mobileNumber",
+      width: 160,
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value}</Text>;
       },
-      sortDirection: sort.accessor === "category" ? sort.direction : "none",
+      sortDirection: sort.accessor === "mobileNumber" ? sort.direction : "none",
     },
     {
-      Header: () => <Text>Price per unit</Text>,
-      accessor: "price",
-      width: 150,
+      Header: "Role",
+      accessor: "role",
+      width: 120,
       Cell: ({ cell: { value } }: any) => {
-        const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue}</Text>;
+        return <Text>{value}</Text>;
       },
-      sortDirection: sort.accessor === "price" ? sort.direction : "none",
-    },
-    {
-      Header: "Unit",
-      accessor: "unit",
-      width: 100,
-      sortDirection: sort.accessor === "unit" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text textAlign={"center"}>Quantity</Text>,
-      accessor: "quantity",
-      width: 100,
-      Cell: ({ cell: { value } }: any) => (
-        <Text textAlign={"center"}>{value}</Text>
-      ),
-      sortDirection: sort.accessor === "quantity" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text>Total</Text>,
-      accessor: "total",
-      width: 150,
-      Cell: ({ cell: { value } }: any) => {
-        const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue}</Text>;
-      },
-      sortDirection: sort.accessor === "total" ? sort.direction : "none",
+      sortDirection: sort.accessor === "role" ? sort.direction : "none",
     },
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
-      width: 100,
-      Cell: ({ cell: { value } }: any) => {
+      width: 80,
+      Cell: ({ cell: { value, row } }: any) => {
         return (
-          <Flex justifyContent={"center"}>
+          <Flex>
             <EditIcon
               mr={5}
               color="teal.500"
               cursor="pointer"
-              onClick={() => handleEditProduct(value)}
+              onClick={() => handleEditUser(value)}
             />
-            <DeleteIcon
-              onClick={() => handleOpenModalDeleteProduct(value)}
-              color="red.500"
-              cursor="pointer"
-            />
+            {row.original.role !== "Super Admin" && (
+              <DeleteIcon
+                onClick={() => handleOpenModalDeleteUser(value)}
+                color="red.500"
+                cursor="pointer"
+              />
+            )}
           </Flex>
         );
       },
@@ -241,7 +200,7 @@ const Product: NextPage = () => {
   return (
     <Flex flexDirection={"column"} justifyContent={"space-between"}>
       <Head>
-        <title>Product Management</title>
+        <title>User Management</title>
       </Head>
       <Center
         fontSize={30}
@@ -249,7 +208,7 @@ const Product: NextPage = () => {
         color={"gray.600"}
         fontFamily={"inherit"}
       >
-        PRODUCT MANAGEMENT
+        USER MANAGEMENT
       </Center>
       <Flex
         flexDirection={{
@@ -266,10 +225,10 @@ const Product: NextPage = () => {
           fontWeight={"300"}
           colorScheme="teal"
           variant="outline"
-          onClick={handleCreateProduct}
+          onClick={handleCreateUser}
           leftIcon={<AiOutlinePlusCircle />}
         >
-          Add Product
+          Add User
         </Button>
         <InputGroup
           w={"100%"}
@@ -293,27 +252,27 @@ const Product: NextPage = () => {
       </Flex>
       <TableComponent
         columns={columns}
-        data={products?.products || []}
-        count={products?.count}
+        data={users?.users || []}
+        count={users?.count}
         isLoading={isLoading}
         currentPage={filters?.page}
         onPageChange={handlePageChange}
         onSortChange={handleSortChange}
       />
-      <ProductDrawer
-        isOpen={isOpenProductDrawer}
-        onClose={onCloseProductDrawer}
+      <UserDrawer
+        isOpen={isOpenUserDrawer}
+        onClose={onCloseUserDrawer}
         isEdit={isEdit}
         editData={editData}
-        deleteProduct={handleOpenModalDeleteProduct}
+        deleteUser={handleOpenModalDeleteUser}
       />
       <DeleteModal
         isOpen={isOpenDeleteModal}
         onClose={onCloseDeleteModal}
-        onClick={handleDeleteProduct}
+        onClick={handleDeleteUser}
       />
     </Flex>
   );
 };
 
-export default Product;
+export default User;

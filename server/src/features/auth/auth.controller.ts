@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Get, Put, Delete, Param, Req, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { SignupDto } from './dto/signup.dto';
@@ -9,7 +9,9 @@ import { User } from './model/user.model';
 import { Role } from 'src/constants/role.enum';
 import { Roles } from 'src/decorators/role.decorator';
 import { RequestWithUser } from 'src/types/request-with-user';
-import { CreateMerchantDto } from './dto/create-merchant.dto';
+import { ObjectId } from 'mongoose';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { Request } from 'express';
 
 @Controller('api')
 export class AuthController {
@@ -28,21 +30,37 @@ export class AuthController {
 
   @Post('auth/logout')
   @UseGuards(JwtAuthGuard)
-  async logout(@Request() req: RequestWithUser): Promise<Token> {
+  async logout(@Req() req: RequestWithUser): Promise<Token> {
     const refreshToken = req.headers.authorization.replace('Bearer', '').trim();
     return this.authService.logout(req.user._id, refreshToken);
   }
 
-  @Post('auth/refresh')
+  @Get('auth/getAllUser')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Owner)
-  async refreshToken(@Request() req: RequestWithUser): Promise<Token> {
-    const refreshToken = req.headers.authorization.replace('Bearer', '').trim();
-    return this.authService.refreshTokens(req.user._id, refreshToken);
+  @Roles(Role.Admin, Role.SuperAdmin)
+  getAllUser(@Req() req: RequestWithUser, @Query() query: Request['query']) {
+    return this.authService.getAllUser(req.user._id, query);
   }
 
-  @Post('auth/createMerchant')
-  async createMerchant(@Body() createMerchantDto: CreateMerchantDto): Promise<User> {
-    return this.authService.createMerchant(createMerchantDto);
+  @Put('auth/updateUser/:id')
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.SuperAdmin)
+  updateUser(@Param('id') id: ObjectId, @Body() updateUserDto: UpdateUserDto) {
+    return this.authService.updateUser(id, updateUserDto);
+  }
+
+  @Delete('auth/deleteUser/:id')
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.SuperAdmin)
+  deleteUser(@Param('id') id: ObjectId) {
+    return this.authService.deleteUser(id);
+  }
+
+  @Post('auth/refresh')
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.SuperAdmin)
+  async refreshToken(@Req() req: RequestWithUser): Promise<Token> {
+    const refreshToken = req.headers.authorization.replace('Bearer', '').trim();
+    return this.authService.refreshTokens(req.user._id, refreshToken);
   }
 }

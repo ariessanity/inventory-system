@@ -15,34 +15,27 @@ export class ProductController {
 
   @Post('api/createProduct')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.SuperAdmin)
   createProduct(@Req() req: RequestWithUser, @Body() createProductDto: CreateProductDto) {
     return this.productService.createProduct(req.user._id, createProductDto);
   }
 
   @Get('api/getAllProducts')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
   getAllProduct(@Req() req: RequestWithUser, @Query() query: Request['query']) {
     return this.productService.getAllProduct(req.user._id, query);
   }
 
-  @Get('api/getCountProducts')
-  @UseGuards(JwtAuthGuard)
-  getCountProduct() {
-    return this.productService.getCountProduct();
-  }
-
   @Put('api/updateProduct/:id')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.SuperAdmin)
   updateProduct(@Param('id') id: ObjectId, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.updateProduct(id, updateProductDto);
   }
 
   @Delete('api/deleteProduct/:id')
   @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.SuperAdmin)
   deleteProduct(@Param('id') id: ObjectId) {
     return this.productService.deleteProduct(id);
   }

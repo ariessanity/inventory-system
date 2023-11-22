@@ -64,7 +64,7 @@ const ProductSoldComponent = () => {
       sortDirection: sort.accessor === "sku" ? sort.direction : "none",
     },
     {
-      Header: "Name",
+      Header: "Product",
       accessor: "name",
       width: 150,
       sortDirection: sort.accessor === "name" ? sort.direction : "none",

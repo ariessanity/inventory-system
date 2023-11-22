@@ -29,7 +29,7 @@ export const supplierApi = api.injectEndpoints({
         meta,
         arg
       ) => response.data,
-      providesTags: ["Supplier", "Transaction"],
+      providesTags: ["Supplier"],
     }),
 
     updateSupplier: builder.mutation<Supplier, Partial<Supplier>>({

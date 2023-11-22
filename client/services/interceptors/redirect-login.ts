@@ -16,6 +16,10 @@ export const redirectLoginInterceptor = (axiosInstance: AxiosInstance) => {
         router.replace("/login");
       }
 
+      if (reject.response?.status === 403) {
+        router.replace("/dashboard");
+      }
+
       if (reject.response?.status === 420) {
         if (Cookies.get("authorized")) {
           alert(

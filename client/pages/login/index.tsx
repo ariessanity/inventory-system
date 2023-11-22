@@ -11,6 +11,11 @@ import {
   Stack,
   Image,
   FormErrorMessage,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  useColorModeValue,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { Form, SubmitHandler, useForm } from "react-hook-form";
@@ -21,6 +26,7 @@ import { useState } from "react";
 const Login: NextPage = () => {
   const { handleLogin } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -54,7 +60,7 @@ const Login: NextPage = () => {
           <form onSubmit={handleSubmit(handleOnSubmit)}>
             <FormControl id="username" isInvalid={!!errors?.username}>
               <FormLabel>Username</FormLabel>
-              <Input type="username" {...register("username")} />
+              <Input type="text" {...register("username")} />
               <FormErrorMessage>
                 {errors.username && errors.username.message}
               </FormErrorMessage>
@@ -62,7 +68,23 @@ const Login: NextPage = () => {
 
             <FormControl id="password" isInvalid={!!errors?.password}>
               <FormLabel>Password</FormLabel>
-              <Input type="password" {...register("password")} />
+              <InputGroup size="md">
+                <Input rounded="md" type={showPassword ? "text" : "password"}  {...register("password")}/>
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    rounded="md"
+                    bg={useColorModeValue("gray.300", "gray.700")}
+                    _hover={{
+                      bg: useColorModeValue("gray.400", "gray.800"),
+                    }}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
               <FormErrorMessage>
                 {errors.password && errors.password.message}
               </FormErrorMessage>

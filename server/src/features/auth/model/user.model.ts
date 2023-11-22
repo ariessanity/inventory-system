@@ -8,8 +8,8 @@ export interface User {
   email: string;
   password: string;
   role: Role;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   mobileNumber: string;
   isLogin: boolean;
   // store: Store[];
@@ -24,8 +24,8 @@ export const UserSchema = new Schema<User>(
     email: { type: String },
     password: { type: String, required: true },
     role: { type: String, enum: Role },
-    firstName: { type: String },
-    lastName: { type: String },
+    firstname: { type: String },
+    lastname: { type: String },
     mobileNumber: { type: String },
     isLogin: { type: Boolean },
     lastLogin: { type: String },

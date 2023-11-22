@@ -18,11 +18,9 @@ const useAuth = () => {
     }
 
     if (data?.accessToken) {
-      const payload = jwt.decode(data?.accessToken);
-
       Cookies.set("authorized", "true");
       Cookies.set("jwt", data?.accessToken);
-      Cookies.set("user", payload as any);
+      Cookies.set("role", data?.role);
 
       router.push("/dashboard");
     }

@@ -19,22 +19,21 @@ import {
   DrawerOverlay,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { IconType } from "react-icons";
-// Here we have used react-icons package for the icons
 import {
-  AiOutlineTeam,
-  AiOutlineHome,
-  AiOutlineBuild,
   AiOutlineBarChart,
   AiOutlineDesktop,
   AiOutlineInbox,
   AiOutlineFileText,
+  AiOutlineUser,
+  AiOutlineShop,
 } from "react-icons/ai";
-import { BsFolder2, BsCalendarCheck } from "react-icons/bs";
-import { FiHome, FiLogOut, FiMenu } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import { RiFlashlightFill } from "react-icons/ri";
 import LogoutModal from "./LogoutModal";
+import Cookies from "js-cookie";
+import { stringify } from "querystring";
 
 interface LinkItemProps {
   name: string;
@@ -46,10 +45,25 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
   { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
   { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
-  { name: "User Management", icon: AiOutlineFileText, url: "/user" },
-  { name: "Supplier", icon: AiOutlineFileText, url: "/supplier" },
+  { name: "User Management", icon: AiOutlineUser, url: "/user" },
+  { name: "Supplier Management", icon: AiOutlineShop, url: "/supplier" },
   { name: "Reports", icon: AiOutlineFileText, url: "/report" },
 ];
+
+const filteredNavigationItems = LinkItems.filter((item: any) => {
+  const role = Cookies.get("role");
+
+  if (role === "Cashier") {
+    return ![
+      "User Management",
+      "Supplier Management",
+      "Reports",
+      "Product Management",
+    ].includes(item.name);
+  }
+
+  return true;
+});
 
 interface Prop {
   children: ReactNode;
@@ -159,7 +173,7 @@ const SidebarContent = ({
             color="gray.600"
             aria-label="Main Navigation"
           >
-            {LinkItems.map((link, index) => (
+            {filteredNavigationItems.map((link, index) => (
               <NavItem
                 key={index}
                 icon={link.icon}
@@ -187,8 +201,8 @@ const SidebarContent = ({
               />
             </MenuButton>
             <MenuList fontSize={17} zIndex={5555}>
-              <MenuItem as={Link}>My profile</MenuItem>
-              <MenuItem as={Link}>Change password</MenuItem>
+              {/* <MenuItem as={Link}>My profile</MenuItem>
+              <MenuItem as={Link}>Change password</MenuItem> */}
               <MenuItem onClick={openLogoutModal}>Logout</MenuItem>
             </MenuList>
           </Menu>

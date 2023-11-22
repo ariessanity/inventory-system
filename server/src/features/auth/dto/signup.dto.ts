@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, ValidateIf } from 'class-validator';
 import { Role } from 'src/constants/role.enum';
 
 export class SignupDto {
@@ -18,16 +18,16 @@ export class SignupDto {
   @IsString()
   firstname: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   lastname: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @IsEnum(Role)
   role: string;
 
   @IsOptional()
-  @IsString()
+  @IsPhoneNumber('PH', { message: 'Contact number must be a valid phone number' })
   mobileNumber: string;
 }
