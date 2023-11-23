@@ -244,10 +244,10 @@ const Product: NextPage = () => {
         <title>Product Management</title>
       </Head>
       <Center
-        fontSize={30}
-        fontWeight={"semibold"}
+         fontSize={30}
+        fontWeight={"300"}
         color={"gray.600"}
-        fontFamily={"inherit"}
+        fontFamily={"monospace"}        
       >
         PRODUCT MANAGEMENT
       </Center>
