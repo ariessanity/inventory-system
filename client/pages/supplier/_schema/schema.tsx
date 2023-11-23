@@ -5,7 +5,7 @@ export type SupplierFormValues = {
   contactName: string;
   contactNumber: string;
   email: string;
-  remarks?: string;
+  remarks: string | undefined;
  };
 
 export const supplierSchema = yup.object().shape({

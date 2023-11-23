@@ -17,12 +17,12 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserFormValues, userSchema } from "../schema";
+import { UserFormValues, userSchema } from "../_schema/schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSignupMutation, useUpdateUserMutation } from "@/store/user/api";
 import { User } from "@/store/user/types";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { roles } from "../_data/role";
+import { roles } from "@/constants";
 
 interface UserDrawerProps {
   isOpen: boolean;

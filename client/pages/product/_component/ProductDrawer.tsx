@@ -17,16 +17,15 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ProductFormValues, productSchema } from "../schema";
+import { ProductFormValues, productSchema } from "../_schema/schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   useCreateProductMutation,
   useUpdateProductMutation,
 } from "@/store/product/api";
 import { Product } from "@/store/product/types";
-import { categories } from "../_data/category";
-import { units } from "../_data/unit";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { categories, units } from "@/constants";
 
 interface ProductDrawerProps {
   isOpen: boolean;

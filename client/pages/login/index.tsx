@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { Form, SubmitHandler, useForm } from "react-hook-form";
-import { LoginFormValues, loginSchema } from "./schema";
+import { LoginFormValues, loginSchema } from "./_schema/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 
