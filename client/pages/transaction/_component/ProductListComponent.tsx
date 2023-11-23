@@ -28,7 +28,7 @@ import AddToCartModal from "../_modal/AddToCartModal";
 import { Product } from "@/store/product/types";
 import { format } from "date-fns";
 import RadioCard from "./RadioCard";
-import { categories } from "@/pages/product/_data/category";
+import { categories } from "@/constants";
 
 const ProductListComponent = () => {
   const [searchValue, setSearchValue] = useState<string>("");
