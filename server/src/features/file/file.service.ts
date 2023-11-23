@@ -105,7 +105,7 @@ export class FileService {
     const transactionHistory = await this.transactionService.getTransactionHistory(query)
 
     let book = new Workbook();
-    let worksheet = book.addWorksheet('Product Sold');
+    let worksheet = book.addWorksheet('Transaction History');
 
     worksheet.columns = [
       { header: 'TRN', key: 'transactionSku', width: 20},

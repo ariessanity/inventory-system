@@ -96,7 +96,7 @@ export class TransactionService {
   async getTransactionHistory(query: Request['query']): Promise<{ transactionHistory: Transaction[]; count: number }> {
     const { page, limit, search, sortBy, sortOrder, startDate, endDate } = query;
 
-    const LIMIT = limit ? +limit : 20;
+    const LIMIT = limit ? +limit : 10000000;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
     const searchQuery: FilterQuery<Product> = {};
