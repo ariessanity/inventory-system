@@ -17,7 +17,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserFormValues, userSchema } from "../_schema/schema";
+import { UserFormValues, userSchema } from "../../../schema/user/schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSignupMutation, useUpdateUserMutation } from "@/store/user/api";
 import { User } from "@/store/user/types";

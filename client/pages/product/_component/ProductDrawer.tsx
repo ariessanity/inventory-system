@@ -17,7 +17,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ProductFormValues, productSchema } from "../_schema/schema";
+import { ProductFormValues, productSchema } from "../../../schema/product/schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   useCreateProductMutation,

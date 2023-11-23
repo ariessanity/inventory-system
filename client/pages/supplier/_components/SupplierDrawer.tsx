@@ -27,7 +27,7 @@ import { Supplier } from "@/store/supplier/types";
 // import { categories } from "../_data/category";
 // import { units } from "../_data/unit";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { SupplierFormValues, supplierSchema } from "../_schema/schema";
+import { SupplierFormValues, supplierSchema } from "../../../schema/supplier/schema";
 
 interface SupplierDrawerProps {
   isOpen: boolean;

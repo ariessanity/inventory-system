@@ -16,9 +16,14 @@ import { TransactionModule } from './features/transaction/transaction.module';
 import { FileModule } from './features/file/file.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { SupplierModule } from './features/supplier/supplier.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client/build'),
+    }),
     MongooseModule.forRoot('mongodb+srv://projectalpha:ZDwuey3ZZVXkUfWN@alpha.sw2wwhd.mongodb.net/inventory-system?retryWrites=true&w=majority'),
     UserModule,
     AuthModule,
