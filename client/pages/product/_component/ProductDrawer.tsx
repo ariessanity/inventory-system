@@ -104,7 +104,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessCreateProduct, isErrorCreateProduct, errorCreateProduct]);
+  }, [isSuccessCreateProduct, isErrorCreateProduct, errorCreateProduct, toast]);
 
   useEffect(() => {
     if (isSuccessEditProduct) {
@@ -126,7 +126,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessEditProduct, isErrorEditProduct, errorEditProduct]);
+  }, [isSuccessEditProduct, isErrorEditProduct, errorEditProduct, toast]);
 
   useEffect(() => {
     if (isEdit && isSuccessEditProduct) {

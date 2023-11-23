@@ -102,7 +102,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessCreateUser, isErrorCreateUser, errorCreateUser]);
+  }, [isSuccessCreateUser, isErrorCreateUser, errorCreateUser, toast]);
 
   useEffect(() => {
     if (isSuccessEditUser) {
@@ -124,7 +124,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessEditUser, isErrorEditUser, errorEditUser]);
+  }, [isSuccessEditUser, isErrorEditUser, errorEditUser, toast]);
 
   useEffect(() => {
     if (isEdit && isSuccessEditUser) {

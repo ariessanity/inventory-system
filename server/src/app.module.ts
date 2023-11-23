@@ -21,9 +21,9 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client/build'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'client/build'),
+    // }),
     MongooseModule.forRoot('mongodb+srv://projectalpha:ZDwuey3ZZVXkUfWN@alpha.sw2wwhd.mongodb.net/inventory-system?retryWrites=true&w=majority'),
     UserModule,
     AuthModule,

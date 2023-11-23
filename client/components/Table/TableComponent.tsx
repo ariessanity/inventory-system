@@ -82,7 +82,7 @@ const TableComponent: React.FC<TableProps> = ({
       gotoPage(0);
       onPageChange(1);
     }
-  }, [currentPage, pageIndex, onPageChange]);
+  }, [currentPage, pageIndex, onPageChange, gotoPage]);
 
   const handlePreviousPage = () => {
     if (canPreviousPage) {

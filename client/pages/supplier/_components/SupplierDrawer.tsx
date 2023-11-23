@@ -27,7 +27,10 @@ import { Supplier } from "@/store/supplier/types";
 // import { categories } from "../_data/category";
 // import { units } from "../_data/unit";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { SupplierFormValues, supplierSchema } from "../../../schema/supplier/schema";
+import {
+  SupplierFormValues,
+  supplierSchema,
+} from "../../../schema/supplier/schema";
 
 interface SupplierDrawerProps {
   isOpen: boolean;
@@ -106,7 +109,12 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessCreateSupplier, isErrorCreateSupplier, errorCreateSupplier]);
+  }, [
+    isSuccessCreateSupplier,
+    isErrorCreateSupplier,
+    errorCreateSupplier,
+    toast,
+  ]);
 
   useEffect(() => {
     if (isSuccessEditSupplier) {
@@ -128,7 +136,7 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
         isClosable: true,
       });
     }
-  }, [isSuccessEditSupplier, isErrorEditSupplier, errorEditSupplier]);
+  }, [isSuccessEditSupplier, isErrorEditSupplier, errorEditSupplier, toast]);
 
   useEffect(() => {
     if (isEdit && isSuccessEditSupplier) {
@@ -240,7 +248,11 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
               <FormLabel htmlFor="remarks" fontWeight={"300"}>
                 Remarks
               </FormLabel>
-              <Textarea id="remarks" {...register("remarks")} fontWeight={"300"} />
+              <Textarea
+                id="remarks"
+                {...register("remarks")}
+                fontWeight={"300"}
+              />
               <FormErrorMessage>
                 {errors.remarks && errors.remarks.message}
               </FormErrorMessage>

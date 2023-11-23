@@ -63,7 +63,7 @@ const OrderComponent = () => {
         });
       }
     }
-  }, [isSuccessCreateTransaction]);
+  }, [isSuccessCreateTransaction, toast]);
 
   return (
     <>
