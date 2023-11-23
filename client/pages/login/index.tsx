@@ -75,9 +75,9 @@ const Login: NextPage = () => {
                     h="1.75rem"
                     size="sm"
                     rounded="md"
-                    bg={useColorModeValue("gray.300", "gray.700")}
+                    bg={useColorModeValue("gray.100", "gray.700")}
                     _hover={{
-                      bg: useColorModeValue("gray.400", "gray.800"),
+                      bg: useColorModeValue("gray.300", "gray.800"),
                     }}
                     onClick={() => setShowPassword(!showPassword)}
                   >

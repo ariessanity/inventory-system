@@ -270,8 +270,8 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 fontWeight={"300"}
               >
                 {categories?.map((category, index) => (
-                  <option key={index} value={category.name}>
-                    {category.name}
+                  <option key={index} value={category}>
+                    {category}
                   </option>
                 ))}
               </Select>

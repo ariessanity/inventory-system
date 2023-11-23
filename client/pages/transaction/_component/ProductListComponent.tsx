@@ -5,6 +5,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
+  HStack,
   Icon,
   IconButton,
   Input,
@@ -14,6 +15,7 @@ import {
   Stack,
   Text,
   useDisclosure,
+  useRadioGroup,
 } from "@chakra-ui/react";
 import { color } from "framer-motion";
 import React, { useState } from "react";
@@ -25,6 +27,8 @@ import {
 import AddToCartModal from "../_modal/AddToCartModal";
 import { Product } from "@/store/product/types";
 import { format } from "date-fns";
+import RadioCard from "./RadioCard";
+import { categories } from "@/pages/product/_data/category";
 
 const ProductListComponent = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -53,6 +57,18 @@ const ProductListComponent = () => {
     onOpen: onOpenAddToCartModal,
   } = useDisclosure();
 
+  const handleFilterByCategory = (value: string) => {
+    setFilters({ ...filters, category: value });
+  };
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "category",
+    defaultValue: "All",
+    onChange: handleFilterByCategory,
+  });
+
+  const group = getRootProps();
+
   const columns = [
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
@@ -61,10 +77,10 @@ const ProductListComponent = () => {
       Cell: ({ cell: { value } }: any) => {
         return (
           <IconButton
-            size={'xs'}
+            size={"xs"}
             ml={2}
             variant={"none"}
-            icon={<AiOutlineShoppingCart color={'teal'}/>}
+            icon={<AiOutlineShoppingCart color={"teal"} />}
             colorScheme="teal"
             aria-label="Add to Cart"
             cursor="pointer"
@@ -157,48 +173,65 @@ const ProductListComponent = () => {
 
   return (
     <>
-      <Stack justifyContent={"space-between"}>
-        <Stack
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          mb={3}
+      <Stack
+        flexDirection={"row"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        mb={5}
+      >
+        <Text fontWeight={"300"} fontSize={30}>
+          {format(new Date(), "EEEE, hh:mm a")}
+        </Text>
+        <InputGroup
+          w={"100%"}
+          maxWidth={{ base: "100%", sm: "18.75em" }}
+          mb={{ base: 2, sm: 0 }}
         >
-          <Text fontWeight={"300"} fontSize={30}>
-            {format(new Date, "EEEE, hh:mm a")}
-          </Text>
-          <InputGroup
-            w={"100%"}
-            maxWidth={{ base: "100%", sm: "18.75em" }}
-            mb={{ base: 2, sm: 0 }}
-          >
-            <InputLeftElement cursor={"pointer"} onClick={onSearch}>
-              <AiOutlineSearch />
-            </InputLeftElement>
-            <Input
-              value={searchValue || ""}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={handleSearchEnter}
-              type="text"
-              placeholder="Search..."
-            />
-            <InputRightElement cursor={"pointer"} onClick={onSearchReset}>
-              <AiOutlineClose />
-            </InputRightElement>
-          </InputGroup>
-        </Stack>
-        <Stack>
-          <TableComponent
-            columns={columns}
-            data={products?.products || []}
-            count={products?.count}
-            isLoading={isLoading}
-            currentPage={filters?.page}
-            onPageChange={handlePageChange}
-            onSortChange={handleSortChange}
+          <InputLeftElement cursor={"pointer"} onClick={onSearch}>
+            <AiOutlineSearch />
+          </InputLeftElement>
+          <Input
+            value={searchValue || ""}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={handleSearchEnter}
+            type="text"
+            placeholder="Search..."
           />
-        </Stack>
+          <InputRightElement cursor={"pointer"} onClick={onSearchReset}>
+            <AiOutlineClose />
+          </InputRightElement>
+        </InputGroup>
       </Stack>
+
+      <HStack
+        {...group}
+        mb={4}
+        overflowX={"auto"}
+        css={{
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
+        {["All", ...categories].map((value) => {
+          const radio = getRadioProps({ value });
+          return (
+            <RadioCard key={value} {...radio}>
+              {value}
+            </RadioCard>
+          );
+        })}
+      </HStack>
+
+      <TableComponent
+        columns={columns}
+        data={products?.products || []}
+        count={products?.count}
+        isLoading={isLoading}
+        currentPage={filters?.page}
+        onPageChange={handlePageChange}
+        onSortChange={handleSortChange}
+      />
       <AddToCartModal
         isOpen={isOpenAddToCartModal}
         onClose={onCloseAddToCartModal}

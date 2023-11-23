@@ -208,7 +208,7 @@ const Supplier: NextPage = () => {
       </Head>
       <Center
         fontSize={30}
-        fontWeight={"400"}
+        fontWeight={"semibold"}
         color={"gray.600"}
         fontFamily={"inherit"}
       >

@@ -31,7 +31,7 @@ export class TransactionService {
     await Promise.all(
       cartData?.map(async (cartItem: Product) => {
         const { _id: id, quantity, price, ...rest } = cartItem;
-
+ 
         const isProductExist = await this.productModel.exists({ _id: id });
         if (!isProductExist) throw new ConflictException('Product not found!');
 
@@ -43,19 +43,28 @@ export class TransactionService {
           quantity,
           price,
           customerName,
-          cashierName: user.username,
+          cashierName: `${user?.firstname} ${user?.lastname}`,
           total: quantity * price,
           transactionSku,
-          createdAt: new Date(),
+          createdAt: new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' }),
         });
 
-        const updateProductQty = await this.productModel.findByIdAndUpdate(id, { quantity: product?.quantity - quantity }, { new: true });
+        const updateProductQty = await this.productModel.findByIdAndUpdate(
+          id,
+          { quantity: product?.quantity - quantity, total: product.total - quantity * price },
+          { new: true },
+        );
         return updateProductQty;
       }),
     );
 
     //Create Transaction
-    await this.transactionModel.create({ ...createTransactionDto, transactionSku, cashierName: user.username });
+    await this.transactionModel.create({
+      ...createTransactionDto,
+      transactionSku,
+      cashierName: `${user?.firstname} ${user?.lastname}`,
+      createdAt: new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' }),
+    });
   }
 
   async generateSku() {
@@ -90,11 +99,11 @@ export class TransactionService {
     const LIMIT = limit ? +limit : 20;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
-    const searchQuery: FilterQuery<Product> = {}
+    const searchQuery: FilterQuery<Product> = {};
     if (startDate && endDate) {
       const isoStartDate = new Date(startDate as string).toISOString();
-      const isoEndDate = new Date(endDate + 'T23:59:59' as string).toISOString();
-  
+      const isoEndDate = new Date((endDate + 'T23:59:59') as string).toISOString();
+
       searchQuery.createdAt = {
         $gte: isoStartDate,
         $lte: isoEndDate,
@@ -121,11 +130,11 @@ export class TransactionService {
     const LIMIT = limit ? +limit : 10000000;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
-    const searchQuery: FilterQuery<Product> = {}
+    const searchQuery: FilterQuery<Product> = {};
     if (startDate && endDate) {
       const isoStartDate = new Date(startDate as string).toISOString();
-      const isoEndDate = new Date(endDate + 'T23:59:59' as string).toISOString();
-  
+      const isoEndDate = new Date((endDate + 'T23:59:59') as string).toISOString();
+
       searchQuery.createdAt = {
         $gte: isoStartDate,
         $lte: isoEndDate,

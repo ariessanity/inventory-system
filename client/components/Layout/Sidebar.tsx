@@ -41,30 +41,6 @@ interface LinkItemProps {
   url: string;
 }
 
-const LinkItems: Array<LinkItemProps> = [
-  { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
-  { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
-  { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
-  { name: "User Management", icon: AiOutlineUser, url: "/user" },
-  { name: "Supplier Management", icon: AiOutlineShop, url: "/supplier" },
-  { name: "Reports", icon: AiOutlineFileText, url: "/report" },
-];
-
-const filteredNavigationItems = LinkItems.filter((item: any) => {
-  const role = Cookies.get("role");
-
-  if (role === "Cashier") {
-    return ![
-      "User Management",
-      "Supplier Management",
-      "Reports",
-      "Product Management",
-    ].includes(item.name);
-  }
-
-  return true;
-});
-
 interface Prop {
   children: ReactNode;
 }
@@ -136,6 +112,30 @@ const SidebarContent = ({
   ...props
 }: BoxProps & { openLogoutModal: () => void }) => {
   const { openLogoutModal, ...rest } = props;
+  
+  const LinkItems: Array<LinkItemProps> = [
+    { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
+    { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
+    { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
+    { name: "User Management", icon: AiOutlineUser, url: "/user" },
+    { name: "Supplier Management", icon: AiOutlineShop, url: "/supplier" },
+    { name: "Reports", icon: AiOutlineFileText, url: "/report" },
+  ];
+
+  const filteredNavigationItems = LinkItems.filter((item: any) => {
+    const role = Cookies.get("role");
+
+    if (role === "Cashier") {
+      return ![
+        "User Management",
+        "Supplier Management",
+        "Reports",
+        "Product Management",
+      ].includes(item.name);
+    }
+
+    return true;
+  });
 
   return (
     <Box
@@ -229,7 +229,7 @@ const NavItem = (props: any) => {
       transition=".15s ease"
       color={useColorModeValue("inherit", "gray.400")}
       _hover={{
-        bg: useColorModeValue("teal.400", "gray.900"),
+        bg: useColorModeValue("teal.500", "gray.900"),
         color: useColorModeValue("white", "gray.200"),
       }}
     >

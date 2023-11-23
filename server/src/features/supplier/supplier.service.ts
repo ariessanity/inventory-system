@@ -71,7 +71,6 @@ export class SupplierService {
   async deleteSupplier(id: ObjectId): Promise<Supplier> {
     const isSupplierExist = await this.supplierModel.exists({ _id: id });
 
-    console.log(isSupplierExist)
     if (!isSupplierExist) throw new ConflictException('Supplier id not found');
 
     const deleteSupplier = await this.supplierModel.findByIdAndDelete(id, { new: true });

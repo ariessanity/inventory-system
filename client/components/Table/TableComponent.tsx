@@ -122,7 +122,7 @@ const TableComponent: React.FC<TableProps> = ({
         >
           <Table
             layout="fixed"
-            variant="striped"
+            variant="simple"
             colorScheme="gray"
             fontWeight={"300"}
             {...getTableProps()}
@@ -184,6 +184,12 @@ const TableComponent: React.FC<TableProps> = ({
             </Tbody>
           </Table>
         </TableContainer>
+      )}
+
+      {data?.length == 0 && (
+        <Text my={4} textAlign={"center"} fontWeight={"300"}>
+          No Data Found
+        </Text>
       )}
 
       <Flex

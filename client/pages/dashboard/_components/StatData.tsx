@@ -12,7 +12,7 @@ const StatData: React.FC<StatData> = ({ data }) => {
       <SimpleGrid columns={{ base: 1, sm: 2, xl: 4 }} spacing={5} mb={4}>
         <Box p={5} boxShadow="md" rounded="md" borderWidth={1}>
           <Text fontWeight="semibold" fontSize="x-large">
-            ₱{data?.salesToday}
+            ₱{data?.salesToday.toFixed()}
           </Text>
           <Text fontWeight="300">Sales Today</Text>
         </Box>

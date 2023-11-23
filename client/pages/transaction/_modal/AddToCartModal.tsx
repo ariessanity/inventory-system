@@ -65,7 +65,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
   }, [maxAvailableQuantity, productData?.quantity, quantity]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...productData, quantity }));
+    dispatch(addToCart({ ...productData, quantity, total: quantity * (productData?.price || 0) }));
     setQuantity(1);
     searchReset()
     onClose();

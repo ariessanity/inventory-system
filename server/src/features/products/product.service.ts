@@ -55,11 +55,14 @@ export class ProductService {
   }
 
   async getAllProduct(id: Types.ObjectId, query: Request['query']): Promise<{ products: Product[]; count: number }> {
-    const { page, limit, search, sortBy, sortOrder } = query;
+    if (query.category === 'All') query.category = null;
+
+    const { page, limit, search, sortBy, sortOrder, category } = query;
 
     const LIMIT = limit ? +limit : 20;
     const SKIP = page ? (+page - 1) * +LIMIT : 0;
 
+    const categoryQuery = category ? { category } : {};
     const searchQuery = search
       ? {
           $or: [
@@ -75,9 +78,9 @@ export class ProductService {
     const sortQuery = {};
     if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;
 
-    const count = await this.productModel.countDocuments({ ...searchQuery });
+    const count = await this.productModel.countDocuments({ ...searchQuery, ...categoryQuery });
     const products = await this.productModel
-      .find({ ...searchQuery })
+      .find({ ...searchQuery, ...categoryQuery })
       .skip(SKIP)
       .limit(LIMIT)
       .sort(sortQuery)

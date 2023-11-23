@@ -5,7 +5,6 @@ import { useGetStatisticsQuery } from "@/store/dashboard/api";
 
 const Dashboard = () => {
   const { data: statistics, isError, isLoading } = useGetStatisticsQuery();
-  console.log({ statistics });
   return (
     <>
       <Head>

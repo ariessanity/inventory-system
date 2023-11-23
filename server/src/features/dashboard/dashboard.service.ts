@@ -48,9 +48,9 @@ export class DashboardService {
 
     return {
       totalProducts,
-      inventoryValue: inventoryValue[0].inventoryValue,
-      salesToday: salesToday[0].salesToday,
-      soldToday: soldToday[0].count,
+      inventoryValue: inventoryValue[0]?.inventoryValue,
+      salesToday: salesToday[0]?.salesToday || 0,
+      soldToday: soldToday[0]?.count || 0,
     };
   }
 }

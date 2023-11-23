@@ -44,6 +44,8 @@ export const cartSlice = createSlice({
       );
       if (itemToIncrease) {
         (itemToIncrease as Product).quantity += 1;
+        itemToIncrease.total =
+          (itemToIncrease.quantity || 0) * (itemToIncrease.price || 0);
         state.totalPrice += itemToIncrease?.price || 0;
       }
     },
@@ -53,6 +55,8 @@ export const cartSlice = createSlice({
       );
       if (itemToDecrease && (itemToDecrease as Product).quantity > 1) {
         (itemToDecrease as Product).quantity -= 1;
+        itemToDecrease.total =
+          (itemToDecrease.quantity || 0) * (itemToDecrease.price || 0);
         state.totalPrice -= itemToDecrease?.price || 0;
       }
     },

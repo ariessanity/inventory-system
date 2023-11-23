@@ -182,6 +182,7 @@ const TransactionHistoryComponent = () => {
 
     setProductData(findProduct?.cartData);
     onOpenProductSoldModal();
+
   };
 
   return (
