@@ -18,11 +18,12 @@ import { DashboardModule } from './features/dashboard/dashboard.module';
 import { SupplierModule } from './features/supplier/supplier.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client/build'),
+      rootPath: join(__dirname, '..', '..', 'client/build/server/pages'),
     }),
     MongooseModule.forRoot('mongodb+srv://projectalpha:ZDwuey3ZZVXkUfWN@alpha.sw2wwhd.mongodb.net/inventory-system?retryWrites=true&w=majority'),
     UserModule,
@@ -35,7 +36,7 @@ import { join } from 'path';
     DashboardModule,
     SupplierModule
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     JwtService,
     {
