@@ -1,1 +1,1 @@
-export const BASE_URL = '/'
+export const BASE_URL = 'http://54.255.152.191/'

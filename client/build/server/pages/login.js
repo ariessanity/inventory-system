@@ -199,7 +199,7 @@ eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   BASE_URL: () => (/* binding */ BASE_URL)\n/* harmony export */ });\nconst BASE_URL = \"/\";\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zZXJ2aWNlcy9jb25zdGFudHMudHMiLCJtYXBwaW5ncyI6Ijs7OztBQUFPLE1BQU1BLFdBQVcsSUFBRyIsInNvdXJjZXMiOlsid2VicGFjazovL2NsaWVudC8uL3NlcnZpY2VzL2NvbnN0YW50cy50cz9kNjVhIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBCQVNFX1VSTCA9ICcvJyJdLCJuYW1lcyI6WyJCQVNFX1VSTCJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./services/constants.ts\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   BASE_URL: () => (/* binding */ BASE_URL)\n/* harmony export */ });\nconst BASE_URL = \"http://54.255.152.191/\";\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zZXJ2aWNlcy9jb25zdGFudHMudHMiLCJtYXBwaW5ncyI6Ijs7OztBQUFPLE1BQU1BLFdBQVcseUJBQXdCIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vY2xpZW50Ly4vc2VydmljZXMvY29uc3RhbnRzLnRzP2Q2NWEiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IEJBU0VfVVJMID0gJ2h0dHA6Ly81NC4yNTUuMTUyLjE5MS8nIl0sIm5hbWVzIjpbIkJBU0VfVVJMIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./services/constants.ts\n");
 
 /***/ }),
 
