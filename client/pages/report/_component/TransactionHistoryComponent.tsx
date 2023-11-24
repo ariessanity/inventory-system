@@ -20,11 +20,7 @@ import { useReportTransactionHistoryMutation } from "@/store/file/api";
 import downloadExcelFile from "@/helpers/download-link";
 import DateFilter from "./DateFilter";
 import ExportButton from "./ExportButton";
-
-const formatDate = (isoDate: Date) => {
-  const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
-  return formattedDate;
-};
+import { formatDate } from "@/utils/date-format";
 
 const TransactionHistoryComponent = () => {
   const [productData, setProductData] = useState<Product[]>();

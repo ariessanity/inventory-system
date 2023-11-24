@@ -9,11 +9,7 @@ import { useReportProductSoldMutation } from "@/store/file/api";
 import downloadExcelFile from "@/helpers/download-link";
 import DateFilter from "./DateFilter";
 import ExportButton from "./ExportButton";
-
-const formatDate = (isoDate: Date) => {
-  const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
-  return formattedDate;
-};
+import { formatDate } from "@/utils/date-format";
 
 const ProductSoldComponent = () => {
   const [filters, setFilters] = useState<any>({
@@ -48,6 +44,8 @@ const ProductSoldComponent = () => {
       console.log("Error", error);
     }
   };
+
+  console.log("test", new Date())
 
   const columns = [
     {
