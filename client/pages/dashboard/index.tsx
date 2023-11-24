@@ -10,7 +10,7 @@ const Dashboard = () => {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <StatData data={statistics} />
+      <StatData data={statistics} isLoading={isLoading} />
     </>
   );
 };
