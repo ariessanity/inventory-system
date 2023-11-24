@@ -3,8 +3,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { api } from "./base-query-api";
 import counterReducer from "./slice/counterSlice";
 import cartReducer from "./slice/cartSlice";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+import storage from "@/config/storage";
 
 const storeMiddlewares: Middleware[] = [];
 storeMiddlewares.push(api.middleware);
