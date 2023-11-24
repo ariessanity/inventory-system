@@ -22,9 +22,9 @@ import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'client/build/server/pages'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', '..', 'client/build/server/pages'),
+    // }),
     MongooseModule.forRoot('mongodb+srv://projectalpha:ZDwuey3ZZVXkUfWN@alpha.sw2wwhd.mongodb.net/inventory-system?retryWrites=true&w=majority'),
     UserModule,
     AuthModule,

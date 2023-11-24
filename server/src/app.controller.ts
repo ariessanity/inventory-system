@@ -3,10 +3,10 @@ import { Response } from 'express';
 
 @Controller()
 export class AppController {
-  @Get()
-  get(@Res() res: Response) {
-    res.sendFile('index.html', {
-      root: '../client/build/server/pages',
-    });
-  }
+  // @Get()
+  // get(@Res() res: Response) {
+  //   res.sendFile('index.html', {
+  //     root: '../client/build/server/pages',
+  //   });
+  // }
 }
