@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://54.255.152.191/'
+export const BASE_URL = 'https://inventory-system-server-roan.vercel.app/'
