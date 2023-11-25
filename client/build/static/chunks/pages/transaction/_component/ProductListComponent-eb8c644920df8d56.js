@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[385],{50:function(n,_,o){(window.__NEXT_P=window.__NEXT_P||[]).push(["/transaction/_component/ProductListComponent",function(){return o(8065)}])}},function(n){n.O(0,[776,815,614,903,65,774,888,179],function(){return n(n.s=50)}),_N_E=n.O()}]);
