@@ -45,8 +45,6 @@ const ProductSoldComponent = () => {
     }
   };
 
-  console.log("test", new Date())
-
   const columns = [
     {
       Header: "TRN",
