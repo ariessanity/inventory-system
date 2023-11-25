@@ -1,6 +1,12 @@
 import { format } from "date-fns";
 
 export const formatDate = (isoDate: Date) => {
-    const formattedDate = format(new Date(isoDate), "MMM dd, yyyy h:mma");
-    return formattedDate;
-  };
+  const originalDate = new Date(isoDate);
+  const localTime = originalDate.toLocaleString("en-US", {
+    timeZone: "Asia/Manila",
+  });
+
+  const formattedDate = format(new Date(localTime), "MMM dd, yyyy h:mma");
+
+  return formattedDate;
+};
