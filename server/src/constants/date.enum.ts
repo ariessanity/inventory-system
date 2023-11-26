@@ -1,5 +1,5 @@
-export const todayStart = new Date();
-todayStart.setHours(0, 0, 0, 0);
+export let todayStart = new Date();
+todayStart.setHours(8, 0, 0, 0); //+8HRS
 
-export const todayEnd = new Date();
-todayEnd.setHours(23, 59, 59);
+export let todayEnd = new Date();
+todayEnd.setHours(31, 59, 59, 999); //+8HRS
