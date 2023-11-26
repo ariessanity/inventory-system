@@ -1,5 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import {
+  Button,
   Flex,
   FocusLock,
   IconButton,
@@ -31,25 +32,29 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
-        placement={'top-end'}
+        placement={"top-end"}
         closeOnBlur={false}
       >
         <PopoverTrigger>
-          <IconButton colorScheme="teal" variant={"outline"} aria-label={""} icon={<AiOutlineFilter />} ></IconButton>
+          <IconButton
+            colorScheme="teal"
+            variant={"outline"}
+            aria-label={""}
+            icon={<AiOutlineFilter />}
+          ></IconButton>
         </PopoverTrigger>
         <PopoverContent p={5}>
           <PopoverCloseButton />
-          <Text fontWeight={'500'} mb={4}>Date Filter</Text>
+          <Text fontWeight={"500"} mb={4}>
+            Date Filter
+          </Text>
 
           <Flex
-            alignItems={'flex-start'}
+            alignItems={"flex-start"}
             justifyContent={"space-between"}
-            flexDirection={'column'}
+            flexDirection={"column"}
           >
-            <Flex
-              alignItems={"center"}
-              mb={4}
-            >
+            <Flex alignItems={"center"} mb={4}>
               <Text fontWeight={"300"} mr={4}>
                 From
               </Text>
@@ -88,6 +93,33 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
                 type="date"
                 w={56}
               />
+            </Flex>
+            <Flex
+              mt={4}
+              alignItems={"center"}
+              justifyContent={"space-evenly"}
+              width={"100%"}
+            >
+              <Button
+                onClick={() => {
+                  setFilters({ ...filters, startDate: "", endDate: "" });
+                }}
+                colorScheme="teal"
+                variant={"ghost"}
+                size={"sm"}
+              >
+                Clear
+              </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                }}
+                colorScheme={"teal"}
+                variant={"outline"}
+                size={"sm"}
+              >
+                Ok
+              </Button>
             </Flex>
           </Flex>
         </PopoverContent>

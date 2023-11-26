@@ -1,6 +1,4 @@
-import useAuth from "@/hooks/useAuth";
 import {
-  useDisclosure,
   Button,
   Modal,
   ModalOverlay,

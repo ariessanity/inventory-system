@@ -1,4 +1,3 @@
-import Sidebar from "@/components/Layout/Sidebar";
 import { Providers } from "@/store/provider";
 import "@/styles/globals.css";
 import { getLayout } from "@/utils/get-layout";

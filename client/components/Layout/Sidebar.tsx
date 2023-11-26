@@ -33,7 +33,6 @@ import { FiMenu } from "react-icons/fi";
 import { RiFlashlightFill } from "react-icons/ri";
 import LogoutModal from "./LogoutModal";
 import Cookies from "js-cookie";
-import { stringify } from "querystring";
 
 interface LinkItemProps {
   name: string;
