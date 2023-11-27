@@ -19,13 +19,18 @@ import { SupplierModule } from './features/supplier/supplier.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AppController } from './app.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', '..', 'client/build/server/pages'),
     // }),
-    MongooseModule.forRoot('mongodb+srv://projectalpha:ZDwuey3ZZVXkUfWN@alpha.sw2wwhd.mongodb.net/inventory-system-prod?retryWrites=true&w=majority'),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development', '.env.production'],
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(process.env.DATABASE_HOST_DEV),
     UserModule,
     AuthModule,
     StoresModule,
@@ -34,7 +39,7 @@ import { AppController } from './app.controller';
     TransactionModule,
     FileModule,
     DashboardModule,
-    SupplierModule
+    SupplierModule,
   ],
   controllers: [AppController],
   providers: [

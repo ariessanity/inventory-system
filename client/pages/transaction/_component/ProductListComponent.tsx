@@ -108,19 +108,13 @@ const ProductListComponent = () => {
     {
       Header: () => <Text>Price per unit</Text>,
       accessor: "price",
-      Cell: ({ cell: { value } }: any) => {
+      Cell: ({ cell: { value , row} }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue}</Text>;
+        return <Text>{"₱" + formattedValue} / {row.original.unit}</Text>;
       },
       sortDirection: sort.accessor === "price" ? sort.direction : "none",
       width: 150,
-    },
-    {
-      Header: "Unit",
-      accessor: "unit",
-      sortDirection: sort.accessor === "unit" ? sort.direction : "none",
-      width: 100,
-    },
+    }
   ];
 
   const handleAddToCart = (id: string) => {
@@ -178,7 +172,7 @@ const ProductListComponent = () => {
         alignItems={"center"}
         justifyContent={"space-between"}
         mb={5}
-      >
+       >
         <Text fontWeight={"300"} fontSize={30}>
           {format(new Date(), "EEEE, hh:mm a")}
         </Text>

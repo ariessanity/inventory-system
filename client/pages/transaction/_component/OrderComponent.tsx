@@ -89,7 +89,7 @@ const OrderComponent = () => {
         )}
       </Flex>
 
-      <Stack overflowY={"auto"} maxH={"75vh"} mb={5}>
+      <Stack overflowY={"auto"} maxH={{base: "60vh", xl: "75vh"}} mb={5}>
         {cart.map((cartItem: Product, index: number) => (
           <OrderCard
             key={cartItem?._id + index}

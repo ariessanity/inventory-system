@@ -36,8 +36,6 @@ export class DashboardService {
         },
       },
     ]);
-    console.log({todayEnd})
-    console.log({todayStart})
 
     const salesToday = await this.transactionModel.aggregate([
       {
