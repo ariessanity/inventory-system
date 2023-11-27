@@ -30,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: ['.env.development', '.env.production'],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DATABASE_HOST_PROD),
+    MongooseModule.forRoot(process.env.DATABASE_HOST_DEV),
     UserModule,
     AuthModule,
     StoresModule,
