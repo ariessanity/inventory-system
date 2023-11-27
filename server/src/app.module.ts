@@ -27,10 +27,10 @@ import { ConfigModule } from '@nestjs/config';
     //   rootPath: join(__dirname, '..', '..', 'client/build/server/pages'),
     // }),
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
+      envFilePath: ['.env.development'],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DATABASE_HOST_DEV),
+    MongooseModule.forRoot(process.env.DATABASE_HOST),
     UserModule,
     AuthModule,
     StoresModule,
