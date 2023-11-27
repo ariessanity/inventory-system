@@ -275,8 +275,8 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
                 fontWeight={"300"}
               >
                 {roles?.map((role, index) => (
-                  <option key={index} value={role.name}>
-                    {role.name}
+                  <option key={index} value={role}>
+                    {role}
                   </option>
                 ))}
               </Select>

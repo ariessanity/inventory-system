@@ -33,6 +33,8 @@ import {
 import { FiMenu } from "react-icons/fi";
 import LogoutModal from "./LogoutModal";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { title } from "@/constants";
 
 interface LinkItemProps {
   name: string;
@@ -45,6 +47,7 @@ interface Prop {
 }
 
 const Sidebar: React.FC<Prop> = ({ children }) => {
+  const router = useRouter();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const {
@@ -94,6 +97,15 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
             icon={<FiMenu />}
             size="md"
           />
+          <Box>
+            {title.map(({ link, display }) => {
+              if (router.pathname === link) {
+                return <Text fontSize={25} fontFamily={'monospace'} fontWeight={400} key={link}>{display}</Text>;
+              } else {
+                return null;
+              }
+            })}
+          </Box>
           <Flex align="center">
             <Icon as={AiFillProject} h={8} w={8} />
           </Flex>
@@ -111,7 +123,7 @@ const SidebarContent = ({
   ...props
 }: BoxProps & { openLogoutModal: () => void }) => {
   const { openLogoutModal, ...rest } = props;
-  
+
   const LinkItems: Array<LinkItemProps> = [
     { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
     { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
