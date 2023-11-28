@@ -1,12 +1,9 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Product } from '../products/model/product.model';
-import { Store } from '../stores/model/store.model';
 import { Transaction } from './entities/transaction.model';
-import { RequestWithUser } from 'src/types/request-with-user';
 import { User } from '../auth/model/user.model';
 import { ProductSold } from './entities/product-sold.model';
 import { Request } from 'express';
