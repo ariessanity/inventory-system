@@ -1,5 +1,8 @@
-export let todayStart = new Date();
-todayStart.setHours(8, 0, 0, 0); //+8HRS
+import { addHours, endOfDay, startOfDay } from 'date-fns';
 
-export let todayEnd = new Date();
-todayEnd.setHours(31, 59, 59, 999); //+8HRS
+//to PH time
+const currentDate = addHours(new Date(), 8);
+
+//+8 to set 00:00:00
+export const todayStart = addHours(startOfDay(currentDate), 8);
+export const todayEnd = addHours(endOfDay(currentDate), 8);

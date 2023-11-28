@@ -10,7 +10,7 @@ import { RequestWithUser } from 'src/types/request-with-user';
 import { User } from '../auth/model/user.model';
 import { ProductSold } from './entities/product-sold.model';
 import { Request } from 'express';
-import { format } from 'date-fns';
+import { addHours, format } from 'date-fns';
 
 @Injectable()
 export class TransactionService {
@@ -31,7 +31,7 @@ export class TransactionService {
     await Promise.all(
       cartData?.map(async (cartItem: Product) => {
         const { _id: id, quantity, price, ...rest } = cartItem;
- 
+
         const isProductExist = await this.productModel.exists({ _id: id });
         if (!isProductExist) throw new ConflictException('Product not found!');
 
@@ -68,8 +68,7 @@ export class TransactionService {
   }
 
   async generateSku() {
-    const currentDate = new Date();
-    const formattedDate = format(currentDate, 'yyyyMMdd');
+    const formattedDate = format(addHours(new Date(), 8), 'yyyyMMdd');
 
     const highestSkuNo = await this.transactionModel
       .findOne({

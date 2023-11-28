@@ -1,12 +1,11 @@
-import { addHours, format, parseISO } from "date-fns";
-import { formatInTimeZone, zonedTimeToUtc } from "date-fns-tz";
+import { parseISO } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export const formatDate = (isoDate: string) => {
-  const dateInGMTPlus8 = parseISO(isoDate);
-  const dateInUTC = addHours(dateInGMTPlus8, -8);
+  const parseDate = parseISO(isoDate);
 
   const formattedDate = formatInTimeZone(
-    dateInUTC,
+    parseDate,
     "Asia/Manila",
     "MMM dd, yyyy h:mma"
   );
