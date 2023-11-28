@@ -17,7 +17,7 @@ const Dashboard = () => {
         px={5}
         alignItems={"center"}
         justifyContent={"center"}
-        flexDirection={{ base: "column", md: "column" }}
+        flexDirection={'column'}
       >
         <Box w={"100%"}>
           <Text fontWeight={300} fontSize={20} textAlign={"center"}>

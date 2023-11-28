@@ -1,7 +1,7 @@
 import { addHours, endOfDay, startOfDay } from 'date-fns';
 
 //to PH time
-const currentDate = addHours(new Date(), 8);
+const currentDate = new Date();
 
 //+8 to set 00:00:00
 export const todayStart = addHours(startOfDay(currentDate), 8);
