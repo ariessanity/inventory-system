@@ -3,12 +3,11 @@ export type DashboardStatistics = {
   inventoryValue: number;
   salesToday: number;
   soldToday: number;
-  chartProductSold: {
-    labels: string[];
-    data: number[];
-  };
-  chartSales: {
-    labels: string[];
-    data: number[];
-  };
+  chartProductSold: DataLabels;
+  chartSales: DataLabels;
+};
+
+export type DataLabels = {
+  labels: string[];
+  data: number[];
 };

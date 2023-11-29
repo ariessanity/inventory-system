@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  server:
+    image: server-prod
+    container_name: server
+    ports:
+      - '4000:4000'
+  client:
+    image: client-prod
+    container_name: client
+    ports:
+      - '80:80'
+      - '443:443'
+    stdin_open: true
+    tty: true

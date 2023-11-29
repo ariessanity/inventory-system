@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  server:
+    image: server-dev
+    build: ./server/
+    container_name: server
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./server/:/usr/src/app
+      - /usr/src/app/node_modules
+  client:
+    image: client-dev
+    build: ./client/
+    container_name: client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client/:/usr/src/app
+      - /usr/src/app/node_modules
+    stdin_open: true
+    tty: true
