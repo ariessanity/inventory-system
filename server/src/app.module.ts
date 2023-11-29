@@ -30,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: ['.env.development'],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DATABASE_HOST),
+    MongooseModule.forRoot(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@alpha.sw2wwhd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`),
     UserModule,
     AuthModule,
     StoresModule,
