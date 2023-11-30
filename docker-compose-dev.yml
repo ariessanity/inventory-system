@@ -9,6 +9,8 @@ services:
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - TZ=Asia/Singapore
   client:
     image: client-dev
     build: ./client/
@@ -18,5 +20,7 @@ services:
     volumes:
       - ./client/:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - TZ=Asia/Singapore
     stdin_open: true
     tty: true
