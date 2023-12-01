@@ -103,8 +103,8 @@ export class DashboardService {
     const dataProductSales = chartProductSales[0].stats.map((item) => item.total);
 
     return {
-      labels: labelsProductSales,
-      data: dataProductSales,
+      labels: labelsProductSales || 0,
+      data: dataProductSales || 0,
     };
   }
 
@@ -140,12 +140,12 @@ export class DashboardService {
       },
     ]);
 
-    const labelsProductSold = chartProductSold[0].stats.map((item) => item._id);
-    const dataProductSold = chartProductSold[0].stats.map((item) => item.total);
+    const labelsProductSold = chartProductSold[0]?.stats?.map((item) => item._id);
+    const dataProductSold = chartProductSold[0]?.stats?.map((item) => item.total);
 
     return {
-      labels: labelsProductSold,
-      data: dataProductSold,
+      labels: labelsProductSold || 0,
+      data: dataProductSold || 0,
     };
   }
 }

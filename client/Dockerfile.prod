@@ -1,4 +1,4 @@
-FROM node:18.16.0 as build
+FROM --platform=linux/amd64 node:18.16.0 as build
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:stable
+FROM --platform=linux/amd64 nginx:stable
 
 COPY --from=build /usr/src/app/.next /usr/share/nginx/html
 
