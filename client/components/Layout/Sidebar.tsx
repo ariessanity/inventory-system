@@ -174,7 +174,7 @@ const SidebarContent = ({
               color={useColorModeValue("brand.500", "white")}
               fontWeight="semibold"
             >
-              xSu
+              xSudo
             </Text>
           </Flex>
           <Flex
