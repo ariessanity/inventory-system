@@ -8,16 +8,25 @@ export const categories = [
 ];
 
 export const units = [
-  { name: "Piece" },
-  { name: "Pack" },
-  { name: "Box" },
-  { name: "Roll" },
-  { name: "Sheet" },
-  { name: "Set" },
-  { name: "Bundle" },
-  { name: "Gallon" },
-  { name: "Pound" },
-  { name: "Foot" },
+  "Piece",
+  "Pack",
+  "Box",
+  "Roll",
+  "Sheet",
+  "Set",
+  "Bundle",
+  "Gallon",
+  "Pound",
+  "Foot",
 ];
 
-export const roles = [{ name: "Admin" }, { name: "Cashier" }];
+export const roles = ["Admin", "Cashier"];
+
+export const title = [
+  { link: "/dashboard", display: "Dashboard" },
+  { link: "/transaction", display: "" },
+  { link: "/product", display: "Product Management" },
+  { link: "/user", display: "User Management" },
+  { link: "/supplier", display: "Supplier Management" },
+  { link: "/report", display: "Report" },
+];

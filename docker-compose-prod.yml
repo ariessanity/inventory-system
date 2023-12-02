@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  server:
+    image: ariessanity/server:latest
+    container_name: "server"
+    environment:
+      - PORT=4000
+      - ENV=production
+      - DB_USER=projectalpha
+      - DB_PASSWORD=ZDwuey3ZZVXkUfWN
+      - DB_NAME=inventory-system-prod
+  client:
+    image: ariessanity/client:latest
+    container_name: "client"
+    environment:
+      - NEXT_PUBLIC_BASE_URL=
+      - ENV=production
+    depends_on:
+      - server
+  proxy:
+    image: ariessanity/nginx:latest
+    container_name: "proxy"
+    restart: always
+    ports:
+      - "80:80"

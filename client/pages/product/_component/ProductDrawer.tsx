@@ -248,8 +248,8 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 fontWeight={"300"}
               >
                 {units?.map((unit, index) => (
-                  <option key={index} value={unit.name}>
-                    {unit.name}
+                  <option key={index} value={unit}>
+                    {unit}
                   </option>
                 ))}
               </Select>

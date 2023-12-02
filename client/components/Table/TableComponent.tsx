@@ -125,7 +125,7 @@ const TableComponent: React.FC<TableProps> = ({
             {...getTableProps()}
           >
             <Thead
-              backgroundColor={"gray.300"}
+              backgroundColor={"teal.500"}
               position="sticky"
               top={0}
               zIndex={1}
@@ -138,6 +138,7 @@ const TableComponent: React.FC<TableProps> = ({
                       style: {
                         width: column.width,
                         whiteSpace: "pre-line",
+                        color:'white'
                       },
                     })}
                     onClick={() => onSortChange(column)}

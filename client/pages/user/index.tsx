@@ -203,6 +203,7 @@ const User: NextPage = () => {
         <title>User Management</title>
       </Head>
       <Center
+        display={{ base: "none", xl: "inherit" }}
         fontSize={30}
         fontWeight={"300"}
         color={"gray.600"}
