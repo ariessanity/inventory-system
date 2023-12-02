@@ -1,5 +1,11 @@
-export const todayStart = new Date();
-todayStart.setHours(0, 0, 0, 0);
+import { addHours, endOfDay, startOfDay } from 'date-fns';
 
-export const todayEnd = new Date();
-todayEnd.setHours(23, 59, 59);
+//to PH time
+const currentDate = addHours(new Date(), 8);
+
+//+8 to set 00:00:00
+export const todayStart = startOfDay(currentDate);
+export const todayEnd = endOfDay(currentDate);
+
+//get current month
+export const currentMonth = new Date().getMonth() + 1;

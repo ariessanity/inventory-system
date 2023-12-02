@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { getLayout } from "@/utils/get-layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 
@@ -19,6 +20,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <ChakraProvider>
       <Providers>
         <WrapperLayout>
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,user-scalable=yes"
+            />
+          </Head>
           <Component {...pageProps} />
         </WrapperLayout>
       </Providers>

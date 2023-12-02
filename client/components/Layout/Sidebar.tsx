@@ -28,11 +28,13 @@ import {
   AiOutlineFileText,
   AiOutlineUser,
   AiOutlineShop,
+  AiFillProject,
 } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
-import { RiFlashlightFill } from "react-icons/ri";
 import LogoutModal from "./LogoutModal";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { title } from "@/constants";
 
 interface LinkItemProps {
   name: string;
@@ -45,6 +47,7 @@ interface Prop {
 }
 
 const Sidebar: React.FC<Prop> = ({ children }) => {
+  const router = useRouter();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const {
@@ -61,7 +64,7 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
     >
       <SidebarContent
         openLogoutModal={onOpenLogoutModal}
-        display={{ base: "none", md: "unset" }}
+        display={{ base: "none", xl: "unset" }}
       />
       <Drawer isOpen={isOpen} onClose={onClose} placement="left">
         <DrawerOverlay />
@@ -73,33 +76,42 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
           />
         </DrawerContent>
       </Drawer>
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
+      <Box ml={{ base: 0, xl: 60 }} transition=".3s ease">
         <Flex
           as="header"
           align="center"
           w="full"
           px="4"
-          display={{ base: "flex", md: "none" }}
+          display={{ base: "flex", xl: "none" }}
           borderBottomWidth="1px"
           borderColor={useColorModeValue("inherit", "gray.700")}
           bg={useColorModeValue("white", "gray.800")}
-          justify={{ base: "space-between", md: "flex-end" }}
-          boxShadow="lg"
+          justify={{ base: "space-between", xl: "flex-end" }}
+          boxShadow="xl"
           h="14"
         >
           <IconButton
             aria-label="Menu"
-            display={{ base: "inline-flex", md: "none" }}
+            display={{ base: "inline-flex", xl: "none" }}
             onClick={onOpen}
             icon={<FiMenu />}
             size="md"
           />
+          <Box>
+            {title.map(({ link, display }) => {
+              if (router.pathname === link) {
+                return <Text fontSize={25} fontFamily={'monospace'} fontWeight={400} key={link}>{display}</Text>;
+              } else {
+                return null;
+              }
+            })}
+          </Box>
           <Flex align="center">
-            <Icon as={RiFlashlightFill} h={8} w={8} />
+            <Icon as={AiFillProject} h={8} w={8} />
           </Flex>
         </Flex>
       </Box>
-      <Box ml={{ base: 0, md: 60 }} p={5}>
+      <Box ml={{ base: 0, xl: 60 }} p={5}>
         {children}
       </Box>
       <LogoutModal isOpen={isOpenLogoutModal} onClose={onCloseLogoutModal} />
@@ -111,7 +123,7 @@ const SidebarContent = ({
   ...props
 }: BoxProps & { openLogoutModal: () => void }) => {
   const { openLogoutModal, ...rest } = props;
-  
+
   const LinkItems: Array<LinkItemProps> = [
     { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
     { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
@@ -155,14 +167,14 @@ const SidebarContent = ({
       <VStack h="full" w="full" alignItems="flex-start" justify="space-between">
         <Box w="full">
           <Flex px="4" py="5" align="center">
-            <Icon as={RiFlashlightFill} h={8} w={8} />
+            <Icon as={AiFillProject} h={8} w={8} />
             <Text
               fontSize="2xl"
               ml="2"
               color={useColorModeValue("brand.500", "white")}
               fontWeight="semibold"
             >
-              POS
+              xSu
             </Text>
           </Flex>
           <Flex

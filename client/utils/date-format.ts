@@ -1,5 +1,5 @@
-import { addHours, format, parseISO } from "date-fns";
-import { formatInTimeZone, zonedTimeToUtc } from "date-fns-tz";
+import { addHours, parseISO } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 export const formatDate = (isoDate: string) => {
   const dateInGMTPlus8 = parseISO(isoDate);
