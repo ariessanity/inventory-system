@@ -67,13 +67,9 @@ jobs:
           file: ./nginx/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:latest
+      
+          name: Docker Build and Push
 
-  docker:
-
-    name: Docker Build and Push
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout
         uses: actions/checkout@v3
 
