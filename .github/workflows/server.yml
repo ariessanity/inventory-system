@@ -1,10 +1,10 @@
-name: Java CI with Maven
+name: Backend CI
 
 on:
   push:
     branches:
       - 'prod'
-      
+
 jobs:
   docker:
     name: Docker Build and Push
