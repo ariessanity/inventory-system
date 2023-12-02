@@ -89,7 +89,8 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/server:latest
 
   on-success:
-
+  
+    name: AWS-EC2 Instance CD
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
