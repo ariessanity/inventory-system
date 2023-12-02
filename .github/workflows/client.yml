@@ -9,6 +9,32 @@ on:
       - 'prod'
 
 jobs:
+  build:
+
+    name: NodeJS Install and Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: './client/package-lock.json'
+
+    - run: npm install
+      working-directory: ./client
+    - run: npm run build --if-present
+      working-directory: ./client
+
+
   docker:
 
     needs: build
