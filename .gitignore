@@ -85,6 +85,11 @@ web_modules/
 .env.production
 .env.local
 
+# docker-compose
+docker-compose-dev.yml
+docker-compose-prod.yml
+Makefile
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
