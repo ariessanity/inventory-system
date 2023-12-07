@@ -37,7 +37,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
       >
         <PopoverTrigger>
           <IconButton
-            colorScheme="teal"
+            colorScheme="brand"
             variant={"outline"}
             aria-label={""}
             icon={<AiOutlineFilter />}
@@ -104,7 +104,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
                 onClick={() => {
                   setFilters({ ...filters, startDate: "", endDate: "" });
                 }}
-                colorScheme="teal"
+                colorScheme="brand"
                 variant={"ghost"}
                 size={"sm"}
               >
@@ -114,7 +114,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
                 onClick={() => {
                   onClose();
                 }}
-                colorScheme={"teal"}
+                colorScheme={"brand"}
                 variant={"outline"}
                 size={"sm"}
               >

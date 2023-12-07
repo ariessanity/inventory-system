@@ -1,4 +1,11 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import ProductSoldComponent from "./_component/ProductSoldComponent";
 import TransactionHistoryComponent from "./_component/TransactionHistoryComponent";
@@ -10,10 +17,18 @@ const Report = () => {
       <Head>
         <title>Reports</title>
       </Head>
-      <Tabs colorScheme="teal">
+      <Text
+        display={{ base: "none", xl: "inherit" }}
+        fontSize={30}
+        color={"gray.600"}
+        textAlign={"center"}
+      >
+        REPORTS
+      </Text>
+      <Tabs colorScheme="brand">
         <TabList>
-          <Tab >Product Sold</Tab>
-          <Tab >Transaction History</Tab>
+          <Tab>Product Sold</Tab>
+          <Tab>Transaction History</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

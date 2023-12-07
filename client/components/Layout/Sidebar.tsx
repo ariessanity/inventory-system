@@ -171,7 +171,7 @@ const SidebarContent = ({
             <Text
               fontSize="2xl"
               ml="2"
-              color={useColorModeValue("brand.500", "white")}
+              color={useColorModeValue("logo", "white")}
               fontWeight="semibold"
             >
               Sudo
@@ -239,7 +239,7 @@ const NavItem = (props: any) => {
       transition=".15s ease"
       color={useColorModeValue("inherit", "gray.400")}
       _hover={{
-        bg: useColorModeValue("teal.500", "gray.900"),
+        bg: useColorModeValue("primary", "gray.900"),
         color: useColorModeValue("white", "gray.200"),
       }}
     >

@@ -17,9 +17,9 @@ const RadioCard = (props: any) => {
         borderRadius="md"
         boxShadow="md"
         _checked={{
-          bg: "teal.500",
+          bg: "primary",
           color: "white",
-          borderColor: "teal.500",
+          borderColor: "primary",
         }}
         _focus={
           {

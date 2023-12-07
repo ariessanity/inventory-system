@@ -44,7 +44,7 @@ const LogoutModal: React.FC<LogoutProps> = ({ isOpen, onClose }) => {
             <Text>Are you sure you want to log out?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="teal" mr={3} onClick={onClose}>
+            <Button colorScheme="brand" mr={3} onClick={onClose}>
               No
             </Button>
             <Button onClick={logout} variant="outline">

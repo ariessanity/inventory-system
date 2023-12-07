@@ -100,7 +100,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             </Button>
             <Button
               
-              colorScheme="teal"
+              colorScheme="brand"
               onClick={handlePayment}
               isDisabled={totalPrice > (payment || 0)}
             >

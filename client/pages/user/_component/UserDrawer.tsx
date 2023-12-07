@@ -300,7 +300,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button type={"submit"} colorScheme="teal">
+              <Button type={"submit"} colorScheme="brand">
                 {isEdit ? "Update" : "Create"}
               </Button>
             </Flex>

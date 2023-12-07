@@ -80,8 +80,8 @@ const ProductListComponent = () => {
             size={"xs"}
             ml={2}
             variant={"none"}
-            icon={<AiOutlineShoppingCart color={"teal"} />}
-            colorScheme="teal"
+            icon={<AiOutlineShoppingCart/>}
+            color="primary"
             aria-label="Add to Cart"
             cursor="pointer"
             onClick={() => handleAddToCart(value)}

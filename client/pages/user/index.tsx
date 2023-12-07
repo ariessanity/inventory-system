@@ -180,7 +180,7 @@ const User: NextPage = () => {
           <Flex>
             <EditIcon
               mr={5}
-              color="teal.500"
+              color="primary"
               cursor="pointer"
               onClick={() => handleEditUser(value)}
             />
@@ -198,18 +198,18 @@ const User: NextPage = () => {
   ];
 
   return (
-    <Flex flexDirection={"column"} justifyContent={"space-between"}>
+    <>
       <Head>
         <title>User Management</title>
       </Head>
-      <Center
+      <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
         color={"gray.600"}
-        fontWeight={"700"}
+        textAlign={'center'}
       >
         USER MANAGEMENT
-      </Center>
+      </Text>
       <Flex
         flexDirection={{
           base: "column-reverse",
@@ -223,7 +223,7 @@ const User: NextPage = () => {
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
           
-          colorScheme="teal"
+          colorScheme="brand"
           variant="outline"
           onClick={handleCreateUser}
           leftIcon={<AiOutlinePlusCircle />}
@@ -271,7 +271,7 @@ const User: NextPage = () => {
         onClose={onCloseDeleteModal}
         onClick={handleDeleteUser}
       />
-    </Flex>
+    </>
   );
 };
 

@@ -115,7 +115,7 @@ const OrderComponent = () => {
         </Flex>
         <Button
           isDisabled={cart.length === 0}
-          colorScheme="teal"
+          colorScheme="brand"
           onClick={onOpenTransactionModal}
           whiteSpace={"pre-line"}
         >

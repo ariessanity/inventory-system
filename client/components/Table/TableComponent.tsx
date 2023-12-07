@@ -124,7 +124,7 @@ const TableComponent: React.FC<TableProps> = ({
              {...getTableProps()}
           >
             <Thead
-              backgroundColor={"teal.500"}
+              backgroundColor={"primary"}
               position="sticky"
               top={0}
               zIndex={1}

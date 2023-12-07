@@ -128,7 +128,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               <Text>
                 Category:{" "}
                 {
-                  <Badge variant="outline" colorScheme="teal">
+                  <Badge variant="outline" colorScheme="brand">
                     {productData?.category}
                   </Badge>
                 }
@@ -163,7 +163,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
             </Button>
             <Button
               
-              colorScheme="teal"
+              colorScheme="brand"
               onClick={handleAddToCart}
               isDisabled={
                 (productData?.quantity || quantity) < cartItem?.quantity + 1 || productData?.quantity === 0

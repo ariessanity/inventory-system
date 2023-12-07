@@ -11,7 +11,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ handleDownload }) => {
     <Button
       
       variant={"outline"}
-      colorScheme="teal"
+      colorScheme="brand"
       onClick={handleDownload}
     >
       <AiOutlineExport /> Export

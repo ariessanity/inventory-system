@@ -12,6 +12,14 @@ const Dashboard = () => {
       <Head>
         <title>Dashboard</title>
       </Head>
+      <Text
+        display={{ base: "none", xl: "inherit" }}
+        fontSize={30}
+        color={"gray.600"}
+        textAlign={'center'}
+      >
+        DASHBOARD
+      </Text>
       <StatData data={statistics} isLoading={isLoading} />
       <Flex
         px={5}
@@ -20,7 +28,7 @@ const Dashboard = () => {
         flexDirection={'column'}
       >
         <Box w={"100%"}>
-          <Text fontSize={24} textAlign={"center"}>
+          <Text fontSize={24} ml={14} mb={2}>
             Product Sold
           </Text>
           <BarChart
@@ -30,7 +38,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box w={"100%"}>
-          <Text fontSize={24} textAlign={"center"} pt={10}>
+          <Text fontSize={24} pt={5} ml={14} mb={2}>
             Product Sales
           </Text>
           <BarChart

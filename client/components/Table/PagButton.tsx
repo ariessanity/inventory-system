@@ -9,10 +9,7 @@ interface PagButtonProps {
 }
 const PagButton: React.FC<PagButtonProps> = ({ active, disabled, children, onClick}) => {
   const activeStyle = {
-    bg: "brand.600",
-    _dark: {
-      bg: "brand.500",
-    },
+    bg: "primary",
     color: "gray.200",
   };
 
@@ -23,9 +20,6 @@ const PagButton: React.FC<PagButtonProps> = ({ active, disabled, children, onCli
       py={2}
       rounded="md"
       bg="white"
-      _dark={{
-        bg: "gray.800",
-      }}
       color="gray.700"
       onClick={onClick}
       opacity={disabled && 0.6}

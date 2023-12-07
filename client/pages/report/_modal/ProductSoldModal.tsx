@@ -84,7 +84,7 @@ const ProductSoldModal: React.FC<ProductSoldProps> = ({
             <ProductSoldTable columns={columns} data={productData} />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose} variant="outline" colorScheme="teal">
+            <Button onClick={onClose} variant="outline" colorScheme="brand">
               Close
             </Button>
           </ModalFooter>

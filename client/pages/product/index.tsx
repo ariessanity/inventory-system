@@ -143,7 +143,7 @@ const Product: NextPage = () => {
         return (
           <Text
             textDecor={"underline"}
-            color="teal"
+            color="brand"
             cursor={"pointer"}
             onClick={() => {
               handleEditProduct(row.original._id);
@@ -223,7 +223,7 @@ const Product: NextPage = () => {
           <Flex justifyContent={"center"}>
             <EditIcon
               mr={5}
-              color="teal.500"
+              color="primary"
               cursor="pointer"
               onClick={() => handleEditProduct(value)}
             />
@@ -239,18 +239,18 @@ const Product: NextPage = () => {
   ];
 
   return (
-    <Flex flexDirection={"column"} justifyContent={"space-between"}>
+    <>
       <Head>
         <title>Product Management</title>
       </Head>
-      <Center
+      <Text
         display={{base: 'none', xl: "inherit"}}
         fontSize={30}
         color={"gray.600"}
-        fontWeight={"700"}       
+        textAlign={'center'}
       >
         PRODUCT MANAGEMENT
-      </Center>
+      </Text>
       <Flex
         flexDirection={{
           base: "column-reverse",
@@ -264,7 +264,7 @@ const Product: NextPage = () => {
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
           px={5}
-          colorScheme="teal"
+          colorScheme="brand"
           variant="outline"
           onClick={handleCreateProduct}
           leftIcon={<AiOutlinePlusCircle />}
@@ -312,7 +312,7 @@ const Product: NextPage = () => {
         onClose={onCloseDeleteModal}
         onClick={handleDeleteProduct}
       />
-    </Flex>
+    </>
   );
 };
 

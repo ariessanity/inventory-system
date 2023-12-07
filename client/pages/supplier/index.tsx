@@ -186,7 +186,7 @@ const Supplier: NextPage = () => {
           <Flex>
             <EditIcon
               mr={5}
-              color="teal.500"
+              color="primary"
               cursor="pointer"
               onClick={() => handleEditSupplier(value)}
             />
@@ -202,18 +202,18 @@ const Supplier: NextPage = () => {
   ];
 
   return (
-    <Flex flexDirection={"column"} justifyContent={"space-between"}>
+    <>
       <Head>
         <title>Supplier Management</title>
       </Head>
-      <Center
+      <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
         color={"gray.600"}
-        fontWeight={"700"}
+        textAlign={'center'}
       >
         SUPPLIER MANAGEMENT
-      </Center>
+      </Text>
       <Flex
         flexDirection={{
           base: "column-reverse",
@@ -227,7 +227,7 @@ const Supplier: NextPage = () => {
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
           
-          colorScheme="teal"
+          colorScheme="brand"
           variant="outline"
           onClick={handleCreateSupplier}
           leftIcon={<AiOutlinePlusCircle />}
@@ -275,7 +275,8 @@ const Supplier: NextPage = () => {
         onClose={onCloseDeleteModal}
         onClick={handleDeleteSupplier}
       />
-    </Flex>
+    </>
+
   );
 };
 

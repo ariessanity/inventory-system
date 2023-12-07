@@ -9,9 +9,16 @@ const theme = extendTheme({
   },
   colors: {
     brand: {
-      100: "#f7fafc",
-      900: "#1a202c",
+      50: "#EBF3E8",
+      100: "#D2E3C8",
+      300: "#B2C8BA",
+      500: "#86A789",
+      600: "#86A789",
     },
+    primary: "#86A789",
+    secondary: "red",
+    accent: "blue",
+    logo: ""
   },
 });
 
