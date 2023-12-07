@@ -205,9 +205,8 @@ const User: NextPage = () => {
       <Center
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
-        fontWeight={"300"}
         color={"gray.600"}
-        fontFamily={"monospace"}
+        fontWeight={"700"}
       >
         USER MANAGEMENT
       </Center>
@@ -222,8 +221,8 @@ const User: NextPage = () => {
       >
         <Button
           w={"100%"}
-          maxWidth={{ base: "100%", sm: "8em" }}
-          fontWeight={"300"}
+          maxWidth={{ base: "100%", sm: "9em" }}
+          
           colorScheme="teal"
           variant="outline"
           onClick={handleCreateUser}

@@ -12,8 +12,8 @@ const Report = () => {
       </Head>
       <Tabs colorScheme="teal">
         <TabList>
-          <Tab fontWeight={"300"}>Product Sold</Tab>
-          <Tab fontWeight={"300"}>Transaction History</Tab>
+          <Tab >Product Sold</Tab>
+          <Tab >Transaction History</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

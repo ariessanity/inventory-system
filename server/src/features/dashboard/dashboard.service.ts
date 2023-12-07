@@ -51,7 +51,7 @@ export class DashboardService {
       },
     ]);
 
-    return soldToday[0]?.count;
+    return soldToday[0]?.count || 0;
   }
 
   async salesToday() {
@@ -99,8 +99,8 @@ export class DashboardService {
       },
     ]);
 
-    const labelsProductSales = chartProductSales[0].stats.map((item) => item._id);
-    const dataProductSales = chartProductSales[0].stats.map((item) => item.total);
+    const labelsProductSales = chartProductSales[0]?.stats.map((item) => item._id);
+    const dataProductSales = chartProductSales[0]?.stats.map((item) => item.total);
 
     return {
       labels: labelsProductSales || 0,

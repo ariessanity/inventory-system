@@ -9,7 +9,7 @@ interface ExportButtonProps {
 const ExportButton: React.FC<ExportButtonProps> = ({ handleDownload }) => {
   return (
     <Button
-      fontWeight={"300"}
+      
       variant={"outline"}
       colorScheme="teal"
       onClick={handleDownload}

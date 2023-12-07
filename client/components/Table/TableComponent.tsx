@@ -121,8 +121,7 @@ const TableComponent: React.FC<TableProps> = ({
             layout="fixed"
             variant="simple"
             colorScheme="gray"
-            fontWeight={"300"}
-            {...getTableProps()}
+             {...getTableProps()}
           >
             <Thead
               backgroundColor={"teal.500"}
@@ -185,7 +184,7 @@ const TableComponent: React.FC<TableProps> = ({
       )}
 
       {data?.length == 0 && (
-        <Text my={4} textAlign={"center"} fontWeight={"300"}>
+        <Text my={4} textAlign={"center"} >
           No Data Found
         </Text>
       )}
@@ -198,7 +197,7 @@ const TableComponent: React.FC<TableProps> = ({
         flexDirection={{ base: "column", md: "row" }}
       >
         <Flex>
-          <Text fontWeight={"300"}>Total of {count} items</Text>
+          <Text>Total of {count} items</Text>
         </Flex>
         <Flex alignItems={"center"} justifyContent={"center"}>
           <PagButton onClick={handlePreviousPage} disabled={!canPreviousPage}>
@@ -212,7 +211,7 @@ const TableComponent: React.FC<TableProps> = ({
               disabled={!canPreviousPage}
             />
           </PagButton>
-          <Text fontWeight={"300"} mx={5}>
+          <Text  mx={5}>
             {isLoading
               ? "..."
               : `Page ${pageIndex + 1} of ${

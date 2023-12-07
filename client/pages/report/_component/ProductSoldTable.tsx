@@ -41,7 +41,7 @@ const ProductSoldTable: React.FC<TableProps> = ({ columns, data }) => {
         layout="fixed"
         variant="simple"
         colorScheme="gray"
-        fontWeight={"300"}
+        
         {...getTableProps()}
       >
         <Tbody {...getTableBodyProps()}>

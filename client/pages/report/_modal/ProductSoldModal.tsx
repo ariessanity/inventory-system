@@ -78,7 +78,7 @@ const ProductSoldModal: React.FC<ProductSoldProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontWeight={"300"}>Product sold</ModalHeader>
+          <ModalHeader >Product sold</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <ProductSoldTable columns={columns} data={productData} />

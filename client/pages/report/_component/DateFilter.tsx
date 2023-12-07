@@ -45,7 +45,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
         </PopoverTrigger>
         <PopoverContent p={5}>
           <PopoverCloseButton />
-          <Text fontWeight={"500"} mb={4}>
+          <Text fontWeight={"700"} mb={4}>
             Date Filter
           </Text>
 
@@ -55,7 +55,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
             flexDirection={"column"}
           >
             <Flex alignItems={"center"} mb={4}>
-              <Text fontWeight={"300"} mr={4}>
+              <Text  mr={4}>
                 From
               </Text>
               <Input
@@ -69,13 +69,13 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
                       : "",
                   })
                 }
-                fontWeight={"300"}
+                
                 type="date"
                 w={56}
               />
             </Flex>
             <Flex alignItems={"center"}>
-              <Text fontWeight={"300"} mr={9}>
+              <Text  mr={9}>
                 To
               </Text>
               <Input
@@ -89,7 +89,7 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
                       : "",
                   })
                 }
-                fontWeight={"300"}
+                
                 type="date"
                 w={56}
               />

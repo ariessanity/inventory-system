@@ -20,7 +20,7 @@ const Dashboard = () => {
         flexDirection={'column'}
       >
         <Box w={"100%"}>
-          <Text fontWeight={300} fontSize={20} textAlign={"center"}>
+          <Text fontSize={24} textAlign={"center"}>
             Product Sold
           </Text>
           <BarChart
@@ -30,7 +30,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box w={"100%"}>
-          <Text fontWeight={300} fontSize={20} textAlign={"center"} pt={10}>
+          <Text fontSize={24} textAlign={"center"} pt={10}>
             Product Sales
           </Text>
           <BarChart

@@ -11,7 +11,6 @@ const RadioCard = (props: any) => {
       <input {...input} />
       <Box
         {...checkbox}
-        fontWeight={'300'}
         cursor="pointer"
         whiteSpace={"nowrap"}
         borderWidth="1px"
@@ -22,9 +21,11 @@ const RadioCard = (props: any) => {
           color: "white",
           borderColor: "teal.500",
         }}
-        _focus={{
-          // boxShadow: "outline",
-        }}
+        _focus={
+          {
+            // boxShadow: "outline",
+          }
+        }
         px={3}
         py={1}
       >
@@ -34,4 +35,4 @@ const RadioCard = (props: any) => {
   );
 };
 
-export default RadioCard
+export default RadioCard;

@@ -70,7 +70,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
   return (
     <Card direction={{ base: "column", sm: "row" }} variant="outline">
       <CardBody>
-        <Heading size="md" fontWeight={"300"}>
+        <Heading size="md" >
           <Flex alignItems={"center"} justifyContent={"space-between"}>
             {name}
             <IconButton
@@ -86,11 +86,11 @@ const OrderCard: React.FC<OrderCardProps> = ({
         <Badge size={"sm"} variant="outline" colorScheme="teal" mb={2}>
           {category}
         </Badge>
-        <Text fontSize={"sm"} fontWeight={"300"}>
+        <Text fontSize={"sm"} >
           {description}
         </Text>
         <Flex justifyContent={"space-between"} alignItems={"center"}>
-          <Text fontWeight={"300"} fontSize={"md"}>
+          <Text  fontSize={"md"}>
             ₱{price?.toFixed(2)} / {unit}
           </Text>
           <Flex align="center">

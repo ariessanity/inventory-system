@@ -27,28 +27,28 @@ const StatData: React.FC<StatData> = ({ data, isLoading }) => {
               <Text fontWeight="semibold" fontSize="x-large">
                 ₱{data?.salesToday.toFixed()}
               </Text>
-              <Text fontWeight="300">Sales Today</Text>
+              <Text>Sales Today</Text>
             </Box>
 
             <Box p={5} boxShadow="md" rounded="md" borderWidth={1}>
               <Text fontWeight="semibold" fontSize="x-large">
                 {data?.soldToday}
               </Text>
-              <Text fontWeight="300">Sold Today</Text>
+              <Text>Sold Today</Text>
             </Box>
 
             <Box p={5} boxShadow="md" rounded="md" borderWidth={1}>
               <Text fontWeight="semibold" fontSize="x-large">
                 {data?.totalProducts}
               </Text>
-              <Text fontWeight="300">Total Products</Text>
+              <Text>Total Products</Text>
             </Box>
 
             <Box p={5} boxShadow="md" rounded="md" borderWidth={1}>
               <Text fontWeight="semibold" fontSize="x-large">
                 ₱{data?.inventoryValue.toFixed()}
               </Text>
-              <Text fontWeight="300">Inventory Value</Text>
+              <Text>Inventory Value</Text>
             </Box>
           </SimpleGrid>
         </Container>

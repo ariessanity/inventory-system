@@ -177,20 +177,20 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader fontWeight={"400"}>
+          <DrawerHeader fontWeight={"700"}>
             {isEdit ? "Update Supplier" : "Create Supplier"}
           </DrawerHeader>
 
           <DrawerBody>
             <FormControl isInvalid={!!errors?.companyName} mb={5}>
-              <FormLabel htmlFor="companyName" fontWeight={"300"}>
+              <FormLabel htmlFor="companyName" >
                 Supplier
               </FormLabel>
               <Input
                 id="companyName"
                 {...register("companyName")}
                 placeholder="ABC Company"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.companyName && errors.companyName.message}
@@ -198,14 +198,14 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.contactName} mb={5}>
-              <FormLabel htmlFor="contactName" fontWeight={"300"}>
+              <FormLabel htmlFor="contactName" >
                 Contact Name
               </FormLabel>
               <Input
                 id="contactName"
                 {...register("contactName")}
                 placeholder="Juan Dela Cruz"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.contactName && errors.contactName.message}
@@ -213,7 +213,7 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.contactNumber} mb={5}>
-              <FormLabel htmlFor="contactNumber" fontWeight={"300"}>
+              <FormLabel htmlFor="contactNumber" >
                 Contact Number
               </FormLabel>
               <Input
@@ -221,7 +221,7 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
                 {...register("contactNumber")}
                 placeholder=""
                 type="number"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.contactNumber && errors.contactNumber.message}
@@ -229,7 +229,7 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.email} mb={5}>
-              <FormLabel htmlFor="email" fontWeight={"300"}>
+              <FormLabel htmlFor="email" >
                 Email
               </FormLabel>
               <Input
@@ -237,7 +237,7 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
                 {...register("email")}
                 placeholder="juandelacruz@gmail.com"
                 type="email"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.email && errors.email.message}
@@ -245,13 +245,13 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.remarks} mb={5}>
-              <FormLabel htmlFor="remarks" fontWeight={"300"}>
+              <FormLabel htmlFor="remarks" >
                 Remarks
               </FormLabel>
               <Textarea
                 id="remarks"
                 {...register("remarks")}
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.remarks && errors.remarks.message}

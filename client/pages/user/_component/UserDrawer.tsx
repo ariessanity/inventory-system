@@ -162,20 +162,20 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader fontWeight={"400"}>
+          <DrawerHeader fontWeight={"700"}>
             {isEdit ? "Update User" : "Create User"}
           </DrawerHeader>
 
           <DrawerBody>
             <FormControl isInvalid={!!errors?.username} mb={5} isRequired>
-              <FormLabel htmlFor="username" fontWeight={"300"}>
+              <FormLabel htmlFor="username" >
                 Username
               </FormLabel>
               <Input
                 id="username"
                 {...register("username")}
                 placeholder="username"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.username && errors.username.message}
@@ -188,14 +188,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
               isDisabled={isEdit}
               isRequired={!isEdit}
             >
-              <FormLabel htmlFor="password" fontWeight={"300"}>
+              <FormLabel htmlFor="password" >
                 Password
               </FormLabel>
               <Input
                 id="password"
                 {...register("password")}
                 placeholder="********"
-                fontWeight={"300"}
+                
                 type="password"
               />
               <FormErrorMessage>
@@ -204,14 +204,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.firstname} mb={5} isRequired>
-              <FormLabel htmlFor="firstname" fontWeight={"300"}>
+              <FormLabel htmlFor="firstname" >
                 First name
               </FormLabel>
               <Input
                 id="firstname"
                 {...register("firstname")}
                 placeholder="Juan"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.firstname && errors.firstname.message}
@@ -219,14 +219,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.lastname} mb={5}>
-              <FormLabel htmlFor="lastname" fontWeight={"300"}>
+              <FormLabel htmlFor="lastname" >
                 Last Name
               </FormLabel>
               <Input
                 id="lastname"
                 {...register("lastname")}
                 placeholder="Dela Cruz"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.lastname && errors.lastname.message}
@@ -234,7 +234,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.email} mb={5} isRequired>
-              <FormLabel htmlFor="email" fontWeight={"300"}>
+              <FormLabel htmlFor="email" >
                 Email
               </FormLabel>
               <Input
@@ -242,7 +242,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
                 type="email"
                 {...register("email")}
                 placeholder="juan@gmail.com"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.email && errors.email.message}
@@ -250,14 +250,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.mobileNumber} mb={5} isRequired>
-              <FormLabel htmlFor="mobileNumber" fontWeight={"300"}>
+              <FormLabel htmlFor="mobileNumber" >
                 Mobile Number
               </FormLabel>
               <Input
                 id="mobileNumber"
                 {...register("mobileNumber")}
                 type="number"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.mobileNumber && errors.mobileNumber.message}
@@ -265,14 +265,14 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.role} mb={5} isRequired>
-              <FormLabel htmlFor="role" fontWeight={"300"}>
+              <FormLabel htmlFor="role" >
                 Role
               </FormLabel>
               <Select
                 id="role"
                 placeholder="Select role"
                 {...register("role")}
-                fontWeight={"300"}
+                
               >
                 {roles?.map((role, index) => (
                   <option key={index} value={role}>

@@ -68,18 +68,18 @@ const OrderComponent = () => {
   return (
     <>
       <Flex alignItems={"center"} justifyContent={"space-between"} mb={5}>
-        <Text fontSize={30} fontWeight={"300"}>
+        <Text fontSize={30} >
           Current Order
         </Text>
         {cart.length !== 0 && (
           <Flex alignItems={"center"}>
-            <Text fontSize={15} fontWeight={"300"} mr={2}>
+            <Text fontSize={15}  mr={2}>
               Item: {cart?.length}
             </Text>
 
             <Button
               size={"sm"}
-              fontWeight={"300"}
+              
               colorScheme="red"
               onClick={() => dispatch(clearCart())}
             >
@@ -109,14 +109,13 @@ const OrderComponent = () => {
         position={"sticky"}
         flexDirection={"column"}
       >
-        <Flex fontSize={"lg"} fontWeight={"300"} mb={4} justifyContent={'space-between'}> 
+        <Flex fontSize={"lg"}  mb={4} justifyContent={'space-between'}> 
           <Text>Total Price:</Text>
           <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
         </Flex>
         <Button
           isDisabled={cart.length === 0}
           colorScheme="teal"
-          fontWeight={"300"}
           onClick={onOpenTransactionModal}
           whiteSpace={"pre-line"}
         >

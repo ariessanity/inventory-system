@@ -50,32 +50,32 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontWeight={"400"}>Payment</ModalHeader>
+          <ModalHeader fontWeight={"700"}>Payment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex alignItems={"center"}>
-              <Text mr={2} fontSize={"lg"} fontWeight={"300"}>
+              <Text mr={2} fontSize={"lg"} >
                 Name
               </Text>
               <Input
                 id="name"
                 my={2}
                 fontSize={"lg"}
-                fontWeight={"300"}
+                
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder="Enter customer name . . ."
               />
             </Flex>
             <Flex alignItems={"center"} mb={4}>
-              <Text fontSize={"lg"} fontWeight={"300"} mr={3.5}>
+              <Text fontSize={"lg"}  mr={3.5}>
                 Cash
               </Text>
               <Input
                 id="cash"
                 my={2}
                 fontSize={"lg"}
-                fontWeight={"300"}
+                
                 value={payment}
                 onChange={(e) => setPayment(parseInt(e.target.value) || 0)}
                 placeholder="Enter payment . . ."
@@ -83,10 +83,10 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
               />
             </Flex>
             <Flex justifyContent={"space-between"}>
-              <Text fontSize={"lg"} fontWeight={"300"}>
+              <Text fontSize={"lg"} >
                 Total Price: ₱{totalPrice.toFixed(2)}
               </Text>
-              <Text fontSize={"lg"} fontWeight={"300"}>
+              <Text fontSize={"lg"} >
                 Change:{" "}
                 {(payment || 0) - totalPrice < 0
                   ? `₱0`
@@ -95,11 +95,11 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button fontWeight={"300"} variant="solid" mr={3} onClick={onClose}>
+            <Button  variant="solid" mr={3} onClick={onClose}>
               Cancel
             </Button>
             <Button
-              fontWeight={"300"}
+              
               colorScheme="teal"
               onClick={handlePayment}
               isDisabled={totalPrice > (payment || 0)}

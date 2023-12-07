@@ -100,7 +100,7 @@ const Sidebar: React.FC<Prop> = ({ children }) => {
           <Box>
             {title.map(({ link, display }) => {
               if (router.pathname === link) {
-                return <Text fontSize={25} fontFamily={'monospace'} fontWeight={400} key={link}>{display}</Text>;
+                return <Text fontSize={24} fontWeight={"700"} key={link}>{display}</Text>;
               } else {
                 return null;
               }
@@ -174,7 +174,7 @@ const SidebarContent = ({
               color={useColorModeValue("brand.500", "white")}
               fontWeight="semibold"
             >
-              xSudo
+              Sudo
             </Text>
           </Flex>
           <Flex
@@ -236,7 +236,6 @@ const NavItem = (props: any) => {
       py="3"
       cursor="pointer"
       role="group"
-      fontWeight="300"
       transition=".15s ease"
       color={useColorModeValue("inherit", "gray.400")}
       _hover={{

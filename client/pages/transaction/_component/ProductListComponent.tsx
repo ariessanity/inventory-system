@@ -173,7 +173,7 @@ const ProductListComponent = () => {
         justifyContent={"space-between"}
         mb={5}
        >
-        <Text fontWeight={"300"} fontSize={30}>
+        <Text  fontSize={30}>
           {format(new Date(), "EEEE, hh:mm a")}
         </Text>
         <InputGroup

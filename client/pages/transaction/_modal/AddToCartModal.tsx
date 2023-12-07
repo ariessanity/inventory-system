@@ -86,19 +86,19 @@ const AddToCartModal: React.FC<DeleteProps> = ({
             <Stack fontWeight={"500"} pt={4}>
               <Text>
                 Product:{" "}
-                <Text as={"span"} fontWeight={"300"}>
+                <Text as={"span"} >
                   {productData?.name}
                 </Text>{" "}
               </Text>
               <Text>
                 Description:{" "}
-                <Text as={"span"} fontWeight={"300"}>
+                <Text as={"span"} >
                   {productData?.description ? productData?.description : "-"}
                 </Text>
               </Text>
               <Text>
                 Price:{" "}
-                <Text as={"span"} fontWeight={"300"}>
+                <Text as={"span"} >
                   ₱{productData?.price}
                 </Text>
               </Text>
@@ -106,7 +106,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
                 Stock/s:{" "}
                 <Text
                   as={"span"}
-                  fontWeight={"300"}
+                  
                   color={
                     maxAvailableQuantity / (productData?.quantity || 1) <=
                     LOW_STOCK_ALERT
@@ -121,7 +121,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               </Text>
               <Text>
                 Unit:{" "}
-                <Text as={"span"} fontWeight={"300"}>
+                <Text as={"span"} >
                   {productData?.unit}
                 </Text>
               </Text>
@@ -145,7 +145,7 @@ const AddToCartModal: React.FC<DeleteProps> = ({
               >
                 <NumberInputField
                   id="quantity"
-                  fontWeight={"300"}
+                  
                   value={quantity}
                   onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
                   placeholder="Enter Quantity"
@@ -158,11 +158,11 @@ const AddToCartModal: React.FC<DeleteProps> = ({
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button fontWeight={"300"} variant="solid" mr={3} onClick={onClose}>
+            <Button  variant="solid" mr={3} onClick={onClose}>
               Cancel
             </Button>
             <Button
-              fontWeight={"300"}
+              
               colorScheme="teal"
               onClick={handleAddToCart}
               isDisabled={

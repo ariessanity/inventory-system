@@ -167,20 +167,20 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader fontWeight={"400"}>
+          <DrawerHeader fontWeight={"700"}>
             {isEdit ? "Update Product" : "Create Product"}
           </DrawerHeader>
 
           <DrawerBody>
             <FormControl isInvalid={!!errors?.name} mb={5}>
-              <FormLabel htmlFor="name" fontWeight={"300"}>
+              <FormLabel htmlFor="name" >
                 Product
               </FormLabel>
               <Input
                 id="name"
                 {...register("name")}
                 placeholder="Electrical Tape"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.name && errors.name.message}
@@ -188,14 +188,14 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.description} mb={5}>
-              <FormLabel htmlFor="description" fontWeight={"300"}>
+              <FormLabel htmlFor="description" >
                 Description
               </FormLabel>
               <Input
                 id="description"
                 {...register("description")}
                 placeholder="Description"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.description && errors.description.message}
@@ -203,7 +203,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.price} mb={5}>
-              <FormLabel htmlFor="price" fontWeight={"300"}>
+              <FormLabel htmlFor="price" >
                 Price per unit
               </FormLabel>
               <Input
@@ -214,7 +214,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 step="any"
                 min="0"
                 max="9999999"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.price && errors.price.message}
@@ -222,7 +222,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.quantity} mb={5}>
-              <FormLabel htmlFor="quantity" fontWeight={"300"}>
+              <FormLabel htmlFor="quantity" >
                 Quantity
               </FormLabel>
               <Input
@@ -230,7 +230,7 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 {...register("quantity")}
                 placeholder="1"
                 type="number"
-                fontWeight={"300"}
+                
               />
               <FormErrorMessage>
                 {errors.quantity && errors.quantity.message}
@@ -238,14 +238,14 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.unit} mb={5}>
-              <FormLabel htmlFor="unit" fontWeight={"300"}>
+              <FormLabel htmlFor="unit" >
                 Unit
               </FormLabel>
               <Select
                 id="unit"
                 placeholder="Select unit"
                 {...register("unit")}
-                fontWeight={"300"}
+                
               >
                 {units?.map((unit, index) => (
                   <option key={index} value={unit}>
@@ -259,14 +259,14 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
             </FormControl>
 
             <FormControl isInvalid={!!errors?.category} mb={5}>
-              <FormLabel htmlFor="category" fontWeight={"300"}>
+              <FormLabel htmlFor="category" >
                 Category
               </FormLabel>
               <Select
                 id="category"
                 placeholder="Select category"
                 {...register("category")}
-                fontWeight={"300"}
+                
               >
                 {categories?.map((category, index) => (
                   <option key={index} value={category}>
