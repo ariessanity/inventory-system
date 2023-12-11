@@ -12,12 +12,14 @@ export const units = [
   "Pack",
   "Box",
   "Roll",
+  "Length",
   "Sheet",
   "Set",
   "Bundle",
-  "Gallon",
-  "Pound",
   "Foot",
+  "Case",
+  "Meter",
+  "Kilogram"
 ];
 
 export const roles = ["Admin", "Cashier"];
