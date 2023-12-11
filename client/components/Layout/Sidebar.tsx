@@ -228,6 +228,7 @@ const SidebarContent = ({
 
 const NavItem = (props: any) => {
   const color = useColorModeValue("white", "gray.300");
+  const router = useRouter();
 
   const { icon, name, url } = props;
   return (
@@ -240,7 +241,8 @@ const NavItem = (props: any) => {
       cursor="pointer"
       role="group"
       transition=".15s ease"
-      color={useColorModeValue("inherit", "gray.400")}
+      color={url == router.pathname ? "white" : "inherit"}
+      bg={url == router.pathname ? "primary" : "white"}
       _hover={{
         bg: useColorModeValue("primary", "gray.900"),
         color: useColorModeValue("white", "gray.200"),

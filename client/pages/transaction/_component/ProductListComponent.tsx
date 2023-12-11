@@ -17,7 +17,6 @@ import {
   useDisclosure,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { color } from "framer-motion";
 import React, { useState } from "react";
 import {
   AiOutlineSearch,
@@ -28,7 +27,7 @@ import AddToCartModal from "../_modal/AddToCartModal";
 import { Product } from "@/store/product/types";
 import { format } from "date-fns";
 import RadioCard from "./RadioCard";
-import { categories } from "@/constants";
+import { useGetAllCategorysQuery } from "@/store/category/api";
 
 const ProductListComponent = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -57,6 +56,9 @@ const ProductListComponent = () => {
     onOpen: onOpenAddToCartModal,
   } = useDisclosure();
 
+  const { data: categories } = useGetAllCategorysQuery("");
+  const categoryList = categories?.categories.map((item) => item.name);
+
   const handleFilterByCategory = (value: string) => {
     setFilters({ ...filters, category: value });
   };
@@ -80,7 +82,7 @@ const ProductListComponent = () => {
             size={"xs"}
             ml={2}
             variant={"none"}
-            icon={<AiOutlineShoppingCart/>}
+            icon={<AiOutlineShoppingCart />}
             color="primary"
             aria-label="Add to Cart"
             cursor="pointer"
@@ -108,13 +110,17 @@ const ProductListComponent = () => {
     {
       Header: () => <Text>Price per unit</Text>,
       accessor: "price",
-      Cell: ({ cell: { value , row} }: any) => {
+      Cell: ({ cell: { value, row } }: any) => {
         const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue} / {row.original.unit}</Text>;
+        return (
+          <Text>
+            {"₱" + formattedValue} / {row.original.unit}
+          </Text>
+        );
       },
       sortDirection: sort.accessor === "price" ? sort.direction : "none",
       width: 150,
-    }
+    },
   ];
 
   const handleAddToCart = (id: string) => {
@@ -172,10 +178,8 @@ const ProductListComponent = () => {
         alignItems={"center"}
         justifyContent={"space-between"}
         mb={5}
-       >
-        <Text  fontSize={30}>
-          {format(new Date(), "EEEE, hh:mm a")}
-        </Text>
+      >
+        <Text fontSize={30}>{format(new Date(), "EEEE, hh:mm a")}</Text>
         <InputGroup
           w={"100%"}
           maxWidth={{ base: "100%", sm: "18.75em" }}
@@ -207,7 +211,7 @@ const ProductListComponent = () => {
           },
         }}
       >
-        {["All", ...categories].map((value) => {
+        {["All", ...categoryList || []].map((value) => {
           const radio = getRadioProps({ value });
           return (
             <RadioCard key={value} {...radio}>
