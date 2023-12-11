@@ -16,29 +16,29 @@ const Dashboard = () => {
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
         color={"gray.600"}
-        textAlign={'center'}
+        textAlign={"center"}
       >
         DASHBOARD
       </Text>
       <StatData data={statistics} isLoading={isLoading} />
       <Flex
-        px={5}
         alignItems={"center"}
         justifyContent={"center"}
-        flexDirection={'column'}
+        flexDirection={{ base: "column", md: "row" }}
+        p={18}
       >
-        <Box w={"100%"}>
-          <Text fontSize={24} ml={14} mb={2}>
+        <Flex flexDir={"column"} w={{ base: "none", sm: "50%" }} mr={5} mb={{base: 5, sm: 0}}>
+          <Text fontSize={24} fontWeight={'semibold'} textAlign={"center"}>
             Product Sold
           </Text>
           <BarChart
             chartData={statistics?.chartProductSold}
             label="Product Sold"
-            labelY="units"
+            labelY="unit"
           />
-        </Box>
-        <Box w={"100%"}>
-          <Text fontSize={24} pt={5} ml={14} mb={2}>
+        </Flex>
+        <Flex flexDir={"column"} w={{ base: "none", sm: "50%" }}>
+          <Text fontSize={24} fontWeight={'semibold'} textAlign={"center"}>
             Product Sales
           </Text>
           <BarChart
@@ -46,7 +46,7 @@ const Dashboard = () => {
             label="Product Sales"
             labelY="php"
           />
-        </Box>
+        </Flex>
       </Flex>
     </>
   );

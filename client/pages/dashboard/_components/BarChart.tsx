@@ -53,19 +53,25 @@ const BarChart: React.FC<BarChartProps> = ({ chartData, label, labelY }) => {
 
   const options = {
     responsive: true,
+    // maintainAspectRatio: true,
+    // aspectRatio: .5,
     scales: {
       y: {
         display: true,
         title: {
-          display: true,
+          display: false,
           text: `${labelY}`,
           font: {
-            size: 14,
+            size: 12,
           },
         },
         ticks: {
           callback: function (value: any, index: any, values: any) {
-            return value > 1000000 ? value / 1e6 + "M" : value;
+            return value > 1000
+              ? value / 1e3 + "K"
+              : value > 1000000
+              ? value / 1e6 + "M"
+              : value;
           },
         },
       },
@@ -75,14 +81,14 @@ const BarChart: React.FC<BarChartProps> = ({ chartData, label, labelY }) => {
           display: true,
           text: `${currentMonth}`,
           font: {
-            size: 14,
+            size: 12,
           },
         },
       },
     },
   };
 
-  return <Bar height={"60vh"} options={options} data={data} />;
+  return <Bar options={options} data={data} />;
 };
 
 export default BarChart;
