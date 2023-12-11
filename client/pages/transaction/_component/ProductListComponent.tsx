@@ -73,7 +73,7 @@ const ProductListComponent = () => {
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
-      width: 60,
+      width: 100,
       Cell: ({ cell: { value } }: any) => {
         return (
           <IconButton

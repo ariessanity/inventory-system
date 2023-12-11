@@ -29,6 +29,7 @@ import {
   AiOutlineUser,
   AiOutlineShop,
   AiFillProject,
+  AiOutlineTag,
 } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import LogoutModal from "./LogoutModal";
@@ -127,6 +128,7 @@ const SidebarContent = ({
   const LinkItems: Array<LinkItemProps> = [
     { name: "Dashboard", icon: AiOutlineBarChart, url: "/dashboard" },
     { name: "Transaction", icon: AiOutlineDesktop, url: "/transaction" },
+    { name: "Category Management", icon: AiOutlineTag, url: "/category" },
     { name: "Product Management", icon: AiOutlineInbox, url: "/product" },
     { name: "User Management", icon: AiOutlineUser, url: "/user" },
     { name: "Supplier Management", icon: AiOutlineShop, url: "/supplier" },
@@ -142,6 +144,7 @@ const SidebarContent = ({
         "Supplier Management",
         "Reports",
         "Product Management",
+        "Category Management",
       ].includes(item.name);
     }
 

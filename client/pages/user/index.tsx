@@ -174,7 +174,7 @@ const User: NextPage = () => {
     {
       Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
-      width: 80,
+      width: 100,
       Cell: ({ cell: { value, row } }: any) => {
         return (
           <Flex>

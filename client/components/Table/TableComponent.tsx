@@ -143,14 +143,14 @@ const TableComponent: React.FC<TableProps> = ({
                     onClick={() => onSortChange(column)}
                     key={indexHeader}
                   >
-                    <Flex alignItems={"center"}>
+                    <Box alignItems={"center"}>
                       {column.render("Header")}
                       {(column as any).sortDirection === "asc" ? (
                         <ChevronDownIcon />
                       ) : (column as any).sortDirection === "desc" ? (
                         <ChevronUpIcon />
                       ) : null}
-                    </Flex>
+                    </Box>
                   </Th>
                 ))}
               </Tr>

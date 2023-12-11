@@ -26,6 +26,7 @@ import {
 import { Product } from "@/store/product/types";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { categories, units } from "@/constants";
+import { useGetAllCategorysQuery } from "@/store/category/api";
 
 interface ProductDrawerProps {
   isOpen: boolean;
@@ -59,6 +60,10 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
       error: errorEditProduct,
     },
   ] = useUpdateProductMutation();
+
+  const {
+    data: categories,
+  } = useGetAllCategorysQuery('');
 
   const toast = useToast();
 
@@ -268,9 +273,9 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
                 {...register("category")}
                 
               >
-                {categories?.map((category, index) => (
-                  <option key={index} value={category}>
-                    {category}
+                {categories?.categories.map((category, index) => (
+                  <option key={index} value={category.name}>
+                    {category.name}
                   </option>
                 ))}
               </Select>

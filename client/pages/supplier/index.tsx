@@ -171,7 +171,7 @@ const Supplier: NextPage = () => {
     {
       Header: "Remarks",
       accessor: "remarks",
-      width: 100,
+      width: 120,
       sortDirection: sort.accessor === "remarks" ? sort.direction : "none",
       Cell: ({ cell: { value } }: any) => {
         return <Text>{value ? value : "-"}</Text>;
@@ -180,7 +180,7 @@ const Supplier: NextPage = () => {
     {
       Header: "Action",
       accessor: "_id",
-      width: 80,
+      width: 100,
       Cell: ({ cell: { value } }: any) => {
         return (
           <Flex>

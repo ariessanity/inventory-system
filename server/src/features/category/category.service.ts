@@ -5,6 +5,7 @@ import { Model, ObjectId, Types } from 'mongoose';
 import { Store } from '../stores/model/store.model';
 import { Category } from './model/category.model';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class CategoryService {
@@ -26,10 +27,36 @@ export class CategoryService {
     return createCategory;
   }
 
-  async getAllCategory(id: Types.ObjectId): Promise<Category[]> {
-    const categories = await this.categoryModel.find().lean();
+  async getAllCategory(id: Types.ObjectId, query: Request['query']): Promise<{ categories: Category[]; count: number }> {
+    const { page, limit, search, sortBy, sortOrder, category } = query;
 
-    return categories;
+    const LIMIT = limit ? +limit : 20;
+    const SKIP = page ? (+page - 1) * +LIMIT : 0;
+
+    const searchQuery = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: 'i' } },
+            { description: { $regex: search, $options: 'i' } },
+            { category: { $regex: search, $options: 'i' } },
+            { sku: { $regex: search, $options: 'i' } },
+            { unit: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
+
+    const sortQuery = {};
+    if (sortBy) sortQuery[sortBy as string] = sortOrder == 'asc' ? 1 : -1;
+
+    const count = await this.categoryModel.countDocuments({ ...searchQuery });
+    const categories = await this.categoryModel
+      .find({ ...searchQuery })
+      .skip(SKIP)
+      .limit(LIMIT)
+      .sort(sortQuery)
+      .lean();
+
+    return { categories, count };
   }
 
   async updateCategory(id: ObjectId, updateCategoryDto: UpdateCategoryDto): Promise<Category> {

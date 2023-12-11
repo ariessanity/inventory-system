@@ -20,19 +20,19 @@ import {
   AiOutlinePlusCircle,
 } from "react-icons/ai";
 import {
-  useDeleteProductMutation,
-  useGetAllProductsQuery,
-} from "@/store/product/api";
+  useDeleteCategoryMutation,
+  useGetAllCategorysQuery,
+} from "@/store/category/api";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import ProductDrawer from "./_component/ProductDrawer";
-import { Product } from "@/store/product/types";
+import { Category } from "@/store/category/types";
 import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
+import CategoryDrawer from "./_component/CategoryDrawer";
 
-const Product: NextPage = () => {
+const Category: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
-  const [editData, setEditData] = useState<Product>();
+  const [editData, setEditData] = useState<Category>();
   const [deleteId, setIdDelete] = useState<string>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [filters, setFilters] = useState<any>({
@@ -45,20 +45,20 @@ const Product: NextPage = () => {
     direction: "",
   });
 
-  const [deleteProduct] = useDeleteProductMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   const searchParams = useFilter({ ...filters });
   const {
-    data: products,
+    data: categories,
     refetch,
     isFetching,
     isLoading,
-  } = useGetAllProductsQuery(searchParams);
+  } = useGetAllCategorysQuery(searchParams);
 
   const {
-    isOpen: isOpenProductDrawer,
-    onClose: onCloseProductDrawer,
-    onOpen: onOpenProductDrawer,
+    isOpen: isOpenCategoryDrawer,
+    onClose: onCloseCategoryDrawer,
+    onOpen: onOpenCategoryDrawer,
   } = useDisclosure();
 
   const {
@@ -67,29 +67,29 @@ const Product: NextPage = () => {
     onOpen: onOpenDeleteModal,
   } = useDisclosure();
 
-  const handleEditProduct = (id: string) => {
-    const productData = products?.products?.find(
-      (product) => product._id === id
+  const handleEditCategory = (id: string) => {
+    const categoryData = categories?.categories?.find(
+      (category) => category._id === id
     );
 
-    onOpenProductDrawer();
+    onOpenCategoryDrawer();
     setIsEdit(true);
-    setEditData(productData);
+    setEditData(categoryData);
   };
 
-  const handleDeleteProduct = async () => {
-    await deleteProduct(deleteId);
+  const handleDeleteCategory = async () => {
+    await deleteCategory(deleteId);
     onCloseDeleteModal();
-    onCloseProductDrawer();
+    onCloseCategoryDrawer();
   };
 
-  const handleOpenModalDeleteProduct = (id: string | undefined) => {
+  const handleOpenModalDeleteCategory = (id: string | undefined) => {
     onOpenDeleteModal();
     setIdDelete(id);
   };
 
-  const handleCreateProduct = () => {
-    onOpenProductDrawer();
+  const handleCreateCategory = () => {
+    onOpenCategoryDrawer();
     setIsEdit(false);
   };
 
@@ -135,27 +135,6 @@ const Product: NextPage = () => {
 
   const columns = [
     {
-      Header: "SKU",
-      accessor: "sku",
-      width: 150,
-      sortDirection: sort.accessor === "sku" ? sort.direction : "none",
-      Cell: ({ row, value }: any) => {
-        return (
-          <Text
-            textDecor={"underline"}
-            color="brand"
-            cursor={"pointer"}
-            onClick={() => {
-              handleEditProduct(row.original._id);
-              setIdDelete(row.original._id);
-            }}
-          >
-            {value}
-          </Text>
-        );
-      },
-    },
-    {
       Header: "Name",
       accessor: "name",
       width: 150,
@@ -171,64 +150,24 @@ const Product: NextPage = () => {
       sortDirection: sort.accessor === "description" ? sort.direction : "none",
     },
     {
-      Header: "Category",
-      accessor: "category",
-      width: 150,
-      Cell: ({ cell: { value } }: any) => {
-        return <Text>{value}</Text>;
-      },
-      sortDirection: sort.accessor === "category" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text>Price per unit</Text>,
-      accessor: "price",
-      width: 150,
-      Cell: ({ cell: { value } }: any) => {
-        const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue}</Text>;
-      },
-      sortDirection: sort.accessor === "price" ? sort.direction : "none",
-    },
-    {
-      Header: "Unit",
-      accessor: "unit",
-      width: 100,
-      sortDirection: sort.accessor === "unit" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text textAlign={"center"}>Qty</Text>,
-      accessor: "quantity",
-      width: 100,
-      Cell: ({ cell: { value } }: any) => (
-        <Text textAlign={"center"}>{value}</Text>
+      Header: () => (
+        <Text textAlign={"end"} mr={1}>
+          Action
+        </Text>
       ),
-      sortDirection: sort.accessor === "quantity" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text>Total</Text>,
-      accessor: "total",
-      width: 150,
-      Cell: ({ cell: { value } }: any) => {
-        const formattedValue = parseFloat(value).toFixed(2);
-        return <Text>{"₱" + formattedValue}</Text>;
-      },
-      sortDirection: sort.accessor === "total" ? sort.direction : "none",
-    },
-    {
-      Header: () => <Text textAlign={"center"}>Action</Text>,
       accessor: "_id",
-      width: 100,
+      width: 150,
       Cell: ({ cell: { value } }: any) => {
         return (
-          <Flex justifyContent={"center"}>
+          <Flex justifyContent={"flex-end"}>
             <EditIcon
               mr={5}
               color="primary"
               cursor="pointer"
-              onClick={() => handleEditProduct(value)}
+              onClick={() => handleEditCategory(value)}
             />
             <DeleteIcon
-              onClick={() => handleOpenModalDeleteProduct(value)}
+              onClick={() => handleOpenModalDeleteCategory(value)}
               color="red.500"
               cursor="pointer"
             />
@@ -241,15 +180,15 @@ const Product: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Product Management</title>
+        <title>Category Management</title>
       </Head>
       <Text
-        display={{base: 'none', xl: "inherit"}}
+        display={{ base: "none", xl: "inherit" }}
         fontSize={30}
         color={"gray.600"}
-        textAlign={'center'}
+        textAlign={"center"}
       >
-        PRODUCT MANAGEMENT
+        CATEGORY MANAGEMENT
       </Text>
       <Flex
         flexDirection={{
@@ -266,10 +205,10 @@ const Product: NextPage = () => {
           px={5}
           colorScheme="brand"
           variant="outline"
-          onClick={handleCreateProduct}
+          onClick={handleCreateCategory}
           leftIcon={<AiOutlinePlusCircle />}
         >
-          Add Product
+          Add Category
         </Button>
         <InputGroup
           w={"100%"}
@@ -293,27 +232,27 @@ const Product: NextPage = () => {
       </Flex>
       <TableComponent
         columns={columns}
-        data={products?.products || []}
-        count={products?.count}
+        data={categories?.categories || []}
+        count={categories?.count}
         isLoading={isLoading}
         currentPage={filters?.page}
         onPageChange={handlePageChange}
         onSortChange={handleSortChange}
       />
-      <ProductDrawer
-        isOpen={isOpenProductDrawer}
-        onClose={onCloseProductDrawer}
+      <CategoryDrawer
+        isOpen={isOpenCategoryDrawer}
+        onClose={onCloseCategoryDrawer}
         isEdit={isEdit}
         editData={editData}
-        deleteProduct={handleOpenModalDeleteProduct}
+        deleteCategory={handleOpenModalDeleteCategory}
       />
       <DeleteModal
         isOpen={isOpenDeleteModal}
         onClose={onCloseDeleteModal}
-        onClick={handleDeleteProduct}
+        onClick={handleDeleteCategory}
       />
     </>
   );
 };
 
-export default Product;
+export default Category;

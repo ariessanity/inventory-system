@@ -7,7 +7,7 @@ export function getLayout(pathname: string) {
     return UnauthenticatedLayout
   }
 
-  if (pathname.match(/^\/homepage|dashboard|product|transaction|report|supplier|user/)) {
+  if (pathname.match(/^\/homepage|dashboard|product|transaction|report|supplier|user|category/)) {
     return AuthenticatedLayout;
   }
 
