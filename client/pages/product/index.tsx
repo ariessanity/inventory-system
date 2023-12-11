@@ -143,7 +143,7 @@ const Product: NextPage = () => {
         return (
           <Text
             textDecor={"underline"}
-            color="brand"
+            color="primary"
             cursor={"pointer"}
             onClick={() => {
               handleEditProduct(row.original._id);

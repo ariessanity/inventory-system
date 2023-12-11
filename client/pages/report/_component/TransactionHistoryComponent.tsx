@@ -80,7 +80,7 @@ const TransactionHistoryComponent = () => {
           <Text
             onClick={() => handleViewProductSold(value)}
             cursor={"pointer"}
-            color={"brand"}
+            color={"primary"}
             textDecor={"underline"}
           >
             Sold ({row.original.cartData.length})
