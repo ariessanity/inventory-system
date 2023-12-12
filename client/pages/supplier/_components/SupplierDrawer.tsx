@@ -31,6 +31,7 @@ import {
   SupplierFormValues,
   supplierSchema,
 } from "../../../schema/supplier/schema";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 interface SupplierDrawerProps {
   isOpen: boolean;
@@ -268,12 +269,12 @@ const SupplierDrawer: React.FC<SupplierDrawerProps> = ({
               />
             </Flex>
             <Flex>
-              <Button variant="outline" mr={3} onClick={onClose}>
+              <PrimaryButton variant="outline" mr={3} onClick={onClose}>
                 Cancel
-              </Button>
-              <Button type={"submit"} colorScheme="brand">
+              </PrimaryButton>
+              <PrimaryButton type={"submit"}>
                 {isEdit ? "Update" : "Create"}
-              </Button>
+              </PrimaryButton>
             </Flex>
           </DrawerFooter>
         </DrawerContent>

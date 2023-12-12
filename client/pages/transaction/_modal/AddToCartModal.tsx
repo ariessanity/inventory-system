@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/Button/PrimaryButton";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { Product } from "@/store/product/types";
 import { addToCart } from "@/store/slice/cartSlice";
@@ -158,19 +159,17 @@ const AddToCartModal: React.FC<DeleteProps> = ({
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button  variant="solid" mr={3} onClick={onClose}>
+            <PrimaryButton variant="outline" mr={3} onClick={onClose}>
               Cancel
-            </Button>
-            <Button
-              
-              colorScheme="brand"
+            </PrimaryButton>
+            <PrimaryButton
               onClick={handleAddToCart}
               isDisabled={
                 (productData?.quantity || quantity) < cartItem?.quantity + 1 || productData?.quantity === 0
               }
             >
               Add to Cart
-            </Button>
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

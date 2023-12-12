@@ -27,6 +27,7 @@ import { Product } from "@/store/product/types";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { categories, units } from "@/constants";
 import { useGetAllCategorysQuery } from "@/store/category/api";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 interface ProductDrawerProps {
   isOpen: boolean;
@@ -294,12 +295,12 @@ const ProductDrawer: React.FC<ProductDrawerProps> = ({
               />
             </Flex>
             <Flex>
-              <Button variant="outline" mr={3} onClick={onClose}>
+              <PrimaryButton variant="outline" mr={3} onClick={onClose}>
                 Cancel
-              </Button>
-              <Button type={"submit"} colorScheme="brand">
+              </PrimaryButton>
+              <PrimaryButton type={"submit"}>
                 {isEdit ? "Update" : "Create"}
-              </Button>
+              </PrimaryButton>
             </Flex>
           </DrawerFooter>
         </DrawerContent>

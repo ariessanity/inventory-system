@@ -83,7 +83,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
             />
           </Flex>
         </Heading>
-        <Badge size={"sm"} variant="outline" colorScheme="brand" mb={2}>
+        <Badge size={"sm"} variant="outline" color="secondary" mb={2}>
           {category}
         </Badge>
         <Text fontSize={"sm"} >

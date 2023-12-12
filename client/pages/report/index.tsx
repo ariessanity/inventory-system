@@ -20,6 +20,7 @@ const Report = () => {
       <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
+        fontWeight={'semibold'}
         color={"gray.600"}
         textAlign={"center"}
       >

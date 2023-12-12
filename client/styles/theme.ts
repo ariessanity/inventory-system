@@ -9,14 +9,14 @@ const theme = extendTheme({
   },
   colors: {
     brand: {
-      50: "#EBF3E8",
-      100: "#D2E3C8",
-      300: "#B2C8BA",
-      500: "#86A789",
-      600: "#86A789",
+      50: "#DBE2EF",
+      // 100: "#3F72AF",
+      // 300: "#3F72AF",
+      500: "#112D4E",
+      600: "#112D4E",
     },
-    primary: "#86A789",
-    secondary: "red",
+    primary: "#112D4E",
+    secondary: "#3F72AF",
     accent: "blue",
     logo: ""
   },

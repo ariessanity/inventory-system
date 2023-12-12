@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/Button/PrimaryButton";
 import { EditIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -100,26 +101,24 @@ const DateFilter: React.FC<DateFilterProps> = ({ filters, setFilters }) => {
               justifyContent={"space-evenly"}
               width={"100%"}
             >
-              <Button
+              <PrimaryButton
                 onClick={() => {
                   setFilters({ ...filters, startDate: "", endDate: "" });
                 }}
-                colorScheme="brand"
                 variant={"ghost"}
                 size={"sm"}
               >
                 Clear
-              </Button>
-              <Button
+              </PrimaryButton>
+              <PrimaryButton
                 onClick={() => {
                   onClose();
                 }}
-                colorScheme={"brand"}
                 variant={"outline"}
                 size={"sm"}
               >
                 Ok
-              </Button>
+              </PrimaryButton>
             </Flex>
           </Flex>
         </PopoverContent>

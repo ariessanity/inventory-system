@@ -29,6 +29,7 @@ import { Product } from "@/store/product/types";
 import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 const Product: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
@@ -246,6 +247,7 @@ const Product: NextPage = () => {
       <Text
         display={{base: 'none', xl: "inherit"}}
         fontSize={30}
+        fontWeight={'semibold'}
         color={"gray.600"}
         textAlign={'center'}
       >
@@ -260,17 +262,16 @@ const Product: NextPage = () => {
         alignItems={"center"}
         my={5}
       >
-        <Button
+        <PrimaryButton
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
           px={5}
-          colorScheme="brand"
           variant="outline"
           onClick={handleCreateProduct}
           leftIcon={<AiOutlinePlusCircle />}
         >
           Add Product
-        </Button>
+        </PrimaryButton>
         <InputGroup
           w={"100%"}
           maxWidth={{ base: "100%", sm: "18.75em" }}

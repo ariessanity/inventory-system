@@ -9,6 +9,7 @@ import {
   ModalFooter,
   Text,
 } from "@chakra-ui/react";
+import PrimaryButton from "../Button/PrimaryButton";
 
 interface DeleteProps {
   isOpen: boolean;
@@ -33,12 +34,12 @@ const DeleteModal: React.FC<DeleteProps> = ({ isOpen, onClose, onClick }) => {
             <Text>Are you sure you want to delete?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button variant="solid" mr={3} onClick={onClose}>
+            <PrimaryButton mr={3} onClick={onClose}>
               No
-            </Button>
-            <Button colorScheme="red" onClick={onClick}>
+            </PrimaryButton>
+            <PrimaryButton colorScheme="red" onClick={onClick}>
               Yes
-            </Button>
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

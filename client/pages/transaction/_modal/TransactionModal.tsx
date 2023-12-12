@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/Button/PrimaryButton";
 import useAuth from "@/hooks/useAuth";
 import {
   useDisclosure,
@@ -95,17 +96,15 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button  variant="solid" mr={3} onClick={onClose}>
+            <PrimaryButton  variant="outline" mr={3} onClick={onClose}>
               Cancel
-            </Button>
-            <Button
-              
-              colorScheme="brand"
+            </PrimaryButton>
+            <PrimaryButton
               onClick={handlePayment}
               isDisabled={totalPrice > (payment || 0)}
             >
               Paid
-            </Button>
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

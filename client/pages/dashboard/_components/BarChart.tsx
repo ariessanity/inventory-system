@@ -45,7 +45,7 @@ const BarChart: React.FC<BarChartProps> = ({ chartData, label, labelY }) => {
       {
         label: label,
         data: chartData?.data,
-        backgroundColor: ["#86A789"],
+        backgroundColor: ["#112D4E"],
         borderWidth: 1,
       },
     ],

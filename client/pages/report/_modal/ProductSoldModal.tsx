@@ -13,6 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import ProductSoldTable from "../_component/ProductSoldTable";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 interface ProductSoldProps {
   isOpen: boolean;
@@ -84,9 +85,9 @@ const ProductSoldModal: React.FC<ProductSoldProps> = ({
             <ProductSoldTable columns={columns} data={productData} />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={onClose} variant="outline" colorScheme="brand">
+            <PrimaryButton onClick={onClose} variant="outline">
               Close
-            </Button>
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

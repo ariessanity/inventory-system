@@ -29,6 +29,7 @@ import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
 import CategoryDrawer from "./_component/CategoryDrawer";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 const Category: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
@@ -185,6 +186,7 @@ const Category: NextPage = () => {
       <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
+        fontWeight={'semibold'}
         color={"gray.600"}
         textAlign={"center"}
       >
@@ -199,17 +201,16 @@ const Category: NextPage = () => {
         alignItems={"center"}
         my={5}
       >
-        <Button
-          w={"100%"}
-          maxWidth={{ base: "100%", sm: "9em" }}
-          px={5}
-          colorScheme="brand"
+        <PrimaryButton
           variant="outline"
           onClick={handleCreateCategory}
+          w={"100%"}
+          px={5}
           leftIcon={<AiOutlinePlusCircle />}
+          maxWidth={{ base: "100%", sm: "9em" }}
         >
           Add Category
-        </Button>
+        </PrimaryButton>
         <InputGroup
           w={"100%"}
           maxWidth={{ base: "100%", sm: "18.75em" }}

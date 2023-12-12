@@ -26,6 +26,7 @@ import { User } from "@/store/user/types";
 import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 const User: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
@@ -205,6 +206,7 @@ const User: NextPage = () => {
       <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
+        fontWeight={'semibold'}
         color={"gray.600"}
         textAlign={'center'}
       >
@@ -219,17 +221,15 @@ const User: NextPage = () => {
         alignItems={"center"}
         my={5}
       >
-        <Button
+        <PrimaryButton
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
-          
-          colorScheme="brand"
           variant="outline"
           onClick={handleCreateUser}
           leftIcon={<AiOutlinePlusCircle />}
         >
           Add User
-        </Button>
+        </PrimaryButton>
         <InputGroup
           w={"100%"}
           maxWidth={{ base: "100%", sm: "18.75em" }}

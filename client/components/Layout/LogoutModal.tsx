@@ -10,6 +10,7 @@ import {
   ModalFooter,
   Text,
 } from "@chakra-ui/react";
+import PrimaryButton from "../Button/PrimaryButton";
 
 interface LogoutProps {
   isOpen: boolean;
@@ -44,12 +45,12 @@ const LogoutModal: React.FC<LogoutProps> = ({ isOpen, onClose }) => {
             <Text>Are you sure you want to log out?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="brand" mr={3} onClick={onClose}>
+            <PrimaryButton mr={3} onClick={onClose}>
               No
-            </Button>
-            <Button onClick={logout} variant="outline">
+            </PrimaryButton>
+            <PrimaryButton onClick={logout} variant="outline">
               Yes
-            </Button>
+            </PrimaryButton>
           </ModalFooter>
         </ModalContent>
       </Modal>

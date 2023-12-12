@@ -28,6 +28,7 @@ import {
 } from "@/store/category/api";
 import { Category } from "@/store/category/types";
 import { DeleteIcon } from "@chakra-ui/icons";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 interface CategoryDrawerProps {
   isOpen: boolean;
@@ -209,12 +210,12 @@ const CategoryDrawer: React.FC<CategoryDrawerProps> = ({
               />
             </Flex>
             <Flex>
-              <Button variant="outline" mr={3} onClick={onClose}>
+              <PrimaryButton variant="outline" mr={3} onClick={onClose}>
                 Cancel
-              </Button>
-              <Button type={"submit"} colorScheme="brand">
+              </PrimaryButton>
+              <PrimaryButton type={"submit"}>
                 {isEdit ? "Update" : "Create"}
-              </Button>
+              </PrimaryButton>
             </Flex>
           </DrawerFooter>
         </DrawerContent>

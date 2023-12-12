@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/Button/PrimaryButton";
 import { Button } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineExport } from "react-icons/ai";
@@ -8,14 +9,12 @@ interface ExportButtonProps {
 
 const ExportButton: React.FC<ExportButtonProps> = ({ handleDownload }) => {
   return (
-    <Button
-      
+    <PrimaryButton
       variant={"outline"}
-      colorScheme="brand"
       onClick={handleDownload}
     >
       <AiOutlineExport /> Export
-    </Button>
+    </PrimaryButton>
   );
 };
 

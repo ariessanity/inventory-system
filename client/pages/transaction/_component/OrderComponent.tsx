@@ -24,6 +24,7 @@ import OrderCard from "./OrderCard";
 import { clearCart } from "@/store/slice/cartSlice";
 import TransactionModal from "../_modal/TransactionModal";
 import { useCreateTransactionMutation } from "@/store/transaction/api";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 const OrderComponent = () => {
   const toast = useToast();
@@ -76,15 +77,13 @@ const OrderComponent = () => {
             <Text fontSize={15}  mr={2}>
               Item: {cart?.length}
             </Text>
-
-            <Button
+            <PrimaryButton
               size={"sm"}
-              
               colorScheme="red"
               onClick={() => dispatch(clearCart())}
             >
               Clear Cart
-            </Button>
+            </PrimaryButton>
           </Flex>
         )}
       </Flex>
@@ -113,14 +112,13 @@ const OrderComponent = () => {
           <Text>Total Price:</Text>
           <Text fontWeight={"semibold"}>₱{totalPrice.toFixed(2)}</Text>
         </Flex>
-        <Button
+        <PrimaryButton
           isDisabled={cart.length === 0}
-          colorScheme="brand"
           onClick={onOpenTransactionModal}
           whiteSpace={"pre-line"}
         >
           Proceed to payment
-        </Button>
+        </PrimaryButton>
       </Flex>
       <TransactionModal
         isOpen={isOpenTransactionModal}

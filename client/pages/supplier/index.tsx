@@ -29,6 +29,7 @@ import DeleteModal from "@/components/Modal/DeleteModal";
 import { useFilter } from "@/hooks/useFilter";
 import Head from "next/head";
 import SupplierDrawer from "./_components/SupplierDrawer";
+import PrimaryButton from "@/components/Button/PrimaryButton";
 
 const Supplier: NextPage = () => {
   const [isEdit, setIsEdit] = useState<boolean>();
@@ -209,6 +210,7 @@ const Supplier: NextPage = () => {
       <Text
         display={{ base: "none", xl: "inherit" }}
         fontSize={30}
+        fontWeight={'semibold'}
         color={"gray.600"}
         textAlign={'center'}
       >
@@ -223,17 +225,15 @@ const Supplier: NextPage = () => {
         alignItems={"center"}
         my={5}
       >
-        <Button
+        <PrimaryButton
           w={"100%"}
           maxWidth={{ base: "100%", sm: "9em" }}
-          
-          colorScheme="brand"
           variant="outline"
           onClick={handleCreateSupplier}
           leftIcon={<AiOutlinePlusCircle />}
         >
           Add Supplier
-        </Button>
+        </PrimaryButton>
         <InputGroup
           w={"100%"}
           maxWidth={{ base: "100%", sm: "18.75em" }}
